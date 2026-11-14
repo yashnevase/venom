@@ -1,0 +1,15 @@
+{
+  "test": "S-2",
+  "role": "offer",
+  "started_at": "2026-11-14T18:26:04.182Z",
+  "user_agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Mobile Safari/537.36",
+  "secure_context": false,
+  "ice_servers": 0,
+  "device_notes": "",
+  "outcome": "timeout",
+  "diagnostic_bytes": 0,
+  "events": [
+    { "elapsed_ms": 224, "state": "local-handshake-ready" },
+    { "elapsed_ms": 246918, "state": "timeout" }
+  ]
+}

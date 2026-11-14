@@ -14,3 +14,5 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm audit --audit-level=low
+      - run: pnpm exec playwright install --with-deps chromium --only-shell
+      - run: pnpm test:browser

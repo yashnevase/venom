@@ -6,7 +6,9 @@
   "packageManager": "pnpm@11.25.0",
   "engines": { "node": ">=24.11.0 <25" },
   "scripts": {
-    "check": "pnpm test:foundations && pnpm typecheck && pnpm lint && pnpm test && pnpm test:vectors && pnpm check:licenses",
+    "check": "pnpm test:foundations && pnpm typecheck && pnpm build && pnpm lint && pnpm test && pnpm test:vectors && pnpm check:licenses",
+    "build": "pnpm --filter @openmesh/core build && pnpm build:spike",
+    "build:spike": "tsc -p tools/spikes/tsconfig.json",
     "test:foundations": "node --test tools/foundations.acceptance.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",

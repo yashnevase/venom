@@ -18,8 +18,12 @@ pnpm check
 pnpm audit --audit-level=low
 ```
 
-Phase status, measurements, and unverified work are recorded in
-`docs/spikes/phase-0.md` and `docs/claims-ledger.md`.
+Phase 0 passed local checks and GitHub CI. Phase 1 currently contains the Tag
+module, with encryption gated for review by the owner. Phase status, measurements,
+and unverified work are recorded in `docs/spikes/phase-0.md`,
+`docs/spikes/phase-1-tags.md`, and `docs/claims-ledger.md`.
+
+The standalone S-2 diagnostic instructions are in `tools/spikes/README.md`.
 
 Reference code is Apache-2.0 under `LICENSE`. The protocol specification is
 dedicated under CC0-1.0 in `docs/LICENSE`.
