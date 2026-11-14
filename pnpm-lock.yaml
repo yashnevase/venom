@@ -33,7 +33,11 @@ importers:
         specifier: 5.1.0
         version: 5.1.0(@types/node@24.11.0)(vite@8.3.8(@types/node@24.11.0))
 
-  packages/core: {}
+  packages/core:
+    dependencies:
+      cborg:
+        specifier: 7.0.0
+        version: 7.0.0
 
 packages:
 
@@ -373,6 +377,10 @@ packages:
 
   cacheable@2.5.0:
     resolution: {integrity: sha512-60cyAOytib/OzBw1JNSoSV/boK1AtHryDIjvVBk7XbN4ugfkM3+Sry7fEjNgPMGgOjuaZPAp8ruZ0Cxafwyq9g==}
+
+  cborg@7.0.0:
+    resolution: {integrity: sha512-YYXJ+ozY26INm46oz2P+iOww/LhrfgPz2CuHaskDcitt0rKyh6LlWhNCfMlxxcdD+k7m0TspkRvcPPXAGYzZ8w==}
+    hasBin: true
 
   chai@6.3.0:
     resolution: {integrity: sha512-XWAtwJ6OHO+tj0EKCs0Y2UamnyOxseZWltU4x2U2wh8g4AigdjwvtUjvLP2tqkA/avxHEtzxNaqGq/YGNwckKg==}
@@ -1181,6 +1189,8 @@ snapshots:
       hookified: 1.15.1
       keyv: 5.6.0
       qified: 0.10.1
+
+  cborg@7.0.0: {}
 
   chai@6.3.0: {}
 

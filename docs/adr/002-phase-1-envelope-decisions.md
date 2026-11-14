@@ -129,6 +129,10 @@ trailing data and resource limits need explicit parser outcomes and vectors.
 The RFC distinguishes this ordering from the older length-first variant.
 [RFC 8949](https://www.rfc-editor.org/rfc/rfc8949.html#section-4.2.1).
 
+The generic deterministic codec and explicit caller limits are implemented under
+ADR 003. Exact record schemas, signed transcripts and version-dispatch outcomes
+still require the protocol review described here.
+
 Use AGENTS.md's precedence when reconciling docs/04 and docs/11. The approval
 packet needs these concrete answers before sealing code can start.
 

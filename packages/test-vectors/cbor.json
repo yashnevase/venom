@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "encoding": "rfc8949-core-deterministic",
+  "vectors": [
+    {
+      "id": "zero",
+      "value": 0,
+      "cbor_hex": "00"
+    },
+    {
+      "id": "uint23",
+      "value": 23,
+      "cbor_hex": "17"
+    },
+    {
+      "id": "uint24",
+      "value": 24,
+      "cbor_hex": "1818"
+    },
+    {
+      "id": "uint255",
+      "value": 255,
+      "cbor_hex": "18ff"
+    },
+    {
+      "id": "uint256",
+      "value": 256,
+      "cbor_hex": "190100"
+    },
+    {
+      "id": "uint65535",
+      "value": 65535,
+      "cbor_hex": "19ffff"
+    },
+    {
+      "id": "uint65536",
+      "value": 65536,
+      "cbor_hex": "1a00010000"
+    },
+    {
+      "id": "uint64",
+      "value": {
+        "$int": "18446744073709551615"
+      },
+      "cbor_hex": "1bffffffffffffffff"
+    },
+    {
+      "id": "unsafe-js-integer",
+      "value": {
+        "$int": "9007199254740992"
+      },
+      "cbor_hex": "1b0020000000000000"
+    },
+    {
+      "id": "negative-one",
+      "value": -1,
+      "cbor_hex": "20"
+    },
+    {
+      "id": "negative24",
+      "value": -24,
+      "cbor_hex": "37"
+    },
+    {
+      "id": "negative25",
+      "value": -25,
+      "cbor_hex": "3818"
+    },
+    {
+      "id": "min-negative",
+      "value": {
+        "$int": "-18446744073709551616"
+      },
+      "cbor_hex": "3bffffffffffffffff"
+    },
+    {
+      "id": "false",
+      "value": false,
+      "cbor_hex": "f4"
+    },
+    {
+      "id": "true",
+      "value": true,
+      "cbor_hex": "f5"
+    },
+    {
+      "id": "null",
+      "value": null,
+      "cbor_hex": "f6"
+    },
+    {
+      "id": "empty-bytes",
+      "value": {
+        "$bytes": ""
+      },
+      "cbor_hex": "40"
+    },
+    {
+      "id": "bytes",
+      "value": {
+        "$bytes": "0001feff"
+      },
+      "cbor_hex": "440001feff"
+    },
+    {
+      "id": "empty-text",
+      "value": "",
+      "cbor_hex": "60"
+    },
+    {
+      "id": "unicode",
+      "value": "hé🙂",
+      "cbor_hex": "6768c3a9f09f9982"
+    },
+    {
+      "id": "bom",
+      "value": "﻿text",
+      "cbor_hex": "67efbbbf74657874"
+    },
+    {
+      "id": "array",
+      "value": [
+        1,
+        "a",
+        {
+          "$bytes": "ab"
+        },
+        [
+          false,
+          null
+        ]
+      ],
+      "cbor_hex": "8401616141ab82f4f6"
+    },
+    {
+      "id": "empty-map",
+      "value": {
+        "$map": []
+      },
+      "cbor_hex": "a0"
+    },
+    {
+      "id": "text-map",
+      "value": {
+        "$map": [
+          [
+            "z",
+            0
+          ],
+          [
+            "a",
+            1
+          ]
+        ]
+      },
+      "cbor_hex": "a2616101617a00"
+    },
+    {
+      "id": "rfc-bytewise-map",
+      "value": {
+        "$map": [
+          [
+            -1,
+            "negative"
+          ],
+          [
+            24,
+            "uint"
+          ],
+          [
+            "a",
+            "text"
+          ]
+        ]
+      },
+      "cbor_hex": "a318186475696e7420686e6567617469766561616474657874"
+    },
+    {
+      "id": "prototype-key",
+      "value": {
+        "$map": [
+          [
+            "__proto__",
+            {
+              "$map": [
+                [
+                  "data",
+                  1
+                ]
+              ]
+            }
+          ]
+        ]
+      },
+      "cbor_hex": "a1695f5f70726f746f5f5fa1646461746101"
+    }
+  ]
+}

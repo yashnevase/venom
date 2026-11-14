@@ -18,8 +18,9 @@ pnpm check
 pnpm audit --audit-level=low
 ```
 
-Phase 0 passed local checks and GitHub CI. Phase 1 currently contains the Tag
-module, with encryption gated for review by the owner. Phase status, measurements,
+Phase 0 passed local checks and GitHub CI. Phase 1 currently contains Tag and
+deterministic CBOR modules, with encryption gated for review by the owner.
+Phase status, measurements,
 and unverified work are recorded in `docs/spikes/phase-0.md`,
 `docs/spikes/phase-1-tags.md`, and `docs/claims-ledger.md`.
 
