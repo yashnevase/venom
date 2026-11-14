@@ -10,3 +10,5 @@ export { createIdentityKeys, issueDeviceCertificate, verifyDeviceCertificate,
 export type { IdentityError, IdentityResult, IdentitySeeds, IdentityKeyPair,
   IdentityKeys, DeviceCertificate, CertificateRevocation, CertificateOptions,
   CertificatePolicy } from './identity.js';
+export { sealHpkeBase, openHpkeBase } from './hpke.js';
+export type { HpkeError, HpkeResult, HpkeLimits, HpkeContext, HpkeCiphertext } from './hpke.js';

@@ -159,7 +159,7 @@ packet needs these concrete answers before sealing code can start.
 | D-1 native-first and fallback policy | Owner approved direction | Node observation recorded, phone pending |
 | D-2 compression | Owner approved measurement-first direction | Target-phone measurements pending |
 | D-3 total-envelope sizing | Owner approved retaining published targets during measurement | Complete-envelope vectors pending |
-| D-4 exact wrapping suite and implementation | Owner approved RFC 9180 Base direction | Implementation-policy and context/AAD decisions pending |
+| D-4 exact wrapping suite and implementation | Owner approved RFC 9180 Base direction | Native component and RFC vectors in ADR 005. OpenMesh application binding and envelope pending |
 | D-7 recovery format and root mapping | Owner approved standard-format review direction | Exact phrase encoding and interoperability pending |
 | D-8 streaming construction | Owner approved Tink candidate for review | External cryptographer review outstanding, confirmed by owner |
 | Exact CBOR schemas and signed transcripts | Implementation delegated within recommendations | Identity records in ADR 004, box/receipt records pending |

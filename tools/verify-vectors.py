@@ -1,4 +1,4 @@
-"""Independent Tag, CBOR, chunk and identity verification from the specifications."""
+"""Independent protocol-vector verification from the specifications."""
 import hashlib
 import hmac
 import json
@@ -155,10 +155,76 @@ def verify_identity(document):
     return len(expected)
 
 
+def verify_hpke(document):
+    """RFC 9180 sections 4.1, 5.1 and 6.1, fixed Base suite and sequence zero."""
+    assert document['version'] == 1
+    assert len(document['vectors']) == 1
+    openssl = openssl_binary()
+    kem_suite = b'KEM\x00\x20'
+    suite = b'HPKE\x00\x20\x00\x01\x00\x02'
+
+    def extract(salt, label, ikm, suite_id=suite):
+        return hmac.new(salt or bytes(32), b'HPKE-v1' + suite_id + label + ikm, hashlib.sha256).digest()
+
+    def expand(prk, label, info, length, suite_id=suite):
+        assert 0 < length <= 32
+        labeled = length.to_bytes(2, 'big') + b'HPKE-v1' + suite_id + label + info
+        return hmac.new(prk, labeled + b'\x01', hashlib.sha256).digest()[:length]
+
+    checked = 0
+    for vector in document['vectors']:
+        assert (vector['mode'], vector['kem_id'], vector['kdf_id'], vector['aead_id']) == (0, 32, 1, 2)
+        with tempfile.TemporaryDirectory(prefix='openmesh-hpke-public-vectors-') as directory:
+            root = Path(directory)
+            public = {}
+            for role in ['E', 'R']:
+                seed = bytes.fromhex(vector['sk' + role + 'm'])
+                assert len(seed) == 32
+                private = root / (role + '.der')
+                private.write_bytes(bytes.fromhex('302e020100300506032b656e04220420') + seed)
+                spki = subprocess.check_output([openssl, 'pkey', '-inform', 'DER', '-in', str(private),
+                                                '-pubout', '-outform', 'DER'])
+                assert spki[:12] == bytes.fromhex('302a300506032b656e032100') and len(spki) == 44
+                public[role] = spki[12:]
+            peer = root / 'peer.der'
+            peer.write_bytes(bytes.fromhex('302a300506032b656e032100') + public['R'])
+            dh = subprocess.check_output([openssl, 'pkeyutl', '-derive', '-inkey', str(root / 'E.der'),
+                                          '-keyform', 'DER', '-peerkey', str(peer), '-peerform', 'DER'])
+        assert len(dh) == 32 and dh != bytes(32)
+        shared = expand(extract(b'', b'eae_prk', dh, kem_suite), b'shared_secret',
+                        public['E'] + public['R'], 32, kem_suite)
+        context = b'\x00' + extract(b'', b'psk_id_hash', b'') + extract(b'', b'info_hash', bytes.fromhex(vector['info']))
+        secret = extract(shared, b'secret', b'')
+        key = expand(secret, b'key', context, 32)
+        nonce = expand(secret, b'base_nonce', context, 12)
+        expected = {'pkEm': public['E'], 'pkRm': public['R'], 'enc': public['E'], 'shared_secret': shared,
+                    'key_schedule_context': context, 'secret': secret, 'key': key, 'base_nonce': nonce}
+        for field, value in expected.items():
+            assert value.hex() == vector[field], field
+            checked += 1
+        encryption = vector['encryption']
+        assert encryption['nonce'] == nonce.hex()
+        # Existing Node toolchain supplies the classic cipher API, separate from core WebCrypto.
+        script = """import { readFileSync } from 'node:fs';
+import { createDecipheriv } from 'node:crypto';
+const v = JSON.parse(readFileSync(0, 'utf8'));
+const cipher = Buffer.from(v.ct, 'hex');
+const decipher = createDecipheriv('aes-256-gcm', Buffer.from(v.key, 'hex'), Buffer.from(v.nonce, 'hex'));
+decipher.setAAD(Buffer.from(v.aad, 'hex'));
+decipher.setAuthTag(cipher.subarray(-16));
+process.stdout.write(Buffer.concat([decipher.update(cipher.subarray(0, -16)), decipher.final()]).toString('hex'));
+"""
+        decrypted = subprocess.check_output(['node', '--input-type=module', '-e', script], text=True,
+                                             input=json.dumps({**encryption, 'key': key.hex(), 'nonce': nonce.hex()}))
+        assert decrypted == encryption['pt']
+        checked += 1
+    return checked
+
+
 def main():
     directory = Path(__file__).resolve().parent.parent / 'packages' / 'test-vectors'
     verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'chunks.json': verify_chunks,
-                 'identity.json': verify_identity}
+                 'identity.json': verify_identity, 'hpke.json': verify_hpke}
     checked = 0
     for path in sorted(directory.glob('*.json')):
         if path.name not in verifiers:

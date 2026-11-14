@@ -27,3 +27,14 @@ bytes using the OpenSSL 3 CLI, then compares all five outputs. macOS needs an
 OpenSSL 3 installation. The verifier checks PATH and Homebrew's standard arm64
 OpenSSL 3 location. Ubuntu CI uses its preinstalled OpenSSL 3. Version 3 is
 required explicitly. The module's runtime uses WebCrypto.
+
+`hpke.json` selects the Base 32/1/2 suite and sequence-zero encryption from the
+exact vector revision referenced by RFC 9180. It records the original source URL
+and full-download SHA-256. Test private keys are public fixtures. TypeScript
+reproduces the ciphertext with mocked native ephemeral generation. Python uses
+OpenSSL 3 for X25519 and standard hmac/hashlib for eight key/context comparisons.
+It then decrypts and authenticates the fixture with the independently derived
+key and nonce through Node's classic cipher API, adding a ninth comparison.
+The verifier uses the existing pinned Node toolchain. Native providers have
+OpenSSL lineage in common. These checks establish component conformance, with
+security review and OpenMesh envelope integration still pending.

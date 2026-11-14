@@ -1,7 +1,8 @@
 # Protocol core
 
 Phase 1 currently contains Tag, deterministic CBOR, chunk-integrity and local
-identity modules. The owner's 2026-11-15 approval is recorded in ADR 002.
+identity modules, plus the RFC 9180 HPKE Base adapter. The owner's 2026-11-15
+approval is recorded in ADR 002.
 The full seal/open, receipt and chunked-profile acceptance gate remains pending.
 Streaming encryption requires the external review specified by D-8.
 
@@ -129,6 +130,48 @@ whose revocation time has arrived. The caller supplies known revocation evidence
 This module performs zero discovery or synchronization. Renewed certificates
 need their own revocations under this policy.
 
+## HPKE Base API
+
+```ts
+import { sealHpkeBase, openHpkeBase } from '@openmesh/core';
+
+const context = {
+  info: new Uint8Array(), aad: new Uint8Array(),
+  limits: { maxPlaintextBytes: 32, maxContextBytes: 64 },
+};
+const wrapped = await sealHpkeBase(recipient.publicBytes, contentKey, context);
+if (wrapped.ok) {
+  const opened = await openHpkeBase(recipient, wrapped.value.enc,
+    wrapped.value.ciphertext, context);
+}
+```
+
+The caller supplies recipient from createIdentityKeys().deviceEncryption and
+contentKey as bytes. The empty context and 32/64-byte budgets above are component
+fixture conditions. OpenMesh application binding must be specified before full
+Box integration. For the application-facing wrapping API, RFC 9180 section 8.1
+recommends a single auxiliary-information path. ADR 005 requires application
+binding in info with empty aad. The low-level adapter retains both inputs from
+the RFC section 6.1 template for vector interoperability.
+
+sealHpkeBase and openHpkeBase implement the fixed Base suite 0x0020/0x0001/0x0002
+using native X25519, HKDF-SHA256, HMAC-SHA256 and AES-256-GCM. Each seal generates
+a fresh ephemeral key and performs one sequence-zero encryption. Encapsulation
+is 32 bytes and ciphertext adds a 16-byte tag. A 32-byte content key produces
+80 bytes across these outputs. Versioned envelope serialization is a separate
+integration step.
+
+The caller supplies maxPlaintextBytes and maxContextBytes. The latter bounds the
+combined info+aad bytes. Input lengths are checked before copying each buffer and
+starting crypto. The implementation captures byte snapshots and local key
+references before asynchronous work. The recipient pair must have matching
+X25519 private and public keys. Missing native primitives and invalid input,
+key, budget or authentication conditions return HpkeResult failures.
+
+RFC fixtures, hostile-input tests and component measurements are recorded in
+docs/spikes/phase-1-hpke.md. D-8's streaming review and full Box acceptance remain
+pending.
+
 ## Verification
 
 ```sh
@@ -137,10 +180,11 @@ pnpm exec vitest run packages/core/tag.test.ts
 pnpm exec vitest run packages/core/cbor.test.ts
 pnpm exec vitest run packages/core/chunk.test.ts
 pnpm exec vitest run packages/core/identity.test.ts
+pnpm exec vitest run packages/core/hpke.test.ts
 pnpm test:vectors
 ```
 
 Measurements and device coverage are in `docs/spikes/phase-1-tags.md` and
 `docs/spikes/phase-1-cbor.md`, `docs/spikes/phase-1-chunks.md` and
-`docs/spikes/phase-1-identity.md`. Public
+`docs/spikes/phase-1-identity.md` and `docs/spikes/phase-1-hpke.md`. Public
 claims are tracked in `docs/claims-ledger.md`.
