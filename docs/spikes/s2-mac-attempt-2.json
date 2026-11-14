@@ -1,0 +1,26 @@
+{
+  "test": "S-2",
+  "role": "answer",
+  "started_at": "2026-11-14T18:36:26.514Z",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+  "secure_context": true,
+  "ice_servers": 0,
+  "device_notes": "",
+  "outcome": "verified",
+  "diagnostic_bytes": 4096,
+  "events": [
+    { "elapsed_ms": 36, "state": "ice-checking" },
+    { "elapsed_ms": 36, "state": "connecting" },
+    { "elapsed_ms": 159, "state": "local-handshake-ready" },
+    { "elapsed_ms": 175, "state": "ice-connected" },
+    { "elapsed_ms": 44988, "state": "ice-disconnected" },
+    { "elapsed_ms": 44988, "state": "disconnected" },
+    { "elapsed_ms": 45723, "state": "ice-connected" },
+    { "elapsed_ms": 45723, "state": "connecting" },
+    { "elapsed_ms": 52786, "state": "connected" },
+    { "elapsed_ms": 52825, "state": "datachannel-open" },
+    { "elapsed_ms": 52841, "state": "diagnostic-verified" }
+  ],
+  "elapsed_ms": 52841,
+  "under_30_seconds": false
+}

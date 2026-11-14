@@ -46,10 +46,28 @@ S2-MANUAL reproduced that bug by advancing the browser clock 120001 ms before
 an answer, and failed. After the fix, an offer remains pending through that
 exchange window. Native ICE failure is recorded without immediately closing
 the peer, leaving the diagnostic deadline to end the attempt. All 3 browser
-checks then passed in 1.5 seconds on 2026-11-15. Phone retry is pending.
+checks then passed in 1.5 seconds on 2026-11-15.
 
 The raw measurement supplied by the owner is preserved in
 `s2-xiaomi-note13-attempt-1.json`. It contains diagnostic metadata only.
+
+## Second Mac–Xiaomi LAN attempt
+
+After the timer fix, the owner provided a fresh phone offer and applied the
+Mac answer. The Mac verified 4096 diagnostic bytes at 52841 ms from answerer
+creation, including manual SDP exchange. The under-30-second target was false.
+ICE connected at 175 ms, disconnected at 44988 ms, reconnected at 45723 ms, and
+the data channel opened at 52825 ms. This single completion does not establish
+network reliability or the cause of the intermediate disconnection.
+
+The observed Mac report is preserved in `s2-mac-attempt-2.json`. The corresponding
+phone report has been requested. Both attempts used the existing LAN and
+chat-mediated SDP. No offline-hotspot result has been measured.
+
+## CI
+
+Phase 1 checks, including the 3 browser tests, passed remotely at commit 3703e3e.
+[Run 43627656726](https://github.com/yashnevase/venom/actions/runs/43627656726).
 
 ## Phone procedure and remaining work
 
