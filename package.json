@@ -1,0 +1,27 @@
+{
+  "name": "openmesh",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@11.25.0",
+  "engines": { "node": ">=24.11.0 <25" },
+  "scripts": {
+    "check": "pnpm test:foundations && pnpm typecheck && pnpm lint && pnpm test && pnpm test:vectors && pnpm check:licenses",
+    "test:foundations": "node --test tools/foundations.acceptance.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:vectors": "node tools/check-vectors.mjs",
+    "check:licenses": "node tools/check-licenses.mjs",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.65.1",
+    "@types/node": "24.11.0",
+    "eslint": "10.15.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.2",
+    "vitest": "5.1.0"
+  }
+}

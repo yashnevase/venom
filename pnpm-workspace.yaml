@@ -1,0 +1,15 @@
+packages:
+  - 'packages/*'
+  - 'packages/carriers/*'
+
+minimumReleaseAgeExclude:
+  - '@eslint/config-array@0.23.6'
+  - '@playwright/test@1.65.1'
+  - eslint@10.15.0
+  - playwright-core@1.65.1
+  - playwright@1.65.1
+
+strictPeerDependencies: true
+storeDir: .pnpm-store
+overrides:
+  'minimatch@10.2.6': '11.0.8'

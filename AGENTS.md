@@ -1,0 +1,56 @@
+# AGENTS.md — Architecture constitution (read this first, every session)
+
+Project: OpenMesh Protocol + app (working name "Venom"). Spec files are in /docs. If a doc and this file disagree, this file wins, then /docs/03 and /docs/04.
+
+## Non-negotiable constraints
+- No backend, database, or storage that we operate. Static hosting only.
+- Protocol spec is public domain (CC0); reference code is Apache-2.0.
+- Three primitives only: Box, Tag, Receipt. Everything else is a carrier, a policy, or a screen.
+- Carriers are dumb pipes behind the `Carrier` interface. Endpoints are smart.
+- No custom cryptography. Use WebCrypto (Ed25519, X25519, HKDF, AES-256-GCM, HMAC, SHA-256). A vetted library only as a feature-detect fallback and only with an ADR.
+- Signing keys and encryption keys are separate.
+- Identity is local: root key -> device keys. No accounts, no phone numbers.
+- Never claim "anonymous", "untraceable", or "military-grade".
+- Light nodes (browser/foreground app) never promise to hold other people's boxes. Custodians (desktop tray, Android service, station box) may.
+- Tor/extra-private mode is an optional toggle, native-only, and NOT in v1.
+
+## Architecture rules
+- Layer order: UI -> engine -> core -> carriers/store. Lower layers never import upper ones.
+- `packages/core` is the chassis. Do NOT edit it unless the task explicitly says so.
+- Never invent a new transport, storage model, message format, or retry scheme. Use the Carrier interface and the profiles in docs/04 (small, chunked, fountain).
+- Fountain codes only for QR/one-way carriers. WebRTC, file, and swarm use the chunked profile.
+- Every protocol message has a version byte; unknown versions are ignored, never crash.
+- Network input is hostile: validate sizes, lengths, schemas before use; cap memory.
+- Wire/export format: deterministic CBOR. JSON only for debug and test vectors.
+- IndexedDB is a cache/working set. The signed export file is the durable copy.
+
+## Scope rules
+- Build only the phase you were given in docs/05. v1 = chat + files. Communities, feeds, media, calls, ads, Tor are LATER.
+- Dependency budget: no new dependency without a short ADR (why, size, license, audit status).
+- No analytics, no tracking, no ads, no heavy UI framework.
+- UI stays minimal: Chats, Send, Receive/Scan, Settings. One primary action per screen.
+
+## Testing rules
+- Write the acceptance test first. Show it failing, then make it pass.
+- Anything touching networking must pass the chaos test (kill carriers mid-transfer, including WebRTC entirely).
+- Test vectors in `packages/test-vectors` must pass in CI.
+- Camera, storage, and network features are NOT done until tested on a real phone; say clearly what was NOT verified on a real device.
+- Prefer measured numbers over claims. Put measurements in /docs/spikes.
+
+## Working rules
+- One module per session, one phase per branch.
+- If the architecture seems wrong, STOP and write /docs/adr/NNN-title.md (problem, options, recommendation). Do not change the architecture yourself.
+- UI text uses human words: "Waiting for a path", "Sent", "Held nearby", "Delivered", "Verified". Never "DTN custody transfer".
+- Each carrier shows an honest label (QR: small things; WebRTC: both devices open; Mailbox: delivered when they open the app).
+- Keep the app name in one constant (`APP_NAME`) so it can be renamed.
+
+## Techniques and claims (docs 09, 10, 11)
+- Use only techniques from docs/09 and only in the phase listed in its adoption table. A new technique needs an ADR.
+- Sizes, defaults, schemas, and state machines come from docs/11. Change a default only with a measurement noted in an ADR.
+- Terms: frame (<= 16 KiB network message), chunk (hashed unit), shard (piece held by a helper). Do not mix them.
+- Helper storage of other people's data is opt-in and OFF by default. Use whole copies for small/unreliable helper sets; erasure coding only where docs/09 section 1 allows.
+- Every sentence a user could read as a promise (UI text, README, marketing) needs a row in docs/claims-ledger.md with a test ID and a measured result. No row, no claim.
+- End every task with the report format in docs/10 section 5, including what was NOT verified on a real device.
+
+## Definition of done
+Types strict, tests green, module README written, no new unreviewed dependency, real-device result recorded, list of files changed and anything unverified reported at the end.
