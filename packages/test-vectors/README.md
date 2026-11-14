@@ -38,3 +38,12 @@ key and nonce through Node's classic cipher API, adding a ninth comparison.
 The verifier uses the existing pinned Node toolchain. Native providers have
 OpenSSL lineage in common. These checks establish component conformance, with
 security review and OpenMesh envelope integration still pending.
+
+`deflate.json` contains four independently generated Python/zlib byte fixtures
+and eight rejection fixtures. The decoder must reject incomplete streams,
+checksum changes, trailing data, concatenated streams, raw deflate, gzip and
+dictionary-dependent input. Python uses a decompression object, checks stream
+end and remaining input, and enforces an output limit. TypeScript checks the
+same fixtures through the component API. Encoder bytes can vary between valid
+implementations. The test compares decoded content. These candidate-component
+vectors leave D-2's final selection and Box integration pending.

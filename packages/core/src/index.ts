@@ -12,3 +12,5 @@ export type { IdentityError, IdentityResult, IdentitySeeds, IdentityKeyPair,
   CertificatePolicy } from './identity.js';
 export { sealHpkeBase, openHpkeBase } from './hpke.js';
 export type { HpkeError, HpkeResult, HpkeLimits, HpkeContext, HpkeCiphertext } from './hpke.js';
+export { compressDeflate, decompressDeflate } from './compression.js';
+export type { CompressionError, CompressionResult, CompressionLimits } from './compression.js';

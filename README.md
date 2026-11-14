@@ -20,7 +20,9 @@ pnpm audit --audit-level=low
 
 Phase 0 passed local checks and GitHub CI. Phase 1 currently contains Tag,
 deterministic CBOR, chunk-integrity, local identity and RFC 9180 HPKE Base modules.
-Owner approval of the implementation direction is recorded in ADR 002. The full Phase 1 gate and
+The bounded deflate candidate is recorded in ADR 006, with D-2's final choice
+pending phone measurements. Owner approval of the implementation direction is
+recorded in ADR 002. The full Phase 1 gate and
 D-8's external streaming-encryption review remain pending.
 Phase status, measurements,
 and unverified work are recorded in `docs/spikes/phase-0.md`,

@@ -5,6 +5,7 @@ import json
 import shutil
 import subprocess
 import tempfile
+import zlib
 from pathlib import Path
 
 
@@ -221,10 +222,33 @@ process.stdout.write(Buffer.concat([decipher.update(cipher.subarray(0, -16)), de
     return checked
 
 
+def verify_deflate(document):
+    assert document['version'] == 1 and document['format'] == 'rfc1950-zlib'
+    assert len(document['vectors']) == 4 and len(document['rejections']) == 8
+
+    def decode(wire, output_cap):
+        codec = zlib.decompressobj()
+        output = codec.decompress(wire, output_cap + 1)
+        if len(output) > output_cap or not codec.eof or codec.unused_data or codec.unconsumed_tail:
+            raise ValueError('Invalid or over-budget stream')
+        return output
+
+    for vector in document['vectors']:
+        expected = bytes.fromhex(vector['input_hex'])
+        assert decode(bytes.fromhex(vector['deflate_hex']), len(expected)) == expected, vector['id']
+    for vector in document['rejections']:
+        try:
+            decode(bytes.fromhex(vector['deflate_hex']), 4096)
+        except (ValueError, zlib.error):
+            continue
+        raise AssertionError(vector['id'])
+    return len(document['vectors']) + len(document['rejections'])
+
+
 def main():
     directory = Path(__file__).resolve().parent.parent / 'packages' / 'test-vectors'
     verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'chunks.json': verify_chunks,
-                 'identity.json': verify_identity, 'hpke.json': verify_hpke}
+                 'identity.json': verify_identity, 'hpke.json': verify_hpke, 'deflate.json': verify_deflate}
     checked = 0
     for path in sorted(directory.glob('*.json')):
         if path.name not in verifiers:

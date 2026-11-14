@@ -2,7 +2,7 @@
 
 Phase 1 currently contains Tag, deterministic CBOR, chunk-integrity and local
 identity modules, plus the RFC 9180 HPKE Base adapter. The owner's 2026-11-15
-approval is recorded in ADR 002.
+approval is recorded in ADR 002. The bounded deflate candidate is in ADR 006.
 The full seal/open, receipt and chunked-profile acceptance gate remains pending.
 Streaming encryption requires the external review specified by D-8.
 
@@ -172,6 +172,49 @@ RFC fixtures, hostile-input tests and component measurements are recorded in
 docs/spikes/phase-1-hpke.md. D-8's streaming review and full Box acceptance remain
 pending.
 
+## Deflate candidate API
+
+```ts
+import { compressDeflate, decompressDeflate } from '@openmesh/core';
+
+const limits = { maxInputBytes: 16384, maxOutputBytes: 16384 };
+const compressed = await compressDeflate(payload, limits);
+if (compressed.ok) {
+  const restored = await decompressDeflate(compressed.value, limits);
+}
+```
+
+The caller supplies payload bytes and both limits. The 16 KiB values above are
+example conditions. D-2's final algorithm choice and the complete Box pipeline
+remain pending. This module implements the deflate candidate already named in
+docs/04, using RFC 1950 zlib framing. The wire envelope and its compression marker
+are separate integration work. Compressed bytes can vary by implementation.
+
+compressDeflate uses native CompressionStream. Missing native compression returns
+unsupported-compression. decompressDeflate uses pako 3.0.3's public low-level
+inflate API with caller-owned output buffers. ADR 006 records the dependency,
+size, license, source inspection and audit-status limits. The decoder runs
+synchronously and returns a Promise containing CompressionResult. It performs
+zero scheduling or background work.
+
+Both input and output limits are nonnegative safe integers. Input length is
+checked before copying. A native compressor failure or a malformed stream
+returns a typed error. The decoder requires a complete zlib stream, a valid
+checksum and zero trailing bytes. Unsupported dictionaries, gzip, raw deflate
+and concatenated streams return invalid-data. An output-budget crossing returns
+limit-exceeded with zero partial output bytes.
+
+The decoder supplies at most 16 KiB of output space per call, with one extra
+byte beyond the remaining allowance to detect an overflow. The workspace test
+rejects an 8 MiB expansion after 16385 produced bytes under a 16384-byte allowance.
+State is ended in a finally block. Successful output assembly retains at most
+twice the output allowance plus one decoder block, alongside the input snapshot
+and fixed decoder workspace. Compression and decoder memory on phones need
+measurements. The component API operates on bounded buffers. Large-file streaming
+integration is a later acceptance requirement.
+
+Results and the native-stream investigation are in docs/spikes/phase-1-deflate.md.
+
 ## Verification
 
 ```sh
@@ -181,10 +224,12 @@ pnpm exec vitest run packages/core/cbor.test.ts
 pnpm exec vitest run packages/core/chunk.test.ts
 pnpm exec vitest run packages/core/identity.test.ts
 pnpm exec vitest run packages/core/hpke.test.ts
+pnpm exec vitest run packages/core/compression.test.ts
 pnpm test:vectors
 ```
 
 Measurements and device coverage are in `docs/spikes/phase-1-tags.md` and
 `docs/spikes/phase-1-cbor.md`, `docs/spikes/phase-1-chunks.md` and
-`docs/spikes/phase-1-identity.md` and `docs/spikes/phase-1-hpke.md`. Public
+`docs/spikes/phase-1-identity.md`, `docs/spikes/phase-1-hpke.md` and
+`docs/spikes/phase-1-deflate.md`. Public
 claims are tracked in `docs/claims-ledger.md`.

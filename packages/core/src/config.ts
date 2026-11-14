@@ -5,3 +5,5 @@ export const CHUNK_SIZE_MEDIUM = 256 * 1024;
 export const CHUNK_SIZE_LARGE = 1024 * 1024;
 export const SMALL_FILE_MAX_BYTES = 64n * 1024n * 1024n;
 export const MEDIUM_FILE_MAX_BYTES = 16n * 1024n * 1024n * 1024n;
+export const COMPRESSION_FEED_BYTES = 1024;
+export const DEFLATE_OUTPUT_BYTES = 16384;
