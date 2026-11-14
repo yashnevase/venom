@@ -102,13 +102,45 @@ as experimental in the pinned runtime. These observations leave D-2 pending the
 target-phone and implementation-size comparison.
 [Node v24.11.0 zstd API](https://nodejs.org/download/release/v24.11.0/docs/api/zlib.html#zlibzstdcompresssyncbuffer-options).
 
+### Xiaomi result — 2026-11-15
+
+The owner ran the staged core diagnostic on Xiaomi Note 13 over the existing LAN
+and supplied the complete JSON report. They separately reported Android 16 and
+build bp2a.250605.031.a3. The browser's reduced UA reports Chrome 157 and masks
+the actual OS version. HTTP secure_context was false. The raw report is
+phase-1-deflate-xiaomi-note-13.json.
+
+Its core and pako module hashes match the staged files, and the core reference
+is 02c82284108c8cb862f0dc9495bce14f2ae59d61. All six timing summaries were
+recomputed from their 16 samples. The diagnostic verified every decoded fixture.
+The repeated 256 KiB fixture was rejected under a 16384-byte output allowance.
+
+| Fixture | Input bytes | Deflate bytes | Compress median/p95 ms | Decode median/p95 ms |
+|---|---|---|---|---|
+| Repeated chat text | 1024 | 35 | 0.650/3.700 | 0.950/13.800 |
+| Repeated byte | 262144 | 278 | 11.700/33.200 | 3.100/15.000 |
+| Seeded random bytes | 262144 | 262232 | 13.400/29.900 | 2.350/12.300 |
+
+Native deflate was available and the native zstd constructor returned TypeError.
+The diagnostic leaves browser/WASM zstd costs and D-2's final choice pending.
+It measures codec calls, including the core's snapshots and output assembly.
+Fixture setup, UI frame yields, caller copies and equality checks are outside
+the timed calls. Cold samples are retained. Process memory and battery were
+unmeasured.
+
+The phone harness's acceptance test failed at the missing page before
+implementation. D2-BROWSER subsequently passed with HTTP blocked after initial
+asset loading. D2-UNAVAILABLE passed with native compression removed. The combined
+local check total is now 58, comprising 1 foundation test, 52 Vitest tests and
+5 browser tests. Vector total remains 79.
+
 ## Not verified on a real device
 
-The module ran in Node on the Mac. Browser and phone execution, codec memory on
-Xiaomi/iPhone, background responsiveness, zstd browser/WASM cost and full Box
-interoperability remain unverified. Existing browser regressions exercise the
-separate diagnostic harness. Offline-hotspot testing remains pending at the
-owner's request.
+Phone execution of the deflate candidate is recorded above. Codec process memory,
+battery, background responsiveness, iPhone behavior, zstd browser/WASM cost and
+full Box interoperability remain unverified. Identity and HPKE operations have
+separate device gaps. Offline-hotspot testing remains pending at the owner's
+request.
 
 ## Claims ledger rows added or changed
 
@@ -116,10 +148,12 @@ VEC-DEFLATE and DEFLATE-ROUNDTRIP/BOUNDS/INPUT/SNAPSHOT/UNAVAILABLE/CANCEL/WORKS
 record component behavior. FUZZ-DEFLATE and DEFLATE-MEASURE record hostile-input
 and timing observations. DEFLATE-NATIVE-FEED retains the failed feed-size
 assumption and the observation that changed the implementation.
+D2-PHONE records the Xiaomi result. D2-BROWSER and D2-UNAVAILABLE record the
+automated diagnostic outcomes.
 
 ## Known problems
 
-D-2 needs target-phone measurements before the final algorithm choice. The
+D-2 needs the browser/WASM zstd comparison before the final algorithm choice. The
 decoder's Promise API executes synchronously. Native compressor workspace and
 app bundle size need platform measurements. Complete small/chunked sealing,
 padding, receipts and full Phase 1 acceptance remain pending. D-8 requires the
@@ -144,3 +178,8 @@ external cryptographer review the owner confirmed is unavailable.
 - packages/test-vectors/deflate.json
 - pnpm-lock.yaml
 - tools/verify-vectors.py
+
+The phone-diagnostic follow-up also changes package.json, tools/spikes/tsconfig.json,
+tools/spikes/README.md and docs/test-matrix.md. It adds tools/compression.browser.test.ts,
+tools/spikes/compression.html, tools/spikes/compression-probe.ts,
+tools/stage-compression-spike.mjs and the Xiaomi JSON report.

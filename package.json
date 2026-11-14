@@ -7,7 +7,7 @@
   "engines": { "node": ">=24.11.0 <25" },
   "scripts": {
     "check": "pnpm test:foundations && pnpm typecheck && pnpm build && pnpm lint && pnpm test && pnpm test:vectors && pnpm check:licenses",
-    "build": "pnpm --filter @openmesh/core build && pnpm build:spike",
+    "build": "pnpm --filter @openmesh/core build && pnpm build:spike && node tools/stage-compression-spike.mjs",
     "build:spike": "tsc -p tools/spikes/tsconfig.json",
     "test:foundations": "node --test tools/foundations.acceptance.mjs",
     "typecheck": "tsc --noEmit",

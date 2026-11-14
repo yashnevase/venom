@@ -39,3 +39,33 @@ the two saved reports and record results in `docs/test-matrix.md` and
 
 Run automated browser checks with `pnpm test:browser` after building. Local
 measurements and limits are in the spike record and claims ledger.
+
+# D-2 compression diagnostic
+
+Build with `pnpm build`, then use the same local static-server command above.
+Open `/compression.html`. Enter device notes, choose Run benchmark and keep
+the page foregrounded. After Complete, select the report and copy it into the
+chat or save the text manually. JSON here is diagnostic data.
+
+The page imports staged copies of the compiled core compression module and
+pako 3.0.3. Build metadata records the core commit and module SHA-256 values.
+The staging script includes the Apache, MIT and zlib notices. Generated files
+live under the ignored dist directory.
+
+The diagnostic uses public fixture bytes. It records 16 trials per operation
+for 1 KiB chat text, 256 KiB of repeated bytes and 256 KiB of seeded random bytes.
+It checks every decode against the original, then checks rejection when the
+repeated fixture exceeds a 16 KiB output allowance. Fixture creation, UI frame
+yields, caller copies and equality checks are outside the timed codec calls.
+Cold samples are retained. Median averages the two middle samples, and p95 is
+the maximum with 16 samples. The JSON includes raw samples.
+
+Native deflate/zstd constructor availability is recorded. This page measures
+the current deflate candidate. D-2 still needs the browser/WASM zstd comparison.
+The decoder executes synchronously. UI yields occur between trials. There is
+zero automatic report upload. Copying the report is a manual action.
+
+D2-BROWSER checks completion after subsequent HTTP is blocked, following initial
+asset loading. D2-UNAVAILABLE checks the missing native-compressor result. These
+are part of `pnpm test:browser`. Phone results belong in docs/spikes and the
+real-device matrix.

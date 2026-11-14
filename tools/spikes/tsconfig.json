@@ -7,6 +7,6 @@
     "rootDir": ".",
     "outDir": "dist"
   },
-  "include": ["probe.ts"],
+  "include": ["probe.ts", "compression-probe.ts"],
   "exclude": []
 }

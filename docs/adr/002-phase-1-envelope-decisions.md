@@ -157,7 +157,7 @@ packet needs these concrete answers before sealing code can start.
 | Item | Owner decision | Review evidence |
 |---|---|---|
 | D-1 native-first and fallback policy | Owner approved direction | Node observation recorded, phone pending |
-| D-2 compression | Owner approved measurement-first direction | Bounded deflate candidate and local baselines in ADR 006. Final choice and target-phone measurements pending |
+| D-2 compression | Owner approved measurement-first direction | ADR 006 deflate candidate verified on Xiaomi, raw report recorded. Browser/WASM zstd comparison and final choice pending |
 | D-3 total-envelope sizing | Owner approved retaining published targets during measurement | Complete-envelope vectors pending |
 | D-4 exact wrapping suite and implementation | Owner approved RFC 9180 Base direction | Native component and RFC vectors in ADR 005. OpenMesh application binding and envelope pending |
 | D-7 recovery format and root mapping | Owner approved standard-format review direction | Exact phrase encoding and interoperability pending |

@@ -4,7 +4,8 @@
 
 Adopted for the Phase 1 compression component under the owner's delegation to
 continue ADR 002's measurement-first work. D-2's final algorithm choice awaits
-target-phone measurements. This component exercises the deflate candidate already
+comparative target-phone measurements. Deflate's Xiaomi result is recorded in
+phase-1-deflate.md. This component exercises the deflate candidate already
 permitted by docs/04. D-8's external review remains outstanding.
 
 ## Problem and measurement
