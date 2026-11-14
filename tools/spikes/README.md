@@ -94,3 +94,13 @@ The local Python server serves raw files.
 D2-COMPARE blocks further HTTP after initialization and checks codec completion
 plus two-way interoperability against Node's native zstd API. D2-WASM-UNAVAILABLE
 checks initialization failure. Run them with `pnpm test:browser` after `pnpm build`.
+
+# Box draft review evidence
+
+After `pnpm build`, run `node tools/spikes/box-transcript-review.mjs` to reproduce
+the literal-transcript and size-accounting observations in ADR 008. The script
+uses the public identity fixture and writes docs/spikes/phase-1-box-draft-review.json.
+It checks whether changed draft-shaped kind/attachments fields alter the literal
+signed transcript, finds a signature-placeholder compression boundary, and
+measures primitive envelope components. The integrated Box codec is pending its
+wire freeze. The evidence is for that review.

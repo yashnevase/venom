@@ -8,6 +8,8 @@ hold on owner decisions and authorizes implementation choices within the agreed
 architecture. They confirmed that external cryptographer review is outstanding.
 The D-8 review and phase acceptance gates still apply. Exact choices and their
 evidence are recorded in implementation ADRs as work proceeds.
+ADR 008 records measured Box signature/size integration findings and the
+complete-envelope review deliverable before sealing integration.
 
 ## Problem
 
@@ -162,4 +164,4 @@ packet needs these concrete answers before sealing code can start.
 | D-4 exact wrapping suite and implementation | Owner approved RFC 9180 Base direction | Native component and RFC vectors in ADR 005. OpenMesh application binding and envelope pending |
 | D-7 recovery format and root mapping | Owner approved standard-format review direction | Exact phrase encoding and interoperability pending |
 | D-8 streaming construction | Owner approved Tink candidate for review | External cryptographer review outstanding, confirmed by owner |
-| Exact CBOR schemas and signed transcripts | Implementation delegated within recommendations | Identity records in ADR 004, box/receipt records pending |
+| Exact CBOR schemas and signed transcripts | Implementation delegated within recommendations | Identity records in ADR 004. Box/receipt integration findings and proposed freeze in ADR 008 |

@@ -1,0 +1,41 @@
+{
+  "test": "BOX-DRAFT-REVIEW",
+  "measured_at": "2026-11-14T23:37:47.997Z",
+  "node": "v24.11.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "fixture": "packages/test-vectors/identity.json",
+  "interpretation": "CBOR(header) concatenated with SHA-256(CBOR(body)), as a literal reading of docs/04",
+  "coverage": [
+    {
+      "field": "kind",
+      "payload_bytes_changed": true,
+      "transcript_bytes_changed": false,
+      "literal_signature_verifies": true
+    },
+    {
+      "field": "attachments",
+      "payload_bytes_changed": true,
+      "transcript_bytes_changed": false,
+      "literal_signature_verifies": true
+    }
+  ],
+  "compression_boundary": {
+    "body_bytes": 701,
+    "placeholder_encoded_bytes": 1014,
+    "signed_encoded_bytes": 1014,
+    "placeholder_compressed_bytes": 987,
+    "signed_compressed_bytes": 1025,
+    "assumed_bucket_bytes": 1024
+  },
+  "frame_accounting": {
+    "frame_target_bytes": 16384,
+    "padded_plaintext_bytes": 16384,
+    "gcm_ciphertext_bytes": 16400,
+    "nonce_bytes": 12,
+    "recipient_wrap_bytes": 80,
+    "fixture_header_bytes": 91,
+    "minimum_component_bytes": 16583,
+    "envelope_framing_bytes": "unspecified and excluded"
+  }
+}
