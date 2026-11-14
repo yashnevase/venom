@@ -2,7 +2,8 @@
 
 ## Status
 
-Browser diagnostic baseline implemented. Real offline-hotspot result pending.
+Browser diagnostic baseline implemented. On 2026-11-15 the owner explicitly
+chose to record the offline-hotspot test as pending after the LAN baseline.
 The owner confirmed on 2026-11-14 that the page loaded in Chrome on the Xiaomi
 Note 13 over the Mac's LAN server. That confirms page reachability only.
 
@@ -60,9 +61,12 @@ ICE connected at 175 ms, disconnected at 44988 ms, reconnected at 45723 ms, and
 the data channel opened at 52825 ms. This single completion does not establish
 network reliability or the cause of the intermediate disconnection.
 
-The observed Mac report is preserved in `s2-mac-attempt-2.json`. The corresponding
-phone report has been requested. Both attempts used the existing LAN and
-chat-mediated SDP. No offline-hotspot result has been measured.
+The observed Mac report is preserved in `s2-mac-attempt-2.json`. The owner also
+provided the corresponding phone report, preserved in
+`s2-xiaomi-note13-attempt-2.json`. The phone verified 4096 bytes at 118941 ms from
+offer creation, with under_30_seconds false. These endpoint timings have distinct
+start events and include manual exchange. Both attempts used the existing LAN
+and chat-mediated SDP. No offline-hotspot result has been measured.
 
 ## CI
 

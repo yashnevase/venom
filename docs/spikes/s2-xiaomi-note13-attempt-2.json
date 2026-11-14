@@ -1,0 +1,22 @@
+{
+  "test": "S-2",
+  "role": "offer",
+  "started_at": "2026-11-14T18:35:20.057Z",
+  "user_agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Mobile Safari/537.36",
+  "secure_context": false,
+  "ice_servers": 0,
+  "device_notes": "",
+  "outcome": "verified",
+  "diagnostic_bytes": 4096,
+  "events": [
+    { "elapsed_ms": 176, "state": "local-handshake-ready" },
+    { "elapsed_ms": 66254, "state": "ice-checking" },
+    { "elapsed_ms": 66257, "state": "connecting" },
+    { "elapsed_ms": 118853, "state": "ice-connected" },
+    { "elapsed_ms": 118902, "state": "datachannel-open" },
+    { "elapsed_ms": 118905, "state": "connected" },
+    { "elapsed_ms": 118941, "state": "diagnostic-verified" }
+  ],
+  "elapsed_ms": 118941,
+  "under_30_seconds": false
+}

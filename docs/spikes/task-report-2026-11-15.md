@@ -4,7 +4,8 @@
 
 Project setup, Phase 1 Tag subset and S-2 diagnostic experiment.
 Phase 0 passed its gate. Phase 1 is partial with encryption explicitly kept gated
-by the owner. The existing extracted files were treated as v3 per the owner's
+by the owner. After the LAN baseline, the owner explicitly chose to record the
+offline-hotspot test as pending. The existing extracted files were treated as v3 per the owner's
 confirmation. The original documents retain their historical headings.
 
 ## Commits and branches
@@ -35,16 +36,17 @@ Mac arm64, Node 24.11.0, pnpm 11.25.0. Local Chromium 159 headless contexts
 verified 4096 bytes in 366 ms with HTTP blocked and no ICE servers.
 The real Xiaomi Note 13 loaded the local page. First LAN attempt received 0 bytes
 and expired before the answer was applied. The corrected second attempt verified
-4096 bytes at the Mac in 52841 ms, including manual chat-mediated SDP exchange.
-It missed the 30-second target. Raw available reports are in docs/spikes.
+4096 bytes at both endpoints. The Mac measured 52841 ms from answer creation and
+the phone measured 118941 ms from offer creation, including manual chat-mediated
+SDP exchange. Both missed the 30-second target. Raw reports are in docs/spikes.
 
 ## Not verified on a real device
 
 No no-internet hotspot handshake, QR handshake, camera, persistent storage,
 identity, seal/open, receipts, chunked profile, recovery or large-file transfer
-has been verified. Tag conformance ran in Node. The second phone report and its
-actual Android version have been requested. Android–Android and Android–iPhone
-pairs remain untested.
+has been verified. Tag conformance ran in Node. Both second-attempt endpoint
+reports are recorded. The phone's actual Android version remains unknown.
+Android–Android and Android–iPhone pairs remain untested.
 
 ## Claims ledger rows added or changed
 
@@ -100,6 +102,7 @@ added or updated during setup and implementation.
 - `docs/spikes/phase-1-tags.md`
 - `docs/spikes/s2-mac-attempt-2.json`
 - `docs/spikes/s2-xiaomi-note13-attempt-1.json`
+- `docs/spikes/s2-xiaomi-note13-attempt-2.json`
 - `docs/spikes/task-report-2026-11-15.md`
 - `docs/test-matrix.md`
 - `eslint.config.mjs`
