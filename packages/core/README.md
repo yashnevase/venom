@@ -1,7 +1,7 @@
 # Protocol core
 
-Phase 1 currently contains Tag and deterministic CBOR modules. Encryption,
-identity, receipts and chunked profiles await the decisions in
+Phase 1 currently contains Tag, deterministic CBOR and chunk-integrity modules.
+Encryption, identity, receipts and chunked profiles await the decisions in
 `docs/adr/002-phase-1-envelope-decisions.md`.
 The owner explicitly kept encryption gated for review on 2026-11-14.
 
@@ -51,15 +51,50 @@ strict lengths/integers, UTF-8, duplicate keys, depth and item budgets, then che
 canonical bytes by re-encoding. Record schemas and version handling belong to
 their protocol parsers. The dependency and value-subset decision is in ADR 003.
 
+## Chunk API
+
+```ts
+import { chunkSizeForFile, identifyChunk, verifyChunk } from '@openmesh/core';
+
+const selection = chunkSizeForFile(fileSize);
+const identified = await identifyChunk(ciphertextBytes, maxEncodedChunkBytes);
+const verified = await verifyChunk(receivedBytes, expectedChunkId, maxEncodedChunkBytes);
+if (verified.ok) {
+  // Use verified.value, the owned snapshot that passed the hash check.
+}
+```
+
+The caller supplies the example's fileSize and chunk buffers. The file-size
+selector accepts a nonnegative safe-integer Number or uint64 bigint. It applies
+docs/11's inclusive boundaries, choosing 64 KiB up to 64 MiB, 256 KiB above
+64 MiB through 16 GiB, and 1 MiB above that. These targets live in config.ts.
+
+identifyChunk snapshots one byte buffer and computes its 32-byte SHA-256
+chunkId with WebCrypto. It returns the bytes and their ID together. verifyChunk
+compares against the caller's expected ID and returns the checked owned bytes.
+The expected ID must come from the authenticated manifest at the expected
+position. Both the source bytes and expected ID are copied before asynchronous
+hashing, isolating the check from later caller-buffer mutations.
+
+maxEncodedChunkBytes is an explicit nonnegative safe-integer limit, checked
+before copying and hashing. A zero limit admits an empty hashing fixture.
+The encrypted representation's overhead and manifest authentication await the
+reviewed profile. The size selector reports the published chunk target. The
+encoded byte cap is supplied separately by the caller.
+
+The chunk helpers return ChunkResult. Sequence completeness, manifest signatures
+and AEAD finality await their reviewed protocol definitions.
+
 ## Verification
 
 ```sh
 pnpm --filter @openmesh/core build
 pnpm exec vitest run packages/core/tag.test.ts
 pnpm exec vitest run packages/core/cbor.test.ts
+pnpm exec vitest run packages/core/chunk.test.ts
 pnpm test:vectors
 ```
 
 Measurements and device coverage are in `docs/spikes/phase-1-tags.md` and
-`docs/spikes/phase-1-cbor.md`. Public
+`docs/spikes/phase-1-cbor.md` and `docs/spikes/phase-1-chunks.md`. Public
 claims are tracked in `docs/claims-ledger.md`.

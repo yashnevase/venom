@@ -12,3 +12,10 @@ fixture markers `$int`, `$bytes` and `$map` represent bigint, byte strings and
 ordered input pairs. The markers belong to debug fixtures. Wire bytes use CBOR.
 TypeScript verifies encoding, decoding and canonical round trips. The map-order
 fixture distinguishes bytewise RFC 8949 ordering from length-first ordering.
+
+`chunks.json` contains 10 SHA-256 fixtures and 9 file-size selection cases from
+docs/11. Byte fixtures use literal hex or the bounded index-mod-251 debug pattern.
+Python hashlib verifies their IDs independently. TypeScript checks identification,
+verification and size selection through the core APIs. These fixtures exercise
+the hashing and sizing components of T1. Signed manifests and streaming AEAD
+need their reviewed profile and vectors.

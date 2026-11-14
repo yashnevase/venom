@@ -1,4 +1,4 @@
-"""Independent Tag and CBOR vector verification from the specifications."""
+"""Independent Tag, CBOR and chunk vector verification from the specifications."""
 import hashlib
 import hmac
 import json
@@ -67,9 +67,35 @@ def verify_cbor(document):
     return len(document['vectors'])
 
 
+def verify_chunks(document):
+    assert document['version'] == 1
+    assert document['hash'] == 'SHA-256'
+    assert len(document['hash_vectors']) == 10
+    assert len(document['size_vectors']) == 9
+    for vector in document['hash_vectors']:
+        source = vector['input']
+        if 'hex' in source:
+            data = bytes.fromhex(source['hex'])
+        else:
+            assert source['pattern'] == 'index-mod-251'
+            data = bytes(index % 251 for index in range(source['length']))
+        assert hashlib.sha256(data).hexdigest() == vector['sha256_hex'], vector['id']
+    for vector in document['size_vectors']:
+        size = int(vector['file_size'])
+        assert 0 <= size < 2**64
+        if size <= 64 * 1024**2:
+            expected = 64 * 1024
+        elif size <= 16 * 1024**3:
+            expected = 256 * 1024
+        else:
+            expected = 1024**2
+        assert vector['chunk_size'] == expected
+    return len(document['hash_vectors']) + len(document['size_vectors'])
+
+
 def main():
     directory = Path(__file__).resolve().parent.parent / 'packages' / 'test-vectors'
-    verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor}
+    verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'chunks.json': verify_chunks}
     checked = 0
     for path in sorted(directory.glob('*.json')):
         if path.name not in verifiers:
