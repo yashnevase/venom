@@ -18,6 +18,7 @@
     "test:browser": "playwright test"
   },
   "devDependencies": {
+    "@bokuweb/zstd-wasm": "0.0.27",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.65.1",
     "@types/node": "24.11.0",

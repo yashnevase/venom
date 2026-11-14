@@ -1,8 +1,43 @@
 interface Limits { maxInputBytes: number; maxOutputBytes: number }
 type Result = { ok: true; value: Uint8Array } | { ok: false; error: string };
 interface Codec {
-  compressDeflate(input: Uint8Array, limits: Limits): Promise<Result>;
-  decompressDeflate(input: Uint8Array, limits: Limits): Promise<Result>;
+  compress(input: Uint8Array, limits: Limits): Promise<Result>;
+  decompress(input: Uint8Array, limits: Limits): Promise<Result>;
+}
+interface Comparison {
+  codec: Codec;
+  stats: { import_ms: number; init_ms: number; heap_before_bytes: number };
+  heapBytes(): number;
+}
+
+async function loadZstd(): Promise<Comparison> {
+  const started = performance.now();
+  const loaded: unknown = await import(new URL('./compression/zstd/index.web.js', import.meta.url).href);
+  const imported = performance.now();
+  if (!loaded || typeof loaded !== 'object'
+    || ['init', 'compress', 'decompress'].some((key) => typeof (loaded as Record<string, unknown>)[key] !== 'function')) {
+    throw new Error('zstd-module-unavailable');
+  }
+  const zstd = loaded as { init(path: string): Promise<void>; compress(input: Uint8Array, level: number): Uint8Array;
+    decompress(input: Uint8Array): Uint8Array };
+  let deadline: ReturnType<typeof setTimeout> | undefined;
+  try {
+    await Promise.race([
+      zstd.init(new URL('./compression/zstd/zstd.wasm', import.meta.url).href),
+      new Promise<never>((_resolve, reject) => { deadline = setTimeout(() => { reject(new Error('zstd-init-timeout')); }, 15000); }),
+    ]);
+  } finally {
+    clearTimeout(deadline);
+  }
+  const initialized = performance.now();
+  const runtime: unknown = await import(new URL('./compression/zstd/module.js', import.meta.url).href);
+  const state = runtime as { Module: { HEAP8: Int8Array } };
+  if (!(state.Module.HEAP8 instanceof Int8Array)) throw new Error('zstd-memory-unavailable');
+  const heapBytes = () => state.Module.HEAP8.byteLength;
+  return { codec: {
+    compress: (input) => Promise.resolve({ ok: true, value: zstd.compress(input, 3) }),
+    decompress: (input) => Promise.resolve({ ok: true, value: zstd.decompress(input) }),
+  }, stats: { import_ms: imported - started, init_ms: initialized - imported, heap_before_bytes: heapBytes() }, heapBytes };
 }
 
 function element<K extends keyof HTMLElementTagNameMap>(id: string, tag: K): HTMLElementTagNameMap[K] {
@@ -51,18 +86,21 @@ async function initialize() {
     || typeof (module as Record<string, unknown>).decompressDeflate !== 'function' || !buildResponse.ok) {
     throw new Error('Diagnostic module unavailable');
   }
-  const codec = module as Codec;
+  const core = module as { compressDeflate: Codec['compress']; decompressDeflate: Codec['decompress'] };
+  const codec: Codec = { compress: core.compressDeflate, decompress: core.decompressDeflate };
   const build: unknown = await buildResponse.json();
+  const comparison = document.documentElement.dataset.comparison === 'zstd' ? await loadZstd() : undefined;
   run.disabled = false;
   status.textContent = 'Ready';
   run.addEventListener('click', () => {
-    void benchmark(codec, build);
+    void benchmark(codec, build, comparison);
   });
 }
 
-async function benchmark(codec: Codec, build: unknown) {
+async function benchmark(codec: Codec, build: unknown, comparison?: Comparison) {
   run.disabled = true;
-  const base = { probe: 'D-2-deflate', v: 1, started_at: new Date().toISOString(),
+  const heapBefore = comparison?.heapBytes();
+  const base = { probe: comparison ? 'D-2-comparison' : 'D-2-deflate', v: 1, started_at: new Date().toISOString(),
     user_agent: navigator.userAgent, secure_context: isSecureContext, device_notes: notes.value,
     build, native_formats: formats(), limits, decoder_execution: 'synchronous' };
   try {
@@ -77,32 +115,37 @@ async function benchmark(codec: Codec, build: unknown) {
     ];
     const measurements = [];
     let rejectionInput: Uint8Array | undefined;
-    for (const fixture of fixtures) {
-      let compressed = new Uint8Array();
-      for (const operation of ['compress', 'decompress']) {
-        const samples = [];
-        status.textContent = `${fixture.id} — ${operation}`;
-        for (let trial = 0; trial < 16; trial += 1) {
-          await pause();
-          const started = performance.now();
-          const result = operation === 'compress'
-            ? await codec.compressDeflate(fixture.input, limits)
-            : await codec.decompressDeflate(compressed, limits);
-          samples.push(performance.now() - started);
-          const output = unwrap(result);
-          if (operation === 'compress') compressed = new Uint8Array(output);
-          else if (!equal(output, fixture.input)) throw new Error('roundtrip-mismatch');
+    const engines = [{ id: 'deflate', codec }, ...(comparison ? [{ id: 'zstd', codec: comparison.codec }] : [])];
+    for (const engine of engines) {
+      for (const fixture of fixtures) {
+        let compressed = new Uint8Array();
+        for (const operation of ['compress', 'decompress']) {
+          const samples = [];
+          status.textContent = `${engine.id} ${fixture.id} — ${operation}`;
+          for (let trial = 0; trial < 16; trial += 1) {
+            await pause();
+            const started = performance.now();
+            const result = operation === 'compress'
+              ? await engine.codec.compress(fixture.input, limits)
+              : await engine.codec.decompress(compressed, limits);
+            samples.push(performance.now() - started);
+            const output = unwrap(result);
+            if (operation === 'compress') compressed = new Uint8Array(output);
+            else if (!equal(output, fixture.input)) throw new Error('roundtrip-mismatch');
+          }
+          measurements.push({ algorithm: engine.id, fixture: fixture.id, input_bytes: fixture.input.length,
+            compressed_bytes: compressed.length, operation, ...summarize(samples) });
         }
-        measurements.push({ fixture: fixture.id, input_bytes: fixture.input.length,
-          compressed_bytes: compressed.length, operation, ...summarize(samples) });
+        if (engine.id === 'deflate' && fixture.id === 'repeated-256KiB') rejectionInput = compressed;
       }
-      if (fixture.id === 'repeated-256KiB') rejectionInput = compressed;
     }
     if (!rejectionInput) throw new Error('Missing expansion fixture');
-    const rejection = await codec.decompressDeflate(rejectionInput,
+    const rejection = await codec.decompress(rejectionInput,
       { maxInputBytes: rejectionInput.length, maxOutputBytes: 16384 });
     if (rejection.ok || rejection.error !== 'limit-exceeded') throw new Error('expansion-limit-failed');
     report.value = JSON.stringify({ ...base, outcome: 'verified', measurements,
+      zstd: comparison ? { ...comparison.stats, level: 3, heap_before_bytes: heapBefore, heap_after_bytes: comparison.heapBytes(),
+        input_scope: 'fixed-public-fixtures' } : undefined,
       expansion_rejection: { expanded_bytes: 262144, max_output_bytes: 16384, outcome: rejection.error } }, null, 2);
     status.textContent = 'Complete';
   } catch (error) {

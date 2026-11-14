@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { zstdCompressSync, zstdDecompressSync } from 'node:zlib';
 
 test('D2-BROWSER runs the staged core benchmark with HTTP blocked after loading', async ({ page }) => {
   const response = await page.goto('http://127.0.0.1:8321/compression.html');
@@ -22,6 +23,46 @@ test('D2-BROWSER runs the staged core benchmark with HTTP blocked after loading'
   expect(report.build.pako_version).toBe('3.0.3');
   expect(report.build.core_commit).toMatch(/^[0-9a-f]{40}$/);
   expect(requests).toEqual([]);
+});
+
+test('D2-COMPARE measures both codecs without further HTTP and interoperates with native zstd', async ({ page }) => {
+  const response = await page.goto('http://127.0.0.1:8321/compression-compare.html');
+  expect(response?.status()).toBe(200);
+  const run = page.getByRole('button', { name: 'Run benchmark' });
+  await expect(run).toBeEnabled({ timeout: 20000 });
+  const requests: string[] = [];
+  await page.route('**/*', (route) => { requests.push(route.request().url()); return route.abort(); });
+  await run.click();
+  await expect(page.getByRole('status')).toHaveText('Complete', { timeout: 30000 });
+  const json: unknown = JSON.parse(await page.getByLabel('Report').inputValue());
+  const result = json as { outcome: string; measurements: { algorithm: string; samples_ms: number[] }[];
+    zstd: { heap_before_bytes: number; heap_after_bytes: number } };
+  expect(result.outcome).toBe('verified');
+  expect(result.measurements).toHaveLength(12);
+  expect(result.measurements.filter((entry) => entry.algorithm === 'zstd')).toHaveLength(6);
+  expect(result.measurements.every((entry) => entry.samples_ms.length === 16)).toBe(true);
+  expect(result.zstd.heap_after_bytes).toBeGreaterThanOrEqual(result.zstd.heap_before_bytes);
+  const plain = Buffer.from('OpenMesh independent zstd fixture');
+  const wire = await page.evaluate(async ({ input, compressed }) => {
+    const url = 'http://127.0.0.1:8321/dist/compression/zstd/index.web.js';
+    const loaded: unknown = await import(url);
+    const codec = loaded as { compress(input: Uint8Array, level: number): Uint8Array;
+      decompress(input: Uint8Array): Uint8Array };
+    const decoded = codec.decompress(new Uint8Array(compressed));
+    if (!decoded.every((byte, index) => byte === input[index]) || decoded.length !== input.length) {
+      throw new Error('Native-to-WASM mismatch');
+    }
+    return Array.from(codec.compress(new Uint8Array(input), 3));
+  }, { input: Array.from(plain), compressed: Array.from(zstdCompressSync(plain)) });
+  expect(zstdDecompressSync(new Uint8Array(wire))).toEqual(plain);
+  expect(requests).toEqual([]);
+});
+
+test('D2-WASM-UNAVAILABLE records initialization failure', async ({ page }) => {
+  await page.addInitScript(() => { Object.defineProperty(globalThis, 'WebAssembly', { value: undefined }); });
+  await page.goto('http://127.0.0.1:8321/compression-compare.html');
+  await expect(page.getByRole('status')).toHaveText('Failed', { timeout: 20000 });
+  expect(await page.getByLabel('Report').inputValue()).toContain('failed');
 });
 
 test('D2-UNAVAILABLE records a typed missing-compressor result', async ({ page }) => {

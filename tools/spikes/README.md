@@ -69,3 +69,28 @@ D2-BROWSER checks completion after subsequent HTTP is blocked, following initial
 asset loading. D2-UNAVAILABLE checks the missing native-compressor result. These
 are part of `pnpm test:browser`. Phone results belong in docs/spikes and the
 real-device matrix.
+
+## Deflate and zstd comparison
+
+Open `/compression-compare.html` for the comparison. It loads the development-only
+@bokuweb/zstd-wasm 0.0.27 browser modules and WASM before enabling Run benchmark.
+Level 3, the same three fixtures, 16 trials and the same timing boundaries are
+used. The report has 12 timing summaries and 192 timed calls. Every decode is
+compared with its fixture. The existing deflate expansion-limit check also runs.
+
+The zstd path receives fixed public fixtures and its own generated frames. Its
+wrapper's frame-sized allocation needs a separate hostile-input assessment before
+production adoption. ADR 007 records source, size, licensing and review status.
+The staged import map resolves the package's extensionless browser imports.
+WASM initialization has a 15-second diagnostic deadline.
+
+The report includes JavaScript import and WASM initialization time. Those are
+single observations including asset loading and execution. It also records WASM
+linear-memory bytes before/after the trials. This memory measure covers the
+WASM heap. Browser process memory and battery require separate observations.
+Build metadata gives raw asset sizes, per-file gzip body sizes and hashes.
+The local Python server serves raw files.
+
+D2-COMPARE blocks further HTTP after initialization and checks codec completion
+plus two-way interoperability against Node's native zstd API. D2-WASM-UNAVAILABLE
+checks initialization failure. Run them with `pnpm test:browser` after `pnpm build`.

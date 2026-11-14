@@ -11,6 +11,9 @@ importers:
 
   .:
     devDependencies:
+      '@bokuweb/zstd-wasm':
+        specifier: 0.0.27
+        version: 0.0.27
       '@eslint/js':
         specifier: 10.0.1
         version: 10.0.1(eslint@10.15.0)
@@ -43,6 +46,9 @@ importers:
         version: 3.0.3
 
 packages:
+
+  '@bokuweb/zstd-wasm@0.0.27':
+    resolution: {integrity: sha512-GDm2uOTK3ESjnYmSeLQifJnBsRCWajKLvN32D2ZcQaaCIJI/Hse9s74f7APXjHit95S10UImsRGkTsbwHmrtmg==}
 
   '@cacheable/memory@2.2.0':
     resolution: {integrity: sha512-CTLKqLItRCEixEAewD3/j9DB3/o96gpTPD4eJ1v+DGOlxZRZncRQkGYqqnAGCscYd6RNeXfGeiuCphsPtqyIfQ==}
@@ -878,6 +884,8 @@ packages:
     engines: {node: '>=10'}
 
 snapshots:
+
+  '@bokuweb/zstd-wasm@0.0.27': {}
 
   '@cacheable/memory@2.2.0':
     dependencies:
