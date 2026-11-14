@@ -1,7 +1,10 @@
-"""Independent Tag, CBOR and chunk vector verification from the specifications."""
+"""Independent Tag, CBOR, chunk and identity verification from the specifications."""
 import hashlib
 import hmac
 import json
+import shutil
+import subprocess
+import tempfile
 from pathlib import Path
 
 
@@ -93,9 +96,69 @@ def verify_chunks(document):
     return len(document['hash_vectors']) + len(document['size_vectors'])
 
 
+def openssl_binary():
+    candidates = [shutil.which('openssl'), '/opt/homebrew/opt/openssl@3/bin/openssl']
+    for candidate in candidates:
+        if candidate and Path(candidate).exists():
+            version = subprocess.check_output([candidate, 'version'], text=True)
+            if version.startswith('OpenSSL 3.'):
+                return candidate
+    raise RuntimeError('Identity vectors require an OpenSSL 3 CLI')
+
+
+def identity_reference(document):
+    """Native OpenSSL keys/signatures over the ADR 004 record descriptions."""
+    openssl = openssl_binary()
+    with tempfile.TemporaryDirectory(prefix='openmesh-public-vectors-') as directory:
+        root = Path(directory)
+        public = {}
+        for role, oid in [('root', '70'), ('device_signing', '70'), ('device_encryption', '6e')]:
+            seed = bytes.fromhex(document[role + '_seed_hex'])
+            assert len(seed) == 32
+            der = bytes.fromhex('302e020100300506032b65' + oid + '04220420') + seed
+            key_path = root / (role + '.der')
+            key_path.write_bytes(der)
+            spki = subprocess.check_output([openssl, 'pkey', '-inform', 'DER', '-in', str(key_path),
+                                            '-pubout', '-outform', 'DER'])
+            prefix = bytes.fromhex('302a300506032b65' + oid + '032100')
+            assert spki.startswith(prefix) and len(spki) == 44
+            public[role] = spki[len(prefix):].hex()
+
+        def sign(unsigned):
+            message = root / 'message.cbor'
+            message.write_bytes(cbor_reference(unsigned))
+            signature = subprocess.check_output([openssl, 'pkeyutl', '-sign', '-rawin',
+                                                '-inkey', str(root / 'root.der'), '-keyform', 'DER',
+                                                '-in', str(message)])
+            assert len(signature) == 64
+            return signature.hex()
+
+        fields = [['v', 1], ['device_pub_sign', {'$bytes': public['device_signing']}],
+                  ['device_pub_dh', {'$bytes': public['device_encryption']}],
+                  ['created', int(document['created'])], ['expiry', int(document['expiry'])]]
+        signature = sign({'$map': fields})
+        certificate = cbor_reference({'$map': fields + [['sig', {'$bytes': signature}]]})
+        revoked = [['v', 1], ['certificate_hash', {'$bytes': hashlib.sha256(certificate).hexdigest()}],
+                   ['revoked', int(document['revoked'])]]
+        revocation_signature = sign({'$map': revoked})
+        revocation = cbor_reference({'$map': revoked + [['sig', {'$bytes': revocation_signature}]]})
+        return {'root_public_hex': public['root'], 'device_signing_public_hex': public['device_signing'],
+                'device_encryption_public_hex': public['device_encryption'],
+                'certificate_hex': certificate.hex(), 'revocation_hex': revocation.hex()}
+
+
+def verify_identity(document):
+    assert document['version'] == 1
+    expected = identity_reference(document)
+    for field, value in expected.items():
+        assert document[field] == value, field
+    return len(expected)
+
+
 def main():
     directory = Path(__file__).resolve().parent.parent / 'packages' / 'test-vectors'
-    verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'chunks.json': verify_chunks}
+    verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'chunks.json': verify_chunks,
+                 'identity.json': verify_identity}
     checked = 0
     for path in sorted(directory.glob('*.json')):
         if path.name not in verifiers:

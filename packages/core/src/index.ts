@@ -5,3 +5,8 @@ export { decodeCbor, encodeCbor } from './cbor.js';
 export type { CborValue, CborLimits, CborError, CborResult } from './cbor.js';
 export { chunkSizeForFile, identifyChunk, verifyChunk } from './chunk.js';
 export type { ChunkError, ChunkResult, IdentifiedChunk } from './chunk.js';
+export { createIdentityKeys, issueDeviceCertificate, verifyDeviceCertificate,
+  revokeDeviceCertificate, verifyCertificateRevocation } from './identity.js';
+export type { IdentityError, IdentityResult, IdentitySeeds, IdentityKeyPair,
+  IdentityKeys, DeviceCertificate, CertificateRevocation, CertificateOptions,
+  CertificatePolicy } from './identity.js';

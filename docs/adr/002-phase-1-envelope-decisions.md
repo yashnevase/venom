@@ -2,9 +2,12 @@
 
 ## Status
 
-Proposed on 2026-11-14. The owner explicitly chose to keep encryption gated for
-review in this session. Encryption implementation is awaiting owner decisions
-and the review required by docs/04 D-8. The independent tag module can proceed.
+Proposed on 2026-11-14. On 2026-11-15 the owner approved the recommendations and
+requested sustained work through subsequent phases. This supersedes their earlier
+hold on owner decisions and authorizes implementation choices within the agreed
+architecture. They confirmed that external cryptographer review is outstanding.
+The D-8 review and phase acceptance gates still apply. Exact choices and their
+evidence are recorded in implementation ADRs as work proceeds.
 
 ## Problem
 
@@ -153,10 +156,10 @@ packet needs these concrete answers before sealing code can start.
 
 | Item | Owner decision | Review evidence |
 |---|---|---|
-| D-1 native-first and fallback policy | Pending | Node observation recorded, phone pending |
-| D-2 compression | Pending | Target-phone measurements pending |
-| D-3 total-envelope sizing | Pending | Complete-envelope vectors pending |
-| D-4 exact wrapping suite and implementation | Pending | Library and context/AAD review pending |
-| D-7 recovery format and root mapping | Pending | Interoperability and suite review pending |
-| D-8 streaming construction | Pending | Cryptographer review pending |
-| Exact CBOR schemas and signed transcripts | Pending | Wire vectors pending |
+| D-1 native-first and fallback policy | Owner approved direction | Node observation recorded, phone pending |
+| D-2 compression | Owner approved measurement-first direction | Target-phone measurements pending |
+| D-3 total-envelope sizing | Owner approved retaining published targets during measurement | Complete-envelope vectors pending |
+| D-4 exact wrapping suite and implementation | Owner approved RFC 9180 Base direction | Implementation-policy and context/AAD decisions pending |
+| D-7 recovery format and root mapping | Owner approved standard-format review direction | Exact phrase encoding and interoperability pending |
+| D-8 streaming construction | Owner approved Tink candidate for review | External cryptographer review outstanding, confirmed by owner |
+| Exact CBOR schemas and signed transcripts | Implementation delegated within recommendations | Identity records in ADR 004, box/receipt records pending |

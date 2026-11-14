@@ -1,9 +1,9 @@
 # Protocol core
 
-Phase 1 currently contains Tag, deterministic CBOR and chunk-integrity modules.
-Encryption, identity, receipts and chunked profiles await the decisions in
-`docs/adr/002-phase-1-envelope-decisions.md`.
-The owner explicitly kept encryption gated for review on 2026-11-14.
+Phase 1 currently contains Tag, deterministic CBOR, chunk-integrity and local
+identity modules. The owner's 2026-11-15 approval is recorded in ADR 002.
+The full seal/open, receipt and chunked-profile acceptance gate remains pending.
+Streaming encryption requires the external review specified by D-8.
 
 ## Tag API
 
@@ -85,6 +85,50 @@ encoded byte cap is supplied separately by the caller.
 The chunk helpers return ChunkResult. Sequence completeness, manifest signatures
 and AEAD finality await their reviewed protocol definitions.
 
+## Identity API
+
+```ts
+import { createIdentityKeys, issueDeviceCertificate, verifyDeviceCertificate } from '@openmesh/core';
+
+const identity = await createIdentityKeys();
+if (identity.ok) {
+  const limits = { maxBytes: 1024, maxDepth: 4, maxItems: 32 };
+  const created = BigInt(Math.floor(Date.now() / 1000));
+  const certificate = await issueDeviceCertificate(identity.value, { created, limits });
+  if (certificate.ok) {
+    const checked = await verifyDeviceCertificate(certificate.value,
+      identity.value.root.publicBytes, { now: created, limits });
+  }
+}
+```
+
+createIdentityKeys generates independent root Ed25519, device Ed25519 and device
+X25519 key material with WebCrypto. It also accepts three exact 32-byte seeds
+named root, deviceSigning and deviceEncryption. Returned private CryptoKeys are
+non-extractable. exportSeeds returns copies of the raw secrets in memory for the
+future encrypted-backup integration. The caller must encrypt those secrets
+before persistence. Recovery-word and encrypted-backup formats remain pending.
+
+Public-byte access returns copies. Native RFC 8410 imports and a transient JWK
+export derive public keys from supplied seeds. The API performs zero disk writes.
+Unavailable native primitives return unsupported-crypto.
+
+ADR 004 specifies the signed certificate and revocation records. The expected
+root comes from the caller's trusted contact/invite. The example verifies against
+its locally generated root. Remote certification needs the expected remote root.
+Integer times are Unix seconds, with creation inclusive and expiry exclusive.
+Callers supply current time and codec budgets. The example budgets are test
+conditions. Unknown record versions return unsupported-version for callers to
+ignore. Other malformed, over-budget, unauthenticated or time-invalid records
+return IdentityResult failures.
+
+revokeDeviceCertificate creates a root-signed revocation of an exact certificate.
+verifyCertificateRevocation authenticates that record. Pass its encoded bytes as
+policy.revocation to verifyDeviceCertificate to reject a matching credential
+whose revocation time has arrived. The caller supplies known revocation evidence.
+This module performs zero discovery or synchronization. Renewed certificates
+need their own revocations under this policy.
+
 ## Verification
 
 ```sh
@@ -92,9 +136,11 @@ pnpm --filter @openmesh/core build
 pnpm exec vitest run packages/core/tag.test.ts
 pnpm exec vitest run packages/core/cbor.test.ts
 pnpm exec vitest run packages/core/chunk.test.ts
+pnpm exec vitest run packages/core/identity.test.ts
 pnpm test:vectors
 ```
 
 Measurements and device coverage are in `docs/spikes/phase-1-tags.md` and
-`docs/spikes/phase-1-cbor.md` and `docs/spikes/phase-1-chunks.md`. Public
+`docs/spikes/phase-1-cbor.md`, `docs/spikes/phase-1-chunks.md` and
+`docs/spikes/phase-1-identity.md`. Public
 claims are tracked in `docs/claims-ledger.md`.
