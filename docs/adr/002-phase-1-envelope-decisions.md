@@ -51,3 +51,108 @@ it failing, then implement. Required gates include 0 B to 5 MiB round trips,
 wrong keys, every-bit tampering, certificate/revocation checks, chunk loss,
 reordering and truncation, padding, JSON golden vectors, an independent verifier,
 and bounded parser fuzzing. Tag checks alone do not pass the Phase 1 gate.
+
+## Review packet — 2026-11-15
+
+Status remains proposed. Owner choices and D-8 cryptographer review are separate
+requirements in docs/04 section 10. The recommendations below prepare those
+decisions. The measured capability tool is under tools, outside the protocol core.
+
+### D-1 native implementation availability
+
+Recommend WebCrypto as the first implementation path. On this Mac with Node
+24.11.0, the native API passed the six algorithm exercises in P1-CAP. The raw
+observation is docs/spikes/crypto-capabilities-2026-11-15.json. Browser and phone
+algorithm availability still require measurements. A fallback dependency needs
+the feature-detect failure and dependency ADR specified by AGENTS.md.
+
+### D-4 content-key wrapping
+
+Recommend evaluating RFC 9180 Base mode with DHKEM(X25519, HKDF-SHA256),
+HKDF-SHA256 and AES-256-GCM, using identifiers 0x0020, 0x0001 and 0x0002. Keep the
+draft's Ed25519 sender signature inside the sealed payload. Owner approval must
+also specify application info/AAD and recipient-device encoding. A WebCrypto-backed
+implementation requires a dependency review and an explicit resolution of
+AGENTS.md's crypto-library restriction before adoption. [RFC 9180](https://www.rfc-editor.org/rfc/rfc9180.html).
+
+The selected KEM carries 32 encapsulation bytes. Encrypting a 32-byte content key
+with the selected AEAD adds a 16-byte tag, giving 80 bytes for those two pieces
+per recipient before CBOR, identifiers and application metadata. The exact
+outer envelope budget needs a vector before its threshold can be frozen.
+[RFC 9180 algorithm registries](https://www.rfc-editor.org/rfc/rfc9180.html#section-7).
+
+### D-8 streaming candidate
+
+Recommend sending Tink's documented AES-GCM-HKDF streaming function to the
+cryptographer for assessment against the OpenMesh manifest and resume model.
+Its documented parameters allow a 32-byte derived key and SHA-256. Its IV has
+a random 7-byte prefix, a 4-byte big-endian segment index and a final-segment
+byte. Its header includes salt and prefix, and associated data enters HKDF.
+The specification caps the segment count at 2^32. Review must cover parameter
+selection, empty input, finality, header authentication and the mapping between
+plaintext segments and hashed ciphertext chunks. [Tink streaming specification](https://developers.google.com/tink/streaming-aead/aes_gcm_hkdf_streaming).
+
+The age v1 payload uses ChaCha20-Poly1305. Adopting that file format would require
+a change to the project's decided AES-256-GCM suite. Tink provides an AES-GCM
+candidate for the current review. Porting any candidate still requires the D-8
+review and cross-implementation vectors. [age specification](https://c2sp.org/age).
+
+### D-2 compression and D-3 size accounting
+
+Recommend measuring zstd against zlib-wrapped deflate on the target phones
+before choosing compression. The web CompressionStream format named deflate
+uses the RFC 1950 zlib wrapper. The decoder's output bound must be part of the
+approved schema and checked while decompressing. [Compression Standard](https://compression.spec.whatwg.org/#deflate).
+
+Retain docs/11's frame and chunk targets during review. Resolve small-profile
+eligibility using total encoded box bytes for each carrier. A 16384-byte padded
+plaintext plus the native GCM tag already occupies 16400 bytes before header,
+nonce, certificate or recipient wrappers. Review the automatic profile choice
+at that boundary and specify the meaning of header size before implementing
+compression and padding. D-3's final threshold depends on the complete envelope
+measurement and the pending phone spikes.
+
+### D-7 recovery
+
+The 24-word requirement needs an exact word list, checksum, normalization,
+passphrase treatment and root-key mapping. BIP-39's complete mnemonic-to-seed
+process uses PBKDF2-HMAC-SHA512 and produces 64 bytes. Those operations extend
+the project's listed suite, and the Ed25519 root mapping still needs a decision.
+Recommend an explicit recovery-format review before selecting BIP-39 or another
+standard. [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
+
+### Wire-format review checklist
+
+Recommend RFC 8949 section 4.2.1 core deterministic encoding, with a named map-key
+ordering and schema-specific accepted types. Duplicate keys, indefinite lengths,
+trailing data and resource limits need explicit parser outcomes and vectors.
+The RFC distinguishes this ordering from the older length-first variant.
+[RFC 8949](https://www.rfc-editor.org/rfc/rfc8949.html#section-4.2.1).
+
+Use AGENTS.md's precedence when reconciling docs/04 and docs/11. The approval
+packet needs these concrete answers before sealing code can start.
+
+- Choose docs/04's created_coarse, manifest_hash and received_coarse field names
+  wherever the later pseudo-schemas conflict. Define exact integer time units.
+- Specify certificate and revocation records, trust anchors and validation time.
+- Name every signed field, including kind and attachments, and every AEAD-bound
+  field. Define which records omit their own signature during signing.
+- Resolve manifest_hash and file_id dependency order. A manifest containing its
+  own hash needs an explicit excluded-field rule or an external identifier.
+- Define per-device envelope limits, parser byte/count/depth bounds, padding
+  length representation and decompression limits.
+- Bind receipts to the original box, its manifest and the expected recipient
+  device. State duplicate, revoked-device and unknown-version outcomes.
+- Record approved wire bytes and independent verifier expectations as vectors.
+
+### Approval record to complete
+
+| Item | Owner decision | Review evidence |
+|---|---|---|
+| D-1 native-first and fallback policy | Pending | Node observation recorded, phone pending |
+| D-2 compression | Pending | Target-phone measurements pending |
+| D-3 total-envelope sizing | Pending | Complete-envelope vectors pending |
+| D-4 exact wrapping suite and implementation | Pending | Library and context/AAD review pending |
+| D-7 recovery format and root mapping | Pending | Interoperability and suite review pending |
+| D-8 streaming construction | Pending | Cryptographer review pending |
+| Exact CBOR schemas and signed transcripts | Pending | Wire vectors pending |
