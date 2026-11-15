@@ -1,8 +1,9 @@
 # Protocol core
 
-Phase 1 currently contains Tag, deterministic CBOR, chunk-integrity and local
-identity modules, plus the RFC 9180 HPKE Base adapter. The owner's 2026-11-15
-approval is recorded in ADR 002. The bounded deflate candidate is in ADR 006.
+Phase 1 currently contains Tag, deterministic CBOR, a delimited Box header
+codec, chunk-integrity and local identity modules, plus the RFC 9180 HPKE Base
+adapter. The owner's 2026-11-15 approval is recorded in ADR 002. Bounded
+deflate is selected for v1 in ADR 006.
 The full seal/open, receipt and chunked-profile acceptance gate remains pending.
 Streaming encryption requires the external review specified by D-8.
 
@@ -51,6 +52,36 @@ The codec uses RFC 8949 section 4.2.1 bytewise map-key ordering. Decoding checks
 strict lengths/integers, UTF-8, duplicate keys, depth and item budgets, then checks
 canonical bytes by re-encoding. Record schemas and version handling belong to
 their protocol parsers. The dependency and value-subset decision is in ADR 003.
+
+## Box header API
+
+```ts
+import { decodeBoxHeader, encodeBoxHeader } from '@openmesh/core';
+
+const limits = { maxBytes: 16384, maxDepth: 4, maxItems: 32 };
+const encoded = encodeBoxHeader({
+  v: 1, box_id: new Uint8Array(16), profile: 'small', tag: new Uint8Array(16),
+  size: 1024n, created_coarse: 20000n,
+}, limits);
+if (encoded.ok) {
+  const decoded = decodeBoxHeader(encoded.value, limits);
+}
+```
+
+This codec validates and encodes only a separately delimited deterministic-CBOR
+header item. It requires the docs/04 fields and 16-byte box ID/tag, accepts the
+small, chunked and fountain profiles, validates optional chunk sizes against
+docs/11's 64 KiB, 256 KiB and 1 MiB values, validates 32-byte manifest hashes,
+preserves unsigned values as bigint, and returns
+`unsupported-version` for a valid future version. Malformed fields and unknown
+keys return `invalid-header`. The caller supplies CBOR byte, depth and item
+budgets. Byte fields are owned copies.
+
+This module does not split `Header || SealedPayload`, encrypt or open payloads,
+define the signed transcript, or assign a unit to `created_coarse`. The protocol
+draft does not yet define the header boundary framing. Those decisions remain
+part of the reviewed Box integration. Golden vectors are in
+`packages/test-vectors/box-headers.json`.
 
 ## Chunk API
 
@@ -185,8 +216,8 @@ if (compressed.ok) {
 ```
 
 The caller supplies payload bytes and both limits. The 16 KiB values above are
-example conditions. D-2's final algorithm choice and the complete Box pipeline
-remain pending. This module implements the deflate candidate already named in
+example conditions. ADR 006 selects this bounded deflate candidate for v1. The
+complete Box pipeline remains pending. This module implements the deflate candidate already named in
 docs/04, using RFC 1950 zlib framing. The wire envelope and its compression marker
 are separate integration work. Compressed bytes can vary by implementation.
 

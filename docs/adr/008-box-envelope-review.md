@@ -127,12 +127,12 @@ tests. Phase 1 and subsequent phase gates remain pending.
 |---|---|---|
 | Identity and device certification | identity.ts, identity.json, component tests | Implemented component, Node coverage |
 | Tags and counter window | tag.ts, tags.json, component tests | Implemented component |
-| Small Box seal/open and receipts | No Box or Receipt API in core index and no complete Box/Receipt vector suite | Incomplete, wire integration review required |
+| Small Box seal/open and receipts | Box-header CBOR codec and profile vectors exist. No seal/open or Receipt API and no complete Box/Receipt vectors. | Incomplete, wire integration review required |
 | Chunked profile and authenticated manifest | chunk.ts covers sizing/hash checks. Complete stream and manifest suites absent. | Incomplete, D-8 review required |
 | Whole-Box and manifest parser fuzzing | Component parsers have fuzz coverage. Integrated parsers absent. | Incomplete |
 | Recovery phrase format | D-7's word encoding and root mapping remain pending in ADR 002 | Incomplete |
 | Node portability | Existing components compile and pass on Node 24.11.0 | Verified for implemented components |
-| Real-device coverage | Xiaomi deflate verified. Comparison requested. Identity/HPKE and complete Boxes unverified on phones. | Partial |
+| Real-device coverage | Xiaomi deflate and compression comparison verified. Identity/HPKE and complete Boxes unverified on phones. | Partial |
 | Required external review | Owner confirmed no external review. ADR 002 and D-8 remain pending. | Missing |
 | Subsequent phases | docs/05 requires phase acceptance in order | Awaiting Phase 1 gate |
 

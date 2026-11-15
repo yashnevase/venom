@@ -71,6 +71,15 @@ def verify_cbor(document):
     return len(document['vectors'])
 
 
+def verify_box_headers(document):
+    assert document['version'] == 1
+    assert document['encoding'] == 'rfc8949-core-deterministic'
+    assert len(document['vectors']) == 3
+    for vector in document['vectors']:
+        assert cbor_reference(vector['value']).hex() == vector['cbor_hex'], vector['id']
+    return len(document['vectors'])
+
+
 def verify_chunks(document):
     assert document['version'] == 1
     assert document['hash'] == 'SHA-256'
@@ -247,7 +256,8 @@ def verify_deflate(document):
 
 def main():
     directory = Path(__file__).resolve().parent.parent / 'packages' / 'test-vectors'
-    verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'chunks.json': verify_chunks,
+    verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'box-headers.json': verify_box_headers,
+                 'chunks.json': verify_chunks,
                  'identity.json': verify_identity, 'hpke.json': verify_hpke, 'deflate.json': verify_deflate}
     checked = 0
     for path in sorted(directory.glob('*.json')):
