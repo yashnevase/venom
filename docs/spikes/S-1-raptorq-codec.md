@@ -114,6 +114,47 @@ earlier owner-reported Android version. The 1 MiB results and 1280-byte packet
 cases are absent. The full 18-case phone run and artifact provenance remain
 unverified from this excerpt.
 
+### Complete Xiaomi file received
+
+The owner subsequently supplied /Users/yashnevse/Desktop/openmesh-s1-raptorq.json
+after the native-link retry. The 70874-byte file is copied byte-for-byte to
+S-1-raptorq-xiaomi-note-13.json. Its SHA-256 is
+`7fc36197e29f18d6e113aa9362820e115b2e5bbfac4487ff249ab8d6adc91b67`.
+It is a fresh run, recorded separately from the earlier truncated paste.
+
+All 18 cases contain eight trials reporting full byte equality, totaling 144
+round trips. All 36 encode/decode timing summaries recompute from trial samples.
+All six declared asset hashes match the staged build and Mac observation.
+The file reports Chrome 157's reduced Android user agent and an insecure HTTP
+context. Device notes are empty. Xiaomi Note 13 and Android 16 attribution comes
+from the owner's named-device response and previously supplied OS version.
+
+The report's measured_at is 2026-11-15T06:35:22.837Z. Its build base is e5502b3,
+with the export-page revision committed in 7d2e781. Initialization is 19.100 ms
+for this observation. WASM linear memory is 1179648 bytes before and 9830400 bytes
+after the suite. These figures describe the codec workload and WASM heap.
+
+| Input bytes | Packet budget | Pattern | Encode median / p95 ms | Decode median / p95 ms |
+|---|---|---|---|---|
+| 204800 | 512 | ordered | 12.050 / 50.100 | 0.700 / 4.700 |
+| 204800 | 512 | late-drop | 10.400 / 12.300 | 7.900 / 8.700 |
+| 204800 | 512 | duplicates | 9.700 / 10.700 | 0.950 / 1.100 |
+| 204800 | 1024 | ordered | 9.000 / 11.800 | 0.500 / 0.700 |
+| 204800 | 1024 | late-drop | 8.100 / 8.200 | 7.000 / 7.100 |
+| 204800 | 1024 | duplicates | 8.450 / 9.000 | 0.650 / 0.800 |
+| 204800 | 1280 | ordered | 7.500 / 7.600 | 0.500 / 0.600 |
+| 204800 | 1280 | late-drop | 7.500 / 8.200 | 6.300 / 6.400 |
+| 204800 | 1280 | duplicates | 7.550 / 8.400 | 0.550 / 0.700 |
+| 1048576 | 512 | ordered | 59.300 / 65.300 | 3.550 / 5.000 |
+| 1048576 | 512 | late-drop | 56.050 / 56.700 | 46.150 / 48.400 |
+| 1048576 | 512 | duplicates | 56.050 / 59.500 | 4.600 / 5.400 |
+| 1048576 | 1024 | ordered | 39.100 / 52.000 | 2.600 / 2.900 |
+| 1048576 | 1024 | late-drop | 38.950 / 44.600 | 31.550 / 32.100 |
+| 1048576 | 1024 | duplicates | 39.400 / 43.800 | 3.250 / 3.400 |
+| 1048576 | 1280 | ordered | 36.000 / 45.500 | 2.550 / 2.900 |
+| 1048576 | 1280 | late-drop | 35.400 / 37.600 | 29.900 / 30.400 |
+| 1048576 | 1280 | duplicates | 35.450 / 42.100 | 2.950 / 3.100 |
+
 ### Lossless report attachment
 
 The first Save report button reused the S-2 detached-anchor Blob/download
@@ -127,9 +168,9 @@ alive while its report is current. Tapping it shows a download-request status.
 The page-controller URL uses the export=2 revision and metadata fetch bypasses
 cache. The native-link acceptance failed before replacement, then passed with
 the expected Blob href, download filename, status text and exact file contents.
-The owner has been asked to retry the explicit export=2 page on the phone.
-The phone failure's exact cause and the replacement's phone behavior remain
-unverified until that retry.
+The full owner-supplied file was received after the explicit export=2 phone
+retry. S1-EXPORT-PHONE-2 records that result. The first attempt's exact failure
+cause remains unverified, and its failed observation is preserved.
 
 The Mac observation and its timing table were refreshed after the export-page
 revision, preserving the six-asset evidence check. The codec and worker remain
@@ -152,6 +193,9 @@ then passed the codec and browser tests.
   from the 144 recorded trials.
 - S1-PHONE-PARTIAL checks the normalized excerpt, five complete cases, 40 matching
   trials, missing build metadata and all twelve supplied timing summaries.
+- S1-PHONE first failed on the missing archived file, then passed after the
+  unchanged owner file was copied. It checks the whole-file digest, six asset
+  hashes, all 144 reported matching trials and all 36 timing summaries.
 - S1-BROWSER checks worker completion and matching JSON download after further HTTP is blocked.
 - S1-UNAVAILABLE blocks the WASM asset and checks the initialization-failed result.
 - S1-DEADLINE substitutes a non-completing worker, advances the page clock by
@@ -162,8 +206,8 @@ then passed the codec and browser tests.
 Task S-1 codec measurement. Phase 1 branch, early-spike scope. The containing
 commit supplies the task commit identifier.
 
-Tests run include six codec/evidence tests and three browser tests. The full
-suite comprises one foundation test, 67 Vitest tests, 13 browser tests and
+Tests run include seven codec/evidence tests and three browser tests. The full
+suite comprises one foundation test, 68 Vitest tests, 13 browser tests and
 79 independent protocol vectors. Strict types, builds, lint and dependency
 checks accompany the containing commit. Installed-license checks cover
 139 package versions. The dependency audit reports zero known vulnerabilities.
@@ -173,15 +217,14 @@ post-initialization HTTP requests, 2.400 ms WASM initialization and the before/
 after WASM heap values. Claims-ledger rows added use S1-CODEC/INCOMPLETE/EDGES/
 BOUNDS, S1-BROWSER, S1-UNAVAILABLE/DEADLINE, S1-REPORT, S1-MAC and S-1/DEV-3.
 
-Not verified on a real device includes Xiaomi's complete report and build metadata,
-the replacement report-download link, older
-Android, older iPhone, Safari, camera scanning, battery, total process memory,
+Not verified on a real device includes older Android, older iPhone, Safari,
+camera scanning, battery, total process memory,
 real QR throughput and mid-stream scanning. S-1's final QR packet budget and
 fountain threshold remain open. Phase 5 adoption, hostile-input handling and
 full OpenMesh fountain conformance remain incomplete. D-8's external review and
 the wire freeze remain outstanding. The owner's pending compression comparison
 and deferred offline-hotspot test keep their existing status.
-The Xiaomi excerpt is recorded above. A full downloaded report has been requested.
+The Xiaomi excerpt and subsequent complete downloaded report are both recorded above.
 
 Files changed comprise the root development dependency/build script and lockfile,
 the spike TypeScript configuration and README, ADR 010, this report, the raw Mac
@@ -195,6 +238,13 @@ README, claims ledger and device matrix. Its claim IDs are S1-PHONE-PARTIAL and
 S1-EXPORT in addition to the refreshed S1-MAC observation. The task commit and CI
 result are given in the follow-up handoff. S1-EXPORT-PHONE-1 retains the failed
 phone export observation separately from the desktop acceptance result.
+The complete-file follow-up adds S-1-raptorq-xiaomi-note-13.json and S1-PHONE,
+updates this report, the claims ledger, device matrix and module README, and
+records the received replacement export as S1-EXPORT-PHONE-2. It also corrects
+the partial-excerpt ledger row, which had accidentally received the Mac medians
+during a refresh. A regression assertion now protects its 8.150/7.050 ms values.
+The normalized excerpt itself was unchanged. Core APIs and dependencies remain
+unchanged. External review and the remaining QR/device evidence are outstanding.
 
 ## Remaining goal audit
 
@@ -221,7 +271,7 @@ and its review evidence for a named revision.
 
 | Remaining experiment or gate | Current evidence | External prerequisite |
 |---|---|---|
-| S-1 target-device codec, scan, battery and threshold | Mac report and five complete owner-supplied Xiaomi cases | Full phone artifact metadata/report, older Android/iPhone and camera measurements |
+| S-1 target-device codec, scan, battery and threshold | Mac report and complete owner-supplied Xiaomi run with matching asset metadata | Older Android/iPhone, camera measurements and battery |
 | S-2 offline-hotspot handshake | LAN baseline recorded, target missed | Owner deferred the offline test, additional device pairs unavailable |
 | S-3 sealed-box relay acceptance and retention | Complete sealed Box format pending | Reviewed Box encoding before its specified sealed-box experiment |
 | S-4 complete saved-copy matrix | Mac observations recorded | Phone opening tests and Safari access |

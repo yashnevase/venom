@@ -93,6 +93,9 @@ it('S1-PHONE-PARTIAL validates the supplied samples while preserving incomplete 
   expect(report.missing_metadata).toContain('build');
   expect(report.complete_cases).toHaveLength(5);
   expect(report.complete_cases.reduce((count, row) => count + row.iterations, 0)).toBe(40);
+  const ledger = await readFile(new URL('../docs/claims-ledger.md', import.meta.url), 'utf8');
+  const phoneRow = ledger.split('\n').find((line) => line.includes('| S1-PHONE-PARTIAL |'));
+  expect(phoneRow).toContain('8.150/7.050 ms');
   for (const row of report.complete_cases) {
     expect(row.trial_fields_shared).toMatchObject({ matched: true, decoded_bytes: row.input_bytes, error: null });
   }
@@ -103,6 +106,42 @@ it('S1-PHONE-PARTIAL validates the supplied samples while preserving incomplete 
       expect(values.every((value) => Number.isFinite(value) && value >= 0)).toBe(true);
       expect(row[operation].median_ms).toBe(((values[3] ?? 0) + (values[4] ?? 0)) / 2);
       expect(row[operation].p95_ms).toBe(values[7]);
+    }
+  }
+});
+
+it('S1-PHONE verifies the complete supplied file, all 144 trials and its six current asset hashes', async () => {
+  const bytes = await readFile(new URL('../docs/spikes/S-1-raptorq-xiaomi-note-13.json', import.meta.url));
+  expect(createHash('sha256').update(bytes).digest('hex')).toBe('7fc36197e29f18d6e113aa9362820e115b2e5bbfac4487ff249ab8d6adc91b67');
+  const report = JSON.parse(bytes.toString('utf8')) as {
+    v: number; probe: string; outcome: string; user_agent: string;
+    build: { assets: { name: string; sha256: string }[] };
+    cases: ReturnType<typeof runRaptorqCase>[];
+  };
+  expect(report).toMatchObject({ v: 1, probe: 'S-1-codec', outcome: 'verified' });
+  expect(report.user_agent).toContain('Chrome/157.');
+  const mac = JSON.parse(await readFile(new URL('../docs/spikes/S-1-raptorq-mac.json', import.meta.url), 'utf8')) as typeof report;
+  expect(report.build.assets).toEqual(mac.build.assets);
+  expect(report.cases).toHaveLength(18);
+  expect(new Set(report.cases.map((row) => `${String(row.input_bytes)}/${String(row.packet_bytes)}/${row.pattern}`)).size).toBe(18);
+  for (const asset of report.build.assets) {
+    const staged = await readFile(new URL(`./spikes/dist/raptorq/${asset.name}`, import.meta.url));
+    expect(createHash('sha256').update(staged).digest('hex')).toBe(asset.sha256);
+  }
+  for (const row of report.cases) {
+    expect(row).toMatchObject({ iterations: 8, completed_trials: 8, outcome: 'verified' });
+    expect(row.trials).toHaveLength(8);
+    for (const trial of row.trials) {
+      expect(trial).toMatchObject({ matched: true, decoded_bytes: row.input_bytes, error: null });
+      expect(trial.max_packet_bytes).toBeLessThanOrEqual(row.packet_bytes);
+    }
+    for (const operation of ['encode', 'decode'] as const) {
+      const values = row.trials.map((trial) => trial[`${operation}_ms`]);
+      expect(values.every((value) => Number.isFinite(value) && value >= 0)).toBe(true);
+      expect(row[operation].samples_ms).toEqual(values);
+      const sorted = [...values].sort((a, b) => a - b);
+      expect(row[operation].median_ms).toBe(((sorted[3] ?? 0) + (sorted[4] ?? 0)) / 2);
+      expect(row[operation].p95_ms).toBe(sorted[7]);
     }
   }
 });

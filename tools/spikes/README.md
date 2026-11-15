@@ -154,7 +154,7 @@ page to retry after initialization failure or timeout. The staged build file
 records dependency versions, npm integrity, source-base commit, byte sizes and
 asset hashes. MIT and upstream Apache notices accompany the files.
 
-Run `pnpm exec vitest run tools/raptorq.test.ts` for the six codec/evidence tests
+Run `pnpm exec vitest run tools/raptorq.test.ts` for the seven codec/evidence tests
 and `pnpm exec playwright test tools/raptorq.browser.test.ts` for the three worker
 tests. The browser suite checks completion and exact JSON download after subsequent HTTP is blocked,
 unavailable WASM and a simulated non-completing worker deadline. With the port
