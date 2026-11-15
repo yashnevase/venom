@@ -66,3 +66,12 @@ reads of at most16 KiB and verifies async source closure on cancellation. A huge
 CBOR length head fails before the payload read. These bounded Node observations
 provide no browser, storage-adapter or phone evidence. README now documents the
 public APIs, source stability, core module identity and transaction contracts.
+
+CI run43728976614 failed at commitd1def98 because root typechecking ran before
+building @openmesh/core declarations on a clean checkout. Local generated files
+had masked this ordering dependency. P2-BUILD-ORDER was added and shown failing,
+then the check pipeline was changed to build before typecheck. Build still runs
+strict TypeScript compilation per package, followed by root typecheck, lint,
+unit tests, independent vectors and license checks. Replacement CI is required
+before this module's remote check is accepted. No protocol or device result is
+changed by this tooling correction.
