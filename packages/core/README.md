@@ -28,19 +28,21 @@ error. A resync beacon awaits D-6.
 ## CBOR API
 
 ```ts
-import { encodeCbor, decodeCbor } from '@openmesh/core';
+import { encodeCbor, decodeCbor, decodeCborPrefix } from '@openmesh/core';
 
 const limits = { maxBytes: 16384, maxDepth: 16, maxItems: 4096 };
 const encoded = encodeCbor(new Map([['v', 1]]), limits);
 if (encoded.ok) {
   const decoded = decodeCbor(encoded.value, limits);
 }
+const prefix = decodeCborPrefix(boxBytesFromCarrier, limits);
 ```
 
 Each caller supplies all three limits for its record/profile. The example uses
 the acceptance-test conditions. maxBytes includes the complete CBOR item,
 maxDepth counts container levels with the root container at level 1, and maxItems
-counts every value, container and map key. Both functions return CborResult.
+counts every value, container and map key. decodeCborPrefix applies maxBytes to
+the first item only. Each function returns CborResult.
 
 The value subset is integers in CBOR's 64-bit ranges, bytes, well-formed text,
 arrays, Maps, booleans and null. Encoding also accepts plain data objects and
@@ -51,12 +53,14 @@ zero, floats, semantic tags and exotic JavaScript objects return typed errors.
 The codec uses RFC 8949 section 4.2.1 bytewise map-key ordering. Decoding checks
 strict lengths/integers, UTF-8, duplicate keys, depth and item budgets, then checks
 canonical bytes by re-encoding. Record schemas and version handling belong to
-their protocol parsers. The dependency and value-subset decision is in ADR 003.
+their protocol parsers. decodeCborPrefix validates one bounded canonical item
+and reports its consumed length, leaving the remaining bytes untouched. The
+dependency and value-subset decision is in ADR 003.
 
 ## Box header API
 
 ```ts
-import { decodeBoxHeader, encodeBoxHeader } from '@openmesh/core';
+import { decodeBoxHeader, decodeBoxHeaderPrefix, encodeBoxHeader } from '@openmesh/core';
 
 const limits = { maxBytes: 16384, maxDepth: 4, maxItems: 32 };
 const encoded = encodeBoxHeader({
@@ -65,11 +69,14 @@ const encoded = encodeBoxHeader({
 }, limits);
 if (encoded.ok) {
   const decoded = decodeBoxHeader(encoded.value, limits);
+  const prefix = decodeBoxHeaderPrefix(boxBytesFromCarrier, limits);
 }
 ```
 
-This codec validates and encodes only a separately delimited deterministic-CBOR
-header item. It requires the docs/04 fields and 16-byte box ID/tag, accepts the
+This codec encodes one deterministic-CBOR header item. decodeBoxHeaderPrefix
+reads that self-delimited item at the start of `Header || SealedPayload` and
+reports the boundary offset without decoding or copying the remaining payload.
+It requires the docs/04 fields and 16-byte box ID/tag, accepts the
 small, chunked and fountain profiles, validates optional chunk sizes against
 docs/11's 64 KiB, 256 KiB and 1 MiB values, validates 32-byte manifest hashes,
 preserves unsigned values as bigint, and returns
@@ -77,10 +84,9 @@ preserves unsigned values as bigint, and returns
 keys return `invalid-header`. The caller supplies CBOR byte, depth and item
 budgets. Byte fields are owned copies.
 
-This module does not split `Header || SealedPayload`, encrypt or open payloads,
-define the signed transcript, or assign a unit to `created_coarse`. The protocol
-draft does not yet define the header boundary framing. Those decisions remain
-part of the reviewed Box integration. Golden vectors are in
+This module does not encrypt or open payloads, define the signed transcript, or
+assign a unit to `created_coarse`. Those decisions remain part of the reviewed
+Box integration. Golden vectors are in
 `packages/test-vectors/box-headers.json`.
 
 ## Chunk API

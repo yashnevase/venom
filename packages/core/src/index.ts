@@ -1,10 +1,10 @@
 export { APP_NAME, TAG_WINDOW } from './config.js';
 export { deriveTag, deriveTagWindow } from './tag.js';
 export type { TagError, TagResult } from './tag.js';
-export { decodeCbor, encodeCbor } from './cbor.js';
-export type { CborValue, CborLimits, CborError, CborResult } from './cbor.js';
-export { decodeBoxHeader, encodeBoxHeader } from './box-header.js';
-export type { BoxProfile, BoxHeader, BoxHeaderInput, BoxHeaderError, BoxHeaderResult } from './box-header.js';
+export { decodeCbor, decodeCborPrefix, encodeCbor } from './cbor.js';
+export type { CborValue, CborLimits, CborError, CborResult, CborPrefixValue } from './cbor.js';
+export { decodeBoxHeader, decodeBoxHeaderPrefix, encodeBoxHeader } from './box-header.js';
+export type { BoxProfile, BoxHeader, BoxHeaderInput, BoxHeaderError, BoxHeaderResult, BoxHeaderPrefix } from './box-header.js';
 export { chunkSizeForFile, identifyChunk, verifyChunk } from './chunk.js';
 export type { ChunkError, ChunkResult, IdentifiedChunk } from './chunk.js';
 export { createIdentityKeys, issueDeviceCertificate, verifyDeviceCertificate,

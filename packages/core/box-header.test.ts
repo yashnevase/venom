@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFile } from 'node:fs/promises';
 import { encodeCbor } from './src/cbor.js';
 import type { CborValue } from './src/cbor.js';
-import { decodeBoxHeader, encodeBoxHeader } from './src/box-header.js';
+import { decodeBoxHeader, decodeBoxHeaderPrefix, encodeBoxHeader } from './src/box-header.js';
 
 const limits = { maxBytes: 16384, maxDepth: 4, maxItems: 32 };
 const header = {
@@ -125,5 +125,29 @@ describe('Box header codec', () => {
       .toEqual({ ok: false, error: 'limit-exceeded' });
     expect(encodeBoxHeader(header, { maxBytes: 4, maxDepth: 4, maxItems: 32 }))
       .toEqual({ ok: false, error: 'limit-exceeded' });
+  });
+
+  it('splits a self-delimited header from an opaque payload without counting payload bytes against header limits', () => {
+    const encoded = encodeBoxHeader(header, limits);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+    const payload = new Uint8Array(32768).fill(0xff);
+    const box = new Uint8Array(encoded.value.byteLength + payload.byteLength);
+    box.set(encoded.value);
+    box.set(payload, encoded.value.byteLength);
+    const result = decodeBoxHeaderPrefix(box, { maxBytes: 256, maxDepth: 4, maxItems: 32 });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.header_bytes).toBe(encoded.value.byteLength);
+    expect(result.value.header.profile).toBe('small');
+    expect(box.subarray(result.value.header_bytes)).toEqual(payload);
+  });
+
+  it('rejects headers that exceed the caller budget', () => {
+    const encoded = encodeBoxHeader(header, limits);
+    expect(encoded.ok).toBe(true);
+    if (!encoded.ok) return;
+    expect(decodeBoxHeaderPrefix(encoded.value, { maxBytes: encoded.value.byteLength - 1,
+      maxDepth: 4, maxItems: 32 })).toEqual({ ok: false, error: 'limit-exceeded' });
   });
 });

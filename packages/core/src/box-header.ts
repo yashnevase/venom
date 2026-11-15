@@ -1,4 +1,4 @@
-import { decodeCbor, encodeCbor } from './cbor.js';
+import { decodeCbor, decodeCborPrefix, encodeCbor } from './cbor.js';
 import type { CborError, CborLimits, CborValue } from './cbor.js';
 import { CHUNK_SIZE_LARGE, CHUNK_SIZE_MEDIUM, CHUNK_SIZE_SMALL } from './config.js';
 
@@ -20,6 +20,7 @@ export type BoxHeaderInput = Omit<BoxHeader, 'size' | 'chunk_size' | 'created_co
 };
 export type BoxHeaderError = CborError | 'invalid-header' | 'unsupported-version';
 export type BoxHeaderResult<T> = { ok: true; value: T } | { ok: false; error: BoxHeaderError };
+export interface BoxHeaderPrefix { header: BoxHeader; header_bytes: number }
 
 const keys = new Set(['v', 'box_id', 'profile', 'tag', 'size', 'chunk_size', 'manifest_hash', 'created_coarse']);
 const maxUint64 = (1n << 64n) - 1n;
@@ -93,7 +94,7 @@ function inputMap(input: unknown): BoxHeaderResult<Map<CborValue, CborValue>> {
   }
 }
 
-/** Encode only the CBOR header item. This does not define Header||SealedPayload framing. */
+/** Encode only the deterministic-CBOR header item; payload encoding is separate. */
 export function encodeBoxHeader(input: unknown, limits: CborLimits): BoxHeaderResult<Uint8Array> {
   const entries = inputMap(input);
   if (!entries.ok) return entries;
@@ -105,4 +106,13 @@ export function decodeBoxHeader(input: unknown, limits: CborLimits): BoxHeaderRe
   const decoded = decodeCbor(input, limits);
   if (!decoded.ok) return decoded;
   return parseHeader(decoded.value);
+}
+
+/** Decode the header at the start of Box bytes, leaving the sealed payload opaque. */
+export function decodeBoxHeaderPrefix(input: unknown, limits: CborLimits): BoxHeaderResult<BoxHeaderPrefix> {
+  const decoded = decodeCborPrefix(input, limits);
+  if (!decoded.ok) return decoded;
+  const header = parseHeader(decoded.value.value);
+  if (!header.ok) return header;
+  return { ok: true, value: { header: header.value, header_bytes: decoded.value.consumedBytes } };
 }

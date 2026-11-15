@@ -1,4 +1,4 @@
-import { decode, encode, rfc8949EncodeOptions, Tokenizer } from 'cborg';
+import { decode, decodeFirst, encode, rfc8949EncodeOptions, Tokenizer } from 'cborg';
 import type { Token } from 'cborg';
 import { encodedLength } from 'cborg/length';
 
@@ -12,6 +12,7 @@ export interface CborLimits {
 export type CborError = 'invalid-limits' | 'limit-exceeded' | 'unsupported-value'
   | 'invalid-cbor' | 'non-deterministic';
 export type CborResult<T> = { ok: true; value: T } | { ok: false; error: CborError };
+export interface CborPrefixValue { value: CborValue; consumedBytes: number }
 
 class CodecFailure extends Error {
   readonly code: CborError;
@@ -183,5 +184,35 @@ export function decodeCbor(input: unknown, limits: CborLimits): CborResult<CborV
     return { ok: true, value: value as CborValue };
   } catch (error) {
     return { ok: false, error: error instanceof CodecFailure ? error.code : 'invalid-cbor' };
+  }
+}
+
+/** Decode one bounded canonical CBOR item and report its self-delimited byte length. */
+export function decodeCborPrefix(input: unknown, limits: CborLimits): CborResult<CborPrefixValue> {
+  let byteLimit: number | undefined;
+  try {
+    const bounds = readLimits(limits);
+    byteLimit = bounds.maxBytes;
+    if (!(input instanceof Uint8Array) || input.byteLength === 0) throw new CodecFailure('invalid-cbor');
+    const prefix = input.subarray(0, Math.min(input.byteLength, bounds.maxBytes + 1));
+    const tokenizer = new BoundedTokenizer(prefix, bounds);
+    const decoded = decodeFirst(prefix, { ...decodeOptions, tokenizer });
+    const value = decoded[0] as CborValue;
+    const remainder = decoded[1];
+    const consumedBytes = prefix.byteLength - remainder.byteLength;
+    if (consumedBytes > bounds.maxBytes) throw new CodecFailure('limit-exceeded');
+    const canonical = encodeCbor(value, bounds);
+    if (!canonical.ok) return canonical;
+    if (canonical.value.byteLength !== consumedBytes
+      || !prefix.subarray(0, consumedBytes).every((byte, index) => byte === canonical.value[index])) {
+      throw new CodecFailure('non-deterministic');
+    }
+    return { ok: true, value: { value, consumedBytes } };
+  } catch (error) {
+    if (error instanceof CodecFailure) return { ok: false, error: error.code };
+    if (byteLimit !== undefined && input instanceof Uint8Array && input.byteLength > byteLimit) {
+      return { ok: false, error: 'limit-exceeded' };
+    }
+    return { ok: false, error: 'invalid-cbor' };
   }
 }
