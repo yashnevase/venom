@@ -1,0 +1,19 @@
+{
+  "measured_at": "2026-11-14T19:13:41.732Z",
+  "test": "FUZZ-CBOR",
+  "node": "v24.11.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "seed": "0x4f4d0001",
+  "cases": 5000,
+  "limits": {
+    "maxBytes": 16384,
+    "maxDepth": 16,
+    "maxItems": 4096
+  },
+  "accepted": 1418,
+  "rejected": 3582,
+  "elapsed_ms": 40.494583,
+  "slowest_decode_ms": 0.35679199999999867,
+  "esm_entry": "pass"
+}

@@ -1,0 +1,32 @@
+{
+  "measured_at": "2026-11-15T07:08:24.180Z",
+  "source_base": "c1c3577d612d963b65be69c63ff9d94ec5f0d621",
+  "node": "v24.11.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "browser": "159.0.8154.6",
+  "headless": true,
+  "chromium_sandbox_requested": true,
+  "package": "@bokuweb/zstd-wasm",
+  "version": "0.0.27",
+  "wasm_sha256": "80260eee5795ee8072bb5821e203730c74dca3909938f5ac1128da67f96223df",
+  "wrapper_sha256": "e479e3b8c0aa9a426a9f73259cd08fc451689221f1c61672b772445d0463bb7b",
+  "probe_sha256": "c58aba0a3f1441291e82326d047a291f55db7d95a309848810505b3ca300bdb8",
+  "test": "D2-ZSTD-ALLOCATION",
+  "input_bytes": 12,
+  "frame_hex": "28b52ffda000000002010000",
+  "declared_content_bytes": 33554432,
+  "default_heap_size_option_bytes": 1048576,
+  "probe_guard_limit_bytes": 1048576,
+  "requested_allocation_bytes": [
+    12,
+    33554432
+  ],
+  "blocked_allocation_bytes": 33554432,
+  "large_allocation_performed": false,
+  "freed_bytes_before_probe_cleanup": [],
+  "retained_source_bytes_before_probe_cleanup": 12,
+  "heap_before_bytes": 16908288,
+  "heap_after_bytes": 16908288,
+  "restored_roundtrip": true
+}

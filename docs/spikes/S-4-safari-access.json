@@ -1,0 +1,16 @@
+{
+  "test": "S4-SAFARI-ACCESS",
+  "observed_local_date": "2026-11-15",
+  "host_os": "macOS 26.1 (25B78)",
+  "driver_version": "Included with Safari 26.1 (21622.2.11.11.9)",
+  "webdriver": {
+    "outcome": "session not created",
+    "message": "Could not create a session: You must enable 'Allow remote automation' in the Developer section of Safari Settings to control Safari via WebDriver."
+  },
+  "computer_use": {
+    "outcome": "not approved",
+    "message": "Computer Use was not approved to use Safari"
+  },
+  "result": "UNVERIFIED",
+  "temporary_driver_listener_closed": true
+}

@@ -1,0 +1,41 @@
+{
+  "task": "WIRE-SIZE-1",
+  "python": "3.9.6",
+  "implementation": "standalone Python standard-library deterministic CBOR subset, independent of cborg",
+  "scope": "length accounting only, no cryptography or security claim",
+  "rows": [
+    {
+      "recipients": 1,
+      "padded_bytes": 796,
+      "envelope_bytes": 1024,
+      "overhead_bytes": 228
+    },
+    {
+      "recipients": 1,
+      "padded_bytes": 3868,
+      "envelope_bytes": 4096,
+      "overhead_bytes": 228
+    },
+    {
+      "recipients": 1,
+      "padded_bytes": 16156,
+      "envelope_bytes": 16384,
+      "overhead_bytes": 228
+    },
+    {
+      "recipients": 20,
+      "padded_bytes": 1930,
+      "envelope_bytes": 4096,
+      "overhead_bytes": 2166
+    },
+    {
+      "recipients": 20,
+      "padded_bytes": 14218,
+      "envelope_bytes": 16384,
+      "overhead_bytes": 2166
+    }
+  ],
+  "formula_cases_passed": 1920,
+  "twenty_recipient_1KiB_bucket": "unavailable",
+  "real_device_verified": false
+}

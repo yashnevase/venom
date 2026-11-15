@@ -27,3 +27,9 @@ test('P0-ACCEPTANCE workspace, strict checks, and CI are configured', async () =
     assert.ok((await read(path)).length > 0, path);
   }
 });
+
+test('P2-BUILD-ORDER builds workspace declarations before consumer typechecking', async () => {
+  const manifest = JSON.parse(await read('package.json'));
+  const stages = manifest.scripts.check.split(' && ');
+  assert.ok(stages.indexOf('pnpm build') < stages.indexOf('pnpm typecheck'));
+});

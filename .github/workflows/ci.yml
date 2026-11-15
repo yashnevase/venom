@@ -12,5 +12,11 @@ jobs:
           node-version: '24.11.0'
       - uses: pnpm/action-setup@v4
       - run: pnpm install --frozen-lockfile
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r tools/vectors/requirements.txt
       - run: pnpm check
       - run: pnpm audit --audit-level=low
+      - run: pnpm exec playwright install --with-deps chromium --only-shell
+      - run: pnpm test:browser

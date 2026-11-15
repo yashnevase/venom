@@ -38,7 +38,7 @@ dependencies, were as follows.
 | typescript-eslint 8.72.2 | 9372 | 42686 |
 | @playwright/test 1.65.1 | 8742 | 28542 |
 | @types/node 24.11.0 | 459012 | 2524555 |
-| minimatch 11.0.8 | 121657 | pending metadata |
+| minimatch 11.0.8 | 121657 | 501013 |
 
 ## Device coverage
 
@@ -48,4 +48,5 @@ xctrace device-list utility is unavailable. S-2 needs a manual phone operator.
 
 ## Remote CI
 
-Configured for GitHub Actions. Record the first remote outcome after push.
+The first remote run for commit 9bb267a succeeded on GitHub Actions.
+[Run 43625101784](https://github.com/yashnevase/venom/actions/runs/43625101784).

@@ -6,7 +6,9 @@
   "packageManager": "pnpm@11.25.0",
   "engines": { "node": ">=24.11.0 <25" },
   "scripts": {
-    "check": "pnpm test:foundations && pnpm typecheck && pnpm lint && pnpm test && pnpm test:vectors && pnpm check:licenses",
+    "check": "pnpm test:foundations && pnpm build && pnpm typecheck && pnpm lint && pnpm test && pnpm test:vectors && pnpm check:licenses",
+    "build": "pnpm --filter @openmesh/core build && pnpm --filter @openmesh/carrier-file build && pnpm --filter @openmesh/store build && pnpm --filter @openmesh/engine build && pnpm --filter @openmesh/sim build && pnpm build:spike && node tools/stage-compression-spike.mjs && node tools/stage-saved-copy-spike.mjs && node tools/stage-raptorq-spike.mjs && node tools/stage-browser-engine.mjs",
+    "build:spike": "tsc -p tools/spikes/tsconfig.json",
     "test:foundations": "node --test tools/foundations.acceptance.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
@@ -16,8 +18,10 @@
     "test:browser": "playwright test"
   },
   "devDependencies": {
+    "@bokuweb/zstd-wasm": "0.0.27",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.65.1",
+    "@raptorqr/raptorq-wasm": "0.1.1",
     "@types/node": "24.11.0",
     "eslint": "10.15.0",
     "typescript": "5.9.3",

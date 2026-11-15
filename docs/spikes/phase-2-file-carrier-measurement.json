@@ -1,0 +1,18 @@
+{
+  "test": "P2-FILE-STREAM",
+  "node": "v24.11.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "total_bytes": 5242880,
+  "writes": 320,
+  "largest_write_bytes": 16384,
+  "committed": true,
+  "result": {
+    "ok": true,
+    "outcome": "exported"
+  },
+  "elapsed_ms": 1.4952499999999986,
+  "network": "none",
+  "adapter": "in-memory counting writer; no filesystem or device export",
+  "measurement_scope": "single local timing; no memory or device-performance claim"
+}
