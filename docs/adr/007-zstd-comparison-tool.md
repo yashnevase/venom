@@ -2,14 +2,16 @@
 
 ## Status
 
-Adopted for D-2 measurement in Phase 1 under the owner's measurement-first
-approval. The owner is operating the Xiaomi diagnostic. The next comparison
-uses the same public fixtures and trial counts as the recorded deflate run.
+Adopted for diagnostic D-2 measurement in Phase 1 under the owner's
+measurement-first approval. The Mac and Xiaomi reports are recorded in
+`docs/spikes/phase-1-compression-comparison.md`. ADR 006 selects bounded deflate
+for v1. This zstd dependency remains development-only.
 
 ## Problem and decision
 
-The Xiaomi's native compression constructors reject zstd. D-2 still needs the
-browser/WASM implementation costs before selecting the v1 compression format.
+The Xiaomi's native compression constructors reject zstd. The browser/WASM
+implementation costs have been measured to compare against the current deflate
+candidate before selecting the v1 compression format.
 Use @bokuweb/zstd-wasm 0.0.27 as a pinned development dependency for the diagnostic.
 Run level 3 on fixed public fixtures of at most 256 KiB. Record module transfer
 size, load/initialization time, linear-memory size, compressed bytes and timings.
@@ -71,6 +73,6 @@ on port 8322. The helper is invoked only by the explicit probe and acceptance.
 The ordinary phone benchmark continues to use its fixed public fixtures.
 
 The current wrapper needs an explicit output-allocation bound before production
-adoption. D-2's comparative phone measurements remain pending and will inform
-the format decision alongside this resource result. This assessment preserves
-the diagnostic-only adoption scope of this dependency.
+adoption. The D-2 phone comparison is complete, and ADR 006 records the deflate
+selection alongside this resource result. This assessment preserves the
+diagnostic-only adoption scope of this dependency.

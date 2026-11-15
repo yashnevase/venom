@@ -100,9 +100,11 @@ should identify the exact reviewed revision and include the following details.
 - D-7's recovery phrase encoding and root-key mapping, with supported primitives.
 - Independent positive and negative vectors for complete boxes and receipts.
 
-The D-2 phone comparison has been requested and can be recorded when supplied.
-It can inform compression choice. It leaves the authentication and D-8 review
-requirements above outstanding.
+D-2's complete Xiaomi comparison is recorded in
+`docs/spikes/phase-1-compression-xiaomi-note-13.json`, and ADR 006 selects
+bounded deflate for v1. This resolves the codec choice while leaving the final
+Box compression field, authentication rules and D-8 review requirements above
+outstanding.
 
 ## Verification and scope
 

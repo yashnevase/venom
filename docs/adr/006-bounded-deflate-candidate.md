@@ -2,11 +2,12 @@
 
 ## Status
 
-Adopted for the Phase 1 compression component under the owner's delegation to
-continue ADR 002's measurement-first work. D-2's final algorithm choice awaits
-comparative target-phone measurements. Deflate's Xiaomi result is recorded in
-phase-1-deflate.md. This component exercises the deflate candidate already
-permitted by docs/04. D-8's external review remains outstanding.
+Selected for v1 D-2 under the owner's delegation to continue ADR 002's
+measurement-first work. Comparative measurements cover Mac Chromium and the
+owner's Xiaomi Note 13. Deflate's Xiaomi result is recorded in phase-1-deflate.md,
+and the deflate/zstd comparison is in phase-1-compression-comparison.md. This
+selects the codec only. Box schema integration and limits still require the
+protocol freeze. D-8's external review remains outstanding.
 
 ## Problem and measurement
 
@@ -48,8 +49,9 @@ workspace and browser process memory need device measurements.
 COMPRESSION_FEED_BYTES=1024 controls native compressor input pieces. The new
 DEFLATE_OUTPUT_BYTES=16384 controls decoder buffers. Both live in config.ts.
 They are internal processing limits. Wire bucket, frame and chunk defaults stay
-at their documented targets. Measurements compare the implementation's component
-costs and the native deflate/zstd baselines before any D-2 selection.
+at their documented targets. Compressed encoder bytes can vary across
+implementations. Receivers accept the RFC 1950 zlib-wrapped deflate format and
+enforce the approved output cap while decoding.
 
 ## Dependency review
 
@@ -73,3 +75,30 @@ isolation and malformed-input fuzzing. A decoder regression must inspect the
 number of produced bytes at the failure boundary. Node results and phone gaps
 are recorded separately in phase-1-deflate.md. This component alone cannot pass
 the complete Box or Phase 1 gates.
+
+## D-2 comparative selection — 2026-11-15
+
+Select zlib-wrapped deflate for v1. Both codecs produced 35 bytes for the 1 KiB
+chat fixture. At 256 KiB, zstd produced 26 bytes versus deflate's 278 on the
+repeated fixture, and 262159 versus 262232 on seeded random data. On Xiaomi
+Note 13 / Android 16, zstd median compression/decompression was 5.20/1.10 ms for
+repeated data and 4.00/1.15 ms for random data; deflate was 9.40/2.75 ms and
+13.35/2.05 ms. Across the same fixtures, zstd was faster and often smaller.
+
+The browser zstd build adds 273710 raw bytes (87585 per-file gzip bodies) and
+used 16908288 bytes of WASM linear memory. The tested wrapper requested a
+33554432-byte output allocation for a 12-byte frame declaring that size, despite
+defaultHeapSize=1048576. The controlled probe blocked that allocation before it
+occurred. The existing deflate decoder writes into caller-sized buffers and
+stops at its configured output bound. For the project's low-resource target,
+bounded decoding and smaller runtime footprint outweigh zstd's measured speed
+and compression gains. The zstd package remains a development-only diagnostic.
+
+Raw Xiaomi report `docs/spikes/phase-1-compression-xiaomi-note-13.json` is
+preserved unchanged. Its SHA-256 is
+`0a8bbfdecc029d5a527ad2361e292b4d54026ca4ce8ef3ff3a603249c4386115`. The owner
+identified the device as Xiaomi Note 13 / Android 16; report device notes are
+empty and its reduced user agent says Android 10 K / Chrome 157. The test ran
+over local HTTP with `secure_context=false`. It does not establish behavior on
+iPhone, other Android devices, installed HTTPS origins, large files, process
+memory or battery.

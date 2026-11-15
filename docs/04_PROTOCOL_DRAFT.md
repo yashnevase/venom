@@ -11,7 +11,7 @@ STATUS: draft for human review. A cryptographer should review before real users 
 | Encryption | AES-256-GCM | WebCrypto |
 | Hash | SHA-256 | WebCrypto |
 | Tag MAC | HMAC-SHA256 | WebCrypto |
-| Compression | zstd (or deflate if zstd costs too much on low-end devices) | measure |
+| Compression | zlib-wrapped deflate (RFC 1950), with bounded decompression | ADR 006 and D-2 phone/Mac measurements |
 | Encoding | deterministic CBOR | e.g. `cborg`; verify canonical mode |
 Signing keys and encryption keys are **separate**. Never reuse.
 
@@ -81,4 +81,4 @@ JSON files in `packages/test-vectors` that any implementation can run:
 CI fails if any vector fails. Conformance vectors are the proof the protocol is real, not an SDK.
 
 ## 10. Open decisions (human decides, record as ADR)
-D-1 Use WebCrypto only vs add a vetted fallback library. D-2 zstd vs deflate. D-3 Exact bucket and chunk sizes (after S-1, S-2). D-4 HPKE adoption vs hand-assembled ECIES. D-5 Nostr event kind and gift-wrap use. D-6 Counter window size W and resync design. D-7 Recovery phrase format. D-8 Streaming AEAD construction for chunked files (nonce = random prefix || counter || last-chunk flag): needs ADR and cryptographer review.
+D-1 Use WebCrypto only vs add a vetted fallback library. D-3 Exact bucket and chunk sizes (after S-1, S-2). D-4 HPKE adoption vs hand-assembled ECIES. D-5 Nostr event kind and gift-wrap use. D-6 Counter window size W and resync design. D-7 Recovery phrase format. D-8 Streaming AEAD construction for chunked files (nonce = random prefix || counter || last-chunk flag): needs ADR and cryptographer review. D-2 selects bounded zlib-wrapped deflate for v1 under ADR 006; the final Box schema must carry its compression indicator and limits.

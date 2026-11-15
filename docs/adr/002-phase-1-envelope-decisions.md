@@ -21,7 +21,7 @@ The following details affect conformance and safety.
 
 | Decision | Missing agreement |
 |---|---|
-| D-2 | Compression format and bounded decompression rules |
+| D-2 | Codec choice is recorded in ADR 006; the final Box compression field and limits remain to be frozen |
 | D-4 | HPKE adoption or precise content-key wrapping suite, HKDF salt/info, authenticated fields and per-device envelope encoding |
 | D-7 | Recovery word list, seed derivation, and encrypted identity backup format |
 | D-8 | Reviewed streaming AEAD construction, nonce layout, final-chunk binding, authenticated metadata and stream limits |
@@ -159,7 +159,7 @@ packet needs these concrete answers before sealing code can start.
 | Item | Owner decision | Review evidence |
 |---|---|---|
 | D-1 native-first and fallback policy | Owner approved direction | Node observation recorded, phone pending |
-| D-2 compression | Owner approved measurement-first direction | ADR 006 deflate candidate verified on Xiaomi, raw report recorded. Browser/WASM zstd comparison and final choice pending |
+| D-2 compression | Deflate selected for v1 under ADR 006 | Mac and Xiaomi comparison recorded. Bounded deflate decode is the v1 candidate; exact Box field and limits remain part of wire freeze |
 | D-3 total-envelope sizing | Owner approved retaining published targets during measurement | Complete-envelope vectors pending |
 | D-4 exact wrapping suite and implementation | Owner approved RFC 9180 Base direction | Native component and RFC vectors in ADR 005. OpenMesh application binding and envelope pending |
 | D-7 recovery format and root mapping | Owner approved standard-format review direction | Exact phrase encoding and interoperability pending |

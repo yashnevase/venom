@@ -170,3 +170,60 @@ D2-ZSTD-ALLOCATION retains the failed cap assumption. The complete suite has
 83 tests and 79 independent protocol vectors. Phone execution of this controlled
 allocation assessment, full process memory and production Box behavior remain
 unverified. The wider Phase 1 review gates remain outstanding.
+
+## Xiaomi comparison and D-2 selection — 2026-11-15
+
+The owner supplied the full 9831-byte report from a Xiaomi Note 13, identified
+by the owner as Android 16. It reports Chrome 157 with a reduced Android 10 K
+user agent, empty device notes and `secure_context=false` over the local HTTP
+diagnostic. The report was archived unchanged as
+`phase-1-compression-xiaomi-note-13.json`, SHA-256
+`0a8bbfdecc029d5a527ad2361e292b4d54026ca4ce8ef3ff3a603249c4386115`. Its
+reported build commit is c1c3577. The measurements are diagnostic-only and do
+not establish HTTPS deployment or other-device behavior.
+
+Sixteen trials per operation use the same 1 KiB chat, repeated 256 KiB and
+seeded-random 256 KiB fixtures as the Mac run. All 12 fixture/codec/operation
+rows contain 16 samples. Their reported medians and p95 values recompute from
+the samples. The benchmark verified round trips for all fixtures and rejected
+the over-limit deflate expansion case.
+
+| Fixture | Deflate bytes | zstd bytes | Deflate median compress/decompress ms | zstd median compress/decompress ms | Deflate p95 compress/decompress ms | zstd p95 compress/decompress ms |
+|---|---:|---:|---:|---:|---:|---:|
+| Chat, 1024 bytes | 35 | 35 | 1.10/0.50 | 0.50/0.30 | 2.10/6.30 | 5.10/6.60 |
+| Repeated, 262144 bytes | 278 | 26 | 9.40/2.75 | 5.20/1.10 | 13.60/7.20 | 5.80/3.00 |
+| Seeded random, 262144 bytes | 262232 | 262159 | 13.35/2.05 | 4.00/1.15 | 23.20/12.70 | 14.20/3.50 |
+
+On this phone, zstd was faster on the larger fixtures and substantially
+smaller on repeated data. It saved only 73 bytes on 256 KiB random data and no
+bytes on the 1 KiB chat fixture. The zstd assets add 273710 raw bytes and
+87585 per-file gzip bytes. WASM initialization measured 19.2 ms total from
+15.5 ms import and 3.7 ms initialization; linear memory stayed at 16908288
+bytes. Browser process memory and battery were not measured.
+
+D-2 selects zlib-wrapped deflate for v1 under ADR 006. This matches the
+low-resource target and keeps decoding behind the existing bounded output
+buffers. The browser zstd candidate lacks an output-allocation cap for known
+frame sizes. D2-ZSTD-ALLOCATION records that a 12-byte malformed frame caused
+the wrapper to request 33554432 output bytes even though `defaultHeapSize` was
+1048576. The guard blocked the allocation before it occurred. The zstd package
+remains in development tooling for this comparison only.
+
+The phone comparison acceptance was written first and failed because the raw
+report was absent. After archiving the owner-supplied file unchanged, it passed
+checks for the whole-file SHA-256, 12 measurement rows, all 192 samples, median
+and p95 arithmetic, and the controller, configuration and WASM hashes. The
+repository now has 69 Vitest tests and 79 independent protocol-vector checks.
+The real-phone measurement is Xiaomi-only; iPhone, other Android devices,
+installed HTTPS behavior, battery and process memory remain unverified.
+
+Claims-ledger row D2-PHONE records the selection evidence. D-2's codec choice
+is recorded in ADR 006, ADR 002 and docs/04. The exact Box compression field and
+final envelope limits remain part of the protocol freeze. D-8 and the full
+Phase 1 acceptance gate remain pending.
+
+Files changed in this follow-up are docs/04_PROTOCOL_DRAFT.md,
+docs/adr/002-phase-1-envelope-decisions.md,
+docs/adr/006-bounded-deflate-candidate.md, docs/claims-ledger.md,
+docs/test-matrix.md, this report, the archived Xiaomi JSON and
+tools/compression-phone-report.test.ts.
