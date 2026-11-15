@@ -49,8 +49,20 @@ const run = element('run', 'button');
 const status = element('status', 'p');
 const report = element('report', 'textarea');
 const notes = element('notes', 'input');
+const save = element('save', 'a');
+const downloadStatus = element('download-status', 'p');
+let reportUrl: string | undefined;
 const limits = { maxInputBytes: 1024 * 1024, maxOutputBytes: 1024 * 1024 };
 const pause = () => new Promise<void>((resolve) => requestAnimationFrame(() => { resolve(); }));
+
+function publishReport(value: unknown): void {
+  report.value = JSON.stringify(value, null, 2);
+  if (reportUrl) URL.revokeObjectURL(reportUrl);
+  reportUrl = URL.createObjectURL(new Blob([report.value], { type: 'application/json' }));
+  save.href = reportUrl;
+  save.removeAttribute('aria-disabled');
+  downloadStatus.textContent = '';
+}
 
 function unwrap(result: Result): Uint8Array {
   if (!result.ok) throw new Error(result.error);
@@ -79,7 +91,7 @@ function formats() {
 async function initialize() {
   const url = new URL('./compression/compression.js', import.meta.url).href;
   const [module, buildResponse] = await Promise.all([
-    import(url) as Promise<unknown>, fetch(new URL('./compression/build.json', import.meta.url)),
+    import(url) as Promise<unknown>, fetch(new URL('./compression/build.json', import.meta.url), { cache: 'no-store' }),
   ]);
   if (!module || typeof module !== 'object'
     || typeof (module as Record<string, unknown>).compressDeflate !== 'function'
@@ -143,13 +155,13 @@ async function benchmark(codec: Codec, build: unknown, comparison?: Comparison) 
     const rejection = await codec.decompress(rejectionInput,
       { maxInputBytes: rejectionInput.length, maxOutputBytes: 16384 });
     if (rejection.ok || rejection.error !== 'limit-exceeded') throw new Error('expansion-limit-failed');
-    report.value = JSON.stringify({ ...base, outcome: 'verified', measurements,
+    publishReport({ ...base, outcome: 'verified', measurements,
       zstd: comparison ? { ...comparison.stats, level: 3, heap_before_bytes: heapBefore, heap_after_bytes: comparison.heapBytes(),
         input_scope: 'fixed-public-fixtures' } : undefined,
-      expansion_rejection: { expanded_bytes: 262144, max_output_bytes: 16384, outcome: rejection.error } }, null, 2);
+      expansion_rejection: { expanded_bytes: 262144, max_output_bytes: 16384, outcome: rejection.error } });
     status.textContent = 'Complete';
   } catch (error) {
-    report.value = JSON.stringify({ ...base, outcome: 'failed', error: error instanceof Error ? error.message : 'unknown' }, null, 2);
+    publishReport({ ...base, outcome: 'failed', error: error instanceof Error ? error.message : 'unknown' });
     status.textContent = 'Failed';
   } finally {
     run.disabled = false;
@@ -157,7 +169,8 @@ async function benchmark(codec: Codec, build: unknown, comparison?: Comparison) 
 }
 
 element('select', 'button').addEventListener('click', () => { report.focus(); report.select(); });
+save.addEventListener('click', () => { downloadStatus.textContent = 'Download requested. Check browser Downloads.'; });
 void initialize().catch((error: unknown) => {
   status.textContent = 'Failed';
-  report.value = JSON.stringify({ outcome: 'failed', error: error instanceof Error ? error.message : 'load-failed' });
+  publishReport({ outcome: 'failed', error: error instanceof Error ? error.message : 'load-failed' });
 });

@@ -7,6 +7,6 @@
     "rootDir": ".",
     "outDir": "dist"
   },
-  "include": ["probe.ts", "compression-probe.ts", "saved-copy-probe.ts", "raptorq-benchmark.ts", "raptorq-worker.ts", "raptorq-page.ts"],
+  "include": ["probe.ts", "compression-probe.ts", "saved-copy-probe.ts", "raptorq-benchmark.ts", "raptorq-worker.ts", "raptorq-page.ts", "zstd-allocation-probe.ts"],
   "exclude": []
 }

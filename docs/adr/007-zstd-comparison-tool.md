@@ -42,3 +42,35 @@ block further HTTP and run both codecs. Require all fixture round trips and
 192 timed calls. Check zstd interoperability in both directions against the
 existing Node native API. Record missing-WebAssembly failure. Phone timing and
 unverified platform results belong in docs/spikes and the claims ledger.
+
+## Allocation assessment — 2026-11-15
+
+D2-ZSTD-ALLOCATION measures the published browser wrapper with a 12-byte malformed
+frame. Its single-segment header declares 33554432 output bytes, while its final
+raw block is empty. The fixture follows RFC 8878's header layout and deliberately
+has inconsistent content. A test allocator hook blocks every request above
+1048576 bytes before the original allocator executes. The caller also supplies
+defaultHeapSize=1048576. The wrapper requests 12 source bytes followed by
+33554432 output bytes. The guard stops that second request. This establishes
+that defaultHeapSize acts as the unknown-size fallback and does not cap a known
+declared size. Full-frame decoding has not started at that point.
+[RFC 8878 frame content size](https://www.rfc-editor.org/rfc/rfc8878.html#section-3.1.1.1.4)
+
+The injected exception occurs before the wrapper's try/catch cleanup block.
+The probe observes its 12-byte source allocation still live, restores both
+allocator functions, and frees that source itself. This cleanup observation
+is specific to the injected exception. Actual out-of-memory behavior remains
+unmeasured. WASM linear memory stays at 16908288 bytes throughout, and a control
+round trip succeeds after restoration. The large allocation is never performed.
+
+The browser acceptance first failed on the absent probe module, then passed.
+It verifies the saved WASM/wrapper/probe hashes against staged files. The raw
+record is docs/spikes/phase-1-zstd-allocation-review.json. Reproduce after building
+with `node tools/run-zstd-allocation-probe.mjs` while the local static server runs
+on port 8322. The helper is invoked only by the explicit probe and acceptance.
+The ordinary phone benchmark continues to use its fixed public fixtures.
+
+The current wrapper needs an explicit output-allocation bound before production
+adoption. D-2's comparative phone measurements remain pending and will inform
+the format decision alongside this resource result. This assessment preserves
+the diagnostic-only adoption scope of this dependency.

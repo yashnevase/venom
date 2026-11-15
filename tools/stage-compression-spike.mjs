@@ -40,6 +40,8 @@ const wasm = await readFile(new URL('zstd/zstd.wasm', destination));
 await writeFile(new URL('build.json', destination), JSON.stringify({
   core_commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
   core_module_sha256: await digest('compression.js'),
+  diagnostic_module_sha256: await digest('../compression-probe.js'),
+  config_module_sha256: await digest('config.js'),
   pako_version: manifest.version,
   pako_module_sha256: await digest('pako.mjs'),
   zstd_wasm_version: zstdManifest.version,

@@ -44,8 +44,9 @@ measurements and limits are in the spike record and claims ledger.
 
 Build with `pnpm build`, then use the same local static-server command above.
 Open `/compression.html`. Enter device notes, choose Run benchmark and keep
-the page foregrounded. After Complete, select the report and copy it into the
-chat or save the text manually. JSON here is diagnostic data.
+the page foregrounded. After Complete, Save report downloads
+`openmesh-d2-deflate.json`. Select report remains available for manual copying.
+JSON here is diagnostic data.
 
 The page imports staged copies of the compiled core compression module and
 pako 3.0.3. Build metadata records the core commit and module SHA-256 values.
@@ -84,6 +85,13 @@ production adoption. ADR 007 records source, size, licensing and review status.
 The staged import map resolves the package's extensionless browser imports.
 WASM initialization has a 15-second diagnostic deadline.
 
+After the comparison finishes, Save report downloads `openmesh-d2-comparison.json`.
+Both pages use a visible native link and retain the current Blob URL until the
+next report is published. The request status points to browser Downloads. The
+export=2 page/controller URLs refresh this diagnostic revision, and metadata is
+fetched without cache. Build metadata also records SHA-256 for the diagnostic
+controller and shared core configuration.
+
 The report includes JavaScript import and WASM initialization time. Those are
 single observations including asset loading and execution. It also records WASM
 linear-memory bytes before/after the trials. This memory measure covers the
@@ -94,6 +102,17 @@ The local Python server serves raw files.
 D2-COMPARE blocks further HTTP after initialization and checks codec completion
 plus two-way interoperability against Node's native zstd API. D2-WASM-UNAVAILABLE
 checks initialization failure. Run them with `pnpm test:browser` after `pnpm build`.
+All four compression browser tests compare the downloaded JSON with the exact
+on-screen result, including the unavailable-runtime reports.
+
+For the isolated resource assessment, run `node tools/run-zstd-allocation-probe.mjs`
+with the port 8322 static server running. It loads the initialized browser codec,
+temporarily guards allocator requests above 1 MiB, and submits a 12-byte fixture
+declaring 32 MiB. The large allocation is blocked before execution. The helper
+restores the allocator, reclaims its small source allocation and checks a control
+round trip. It saves phase-1-zstd-allocation-review.json under docs/spikes.
+D2-ZSTD-ALLOCATION replays the observation and checks the three artifact hashes.
+ADR 007 records scope, interpretation and production-adoption requirements.
 
 # Box draft review evidence
 
