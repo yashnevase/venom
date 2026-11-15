@@ -58,6 +58,8 @@ importers:
 
   packages/sim: {}
 
+  packages/store: {}
+
 packages:
 
   '@bokuweb/zstd-wasm@0.0.27':

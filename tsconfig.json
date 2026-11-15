@@ -16,5 +16,5 @@
     "noEmit": true
   },
   "include": ["packages/**/*.ts", "tools/**/*.ts", "*.config.ts"],
-  "exclude": ["tools/spikes", "**/dist/**"]
+  "exclude": ["tools/spikes", "packages/store/src", "**/dist/**"]
 }
