@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>RaptorQ codec diagnostic</title>
+<style>
+body { font: 16px system-ui, sans-serif; max-width: 44rem; margin: 2rem auto; padding: 0 1rem; color: #17212b; }
+button, input, textarea { box-sizing: border-box; width: 100%; font: inherit; padding: .75rem; }
+button { min-height: 48px; margin: .4rem 0; }
+label { display: block; margin: 1rem 0 .4rem; }
+textarea { min-height: 24rem; font: 12px monospace; }
+</style>
+<h1>RaptorQ codec diagnostic</h1>
+<p>Public test bytes. Keep this page open while the worker measures the codec.</p>
+<label for="notes">Device notes</label>
+<input id="notes" placeholder="Model, OS, browser">
+<button id="run" disabled>Run benchmark</button>
+<p role="status">Loading</p>
+<label for="report">Report</label>
+<textarea id="report" readonly spellcheck="false"></textarea>
+<button id="select">Select report</button>
+<script type="module" src="./dist/raptorq/raptorq-page.js"></script>
+</html>

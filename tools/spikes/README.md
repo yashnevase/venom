@@ -127,3 +127,38 @@ renamed-copy, different-directory and browser-restart observations. It closes th
 browsers and removes its temporary profiles. Results overwrite
 `docs/spikes/S-4-mac-observations.json`. These observations use headless browsers.
 The S-4 report records device gaps and the provisional saved-copy UX decision.
+
+# S-1 RaptorQ codec diagnostic
+
+Build with `pnpm build`, then use the local static server above and open
+`/raptorq.html`. Run benchmark measures fixed 200 KiB and 1 MiB public fixtures
+in a dedicated worker. Enter device notes before starting. Select report
+selects the resulting JSON for manual copying. Reports stay in the page until
+manually copied. Eight trials run per packet size and reception pattern.
+
+The packet budgets are 512, 1024 and 1280 bytes, including the four-byte RFC 6330
+payload ID. Each encode creates 100% repair packets. Ordered, late/drop and
+duplicate reception each verify complete byte equality. Late/drop skips the
+first quarter of generated packets, drops every fifth remaining packet, then
+reverses the retained order. Packet preparation and byte equality sit outside
+timed decoding. Encoding includes validation and owned packet copies. Decoding
+includes constructor, packet pushes, output copy and decoder cleanup.
+
+The worker records WASM load/initialization time and linear-memory bytes before
+and after the full suite. The page enforces a 15-second initialization deadline
+and a 120-second benchmark deadline. A timeout terminates the worker. Reload the
+page to retry after initialization failure or timeout. The staged build file
+records dependency versions, npm integrity, source-base commit, byte sizes and
+asset hashes. MIT and upstream Apache notices accompany the files.
+
+Run `pnpm exec vitest run tools/raptorq.test.ts` for the five codec/evidence tests
+and `pnpm exec playwright test tools/raptorq.browser.test.ts` for the three worker
+tests. The browser suite checks completion after subsequent HTTP is blocked,
+unavailable WASM and a simulated non-completing worker deadline. With the port
+8322 static server running, `node tools/run-raptorq-spike.mjs` saves a fresh Mac
+observation under docs/spikes. The evidence test compares its asset hashes and
+recomputes timing summaries.
+
+ADR 010 and S-1-raptorq-codec.md record adoption scope and measurements. Camera
+scanning, battery, mobile performance, production input handling, QR framing and
+the final fountain threshold require the remaining experiments.

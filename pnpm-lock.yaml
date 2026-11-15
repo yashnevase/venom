@@ -20,6 +20,9 @@ importers:
       '@playwright/test':
         specifier: 1.65.1
         version: 1.65.1
+      '@raptorqr/raptorq-wasm':
+        specifier: 0.1.1
+        version: 0.1.1
       '@types/node':
         specifier: 24.11.0
         version: 24.11.0
@@ -162,6 +165,9 @@ packages:
     resolution: {integrity: sha512-y+NCIRm2LvY4slUVWvGh1nujJ8RF/hEisIsq2mtUPgdQC4L701bq5hZGMhrpeXjACvwvO9tj5dJqhvM6TP9lbw==}
     engines: {node: '>=20'}
     hasBin: true
+
+  '@raptorqr/raptorq-wasm@0.1.1':
+    resolution: {integrity: sha512-u+HRTSDeN/SbFWfSnXKDPdAJXsncJsELuFMG+UyndmXsbZe+5l4cYtsrrzWTOB2k/cowjG9dXztSQ6CIW+XLsA==}
 
   '@rolldown/binding-android-arm-eabi@1.2.19':
     resolution: {integrity: sha512-e+Ebe0WT+9tbXmNKPIiC8YrWAHYwug3m6i4p3rZGGulfZri1jtI4HslT+OZnFf/OIHowWF71DTlHwXBP2SiA7A==}
@@ -998,6 +1004,8 @@ snapshots:
   '@playwright/test@1.65.1':
     dependencies:
       playwright: 1.65.1
+
+  '@raptorqr/raptorq-wasm@0.1.1': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.19':
     optional: true
