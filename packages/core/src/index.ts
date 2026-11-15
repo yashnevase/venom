@@ -21,3 +21,6 @@ export { sealBox, openBox, parseBox, parseManifest, referenceDevice,
 export type { ProtocolResult, DeviceContact, BoxSender, SealBoxOptions, OpenBoxOptions,
   OpenedBox, SealFileOptions, SealedFile, OpenFileOptions, ReceiptOptions,
   VerifyReceiptOptions } from './box.js';
+export { entropyToRecoveryPhrase, recoveryPhraseToEntropy, deriveRootSeedFromEntropy,
+  recoverRootSeed, createRecovery } from './recovery.js';
+export type { RecoveryError, RecoveryResult, RecoveryMaterial } from './recovery.js';

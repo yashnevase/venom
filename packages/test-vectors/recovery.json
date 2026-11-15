@@ -1,0 +1,511 @@
+{
+  "v": 1,
+  "generator": "Python stdlib hashlib/hmac and cryptography50.0.2",
+  "wordlist_sha256": "2f5eed53a4727b4bf8880d8f3f199efc90e58503646d9ff8eff3a2ed3b24dbda",
+  "vectors": [
+    {
+      "id": "published-0",
+      "entropy_hex": "0000000000000000000000000000000000000000000000000000000000000000",
+      "phrase": "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art",
+      "root_seed_hex": "4c9aa6b87e26f71c295e0289327397d68e5af91a104581db9b07f0da6fbc9ecf",
+      "root_public_hex": "f019ec2dc1d46f56683d38162ce94946d763b183e60e8d4cf65ac749490f675b"
+    },
+    {
+      "id": "published-1",
+      "entropy_hex": "7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f",
+      "phrase": "legal winner thank year wave sausage worth useful legal winner thank year wave sausage worth useful legal winner thank year wave sausage worth title",
+      "root_seed_hex": "72056e1f5873b32609f93820985dfae8254e672ef52c222dc77d9f2d792fc2c6",
+      "root_public_hex": "ca0dbec63a2548ec622510760cd9631fe6def792787c48b4c2ede69bbb5720a2"
+    },
+    {
+      "id": "published-2",
+      "entropy_hex": "8080808080808080808080808080808080808080808080808080808080808080",
+      "phrase": "letter advice cage absurd amount doctor acoustic avoid letter advice cage absurd amount doctor acoustic avoid letter advice cage absurd amount doctor acoustic bless",
+      "root_seed_hex": "7cc24e5bfaa35bbea94422bf1f79ef964dc63b978170d4f97df79c49c99755fe",
+      "root_public_hex": "3d01ec3828cdb671f6259033244b570f0eaa8bd2d092406a8293538dcc096f71"
+    },
+    {
+      "id": "published-3",
+      "entropy_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "phrase": "zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo zoo vote",
+      "root_seed_hex": "e8a76c5db4723f773efaa31dc719880d446bcade01288714ee5b50e4b317eb94",
+      "root_public_hex": "027effd66bbdf58d4462fd5cb9647c64e8fa0fe4c63723628fb92f4dcfdd43c2"
+    },
+    {
+      "id": "published-4",
+      "entropy_hex": "68a79eaca2324873eacc50cb9c6eca8cc68ea5d936f98787c60c7ebc74e6ce7c",
+      "phrase": "hamster diagram private dutch cause delay private meat slide toddler razor book happy fancy gospel tennis maple dilemma loan word shrug inflict delay length",
+      "root_seed_hex": "521a74e18e66bca0dc58070171092745e945729da8dbbbdd1418388aba39b46d",
+      "root_public_hex": "16c7192ef616a6c21dbaa2e4c79d220b5af78761e517adf9f71175b9adcadee3"
+    },
+    {
+      "id": "published-5",
+      "entropy_hex": "9f6a2878b2520799a44ef18bc7df394e7061a224d2c33cd015b157d746869863",
+      "phrase": "panda eyebrow bullet gorilla call smoke muffin taste mesh discover soft ostrich alcohol speed nation flash devote level hobby quick inner drive ghost inside",
+      "root_seed_hex": "9642336777444a8ff786b88c9148f11d6a51942fc91f8355c5401e1d7ae6d7e2",
+      "root_public_hex": "ae692ce4b7e67003099d630907abbb2ff4c1683c95bb7ca07d5fa51991211f5c"
+    },
+    {
+      "id": "published-6",
+      "entropy_hex": "066dca1a2bb7e8a1db2832148ce9933eea0f3ac9548d793112d9a95c9407efad",
+      "phrase": "all hour make first leader extend hole alien behind guard gospel lava path output census museum junior mass reopen famous sing advance salt reform",
+      "root_seed_hex": "2d0c995741ec2a2da3bad847d85195e5d7d6284fc542e39446880b36d4d2e819",
+      "root_public_hex": "5e97b64bc3b0bacd484aae3bba7a3ad1e781e02ffcd95f7bcc6a72a449cc37a2"
+    },
+    {
+      "id": "published-7",
+      "entropy_hex": "f585c11aec520db57dd353c69554b21a89b20fb0650966fa0a9d6f74fd989d8f",
+      "phrase": "void come effort suffer camp survey warrior heavy shoot primary clutch crush open amazing screen patrol group space point ten exist slush involve unfold",
+      "root_seed_hex": "edf6a21ecefd5b45b1ccfd5dbfbf2504b3e871d1e4605494fdb06c872d4f8aa6",
+      "root_public_hex": "e9c577b4510f9dc52de86032ae2a242c5e5b03689673bdd85fa320295eae3e3e"
+    },
+    {
+      "id": "generated-0",
+      "entropy_hex": "52300fca0c30f3febe6006a41dfaa9357504e4027ac3f7b92de2bed6526f8f24",
+      "phrase": "fall lesson verb blur august young wet absorb piano used prevent helmet expect improve antique flash waste siren judge laundry gown daughter develop old",
+      "root_seed_hex": "de37be79cd3ee93aaf89489c82d814e9546136f023cf50fee0f63d4a01604735",
+      "root_public_hex": "1a322ae74945958f705c604018218dc98f347fe4ccade7d610612c8423baa12e"
+    },
+    {
+      "id": "generated-1",
+      "entropy_hex": "2ac6eedd1394ca8c7c5546557c03dbc86207e9fb6bfe6505f1ba18d7dbe99806",
+      "phrase": "client danger resemble cheese erosion economy vanish potato fever theme want move call visual unit lemon govern convince hub coyote laundry visit gas scare",
+      "root_seed_hex": "5a5f5073ee4bd9a50492f5715ae6c6ca1594c9d29577c065c0769bed556d81b2",
+      "root_public_hex": "3ce865d790b0903999c92f758c0ca45502976524951a86a7099d5116b5074585"
+    },
+    {
+      "id": "generated-2",
+      "entropy_hex": "1112fda27251bc185f4a55df5cf15bb28254fa699c65cfe9fa86131f0ad3847e",
+      "phrase": "baby obey hammer tool bridge around large enjoy tent travel finger govern census large please million soup exist pave change vague hawk ball science",
+      "root_seed_hex": "0046ca788d3d2851b8bd17c18e857cbac1f878aef998e081b88a0b6220996e55",
+      "root_public_hex": "d9431e31dbfdb7eb6ccfc673e5c2cd53023caf57507cef95d1ea48133f818881"
+    },
+    {
+      "id": "generated-3",
+      "entropy_hex": "6116f41bbb42aa0c4b86466e5f0698a093cc9e76cafe77616d5b21d88871ff60",
+      "phrase": "genre response alone isolate click alert come silver hour wealth plate donkey devote execute swamp garlic jazz arena fine dry mass decline work bacon",
+      "root_seed_hex": "9ccf45244d4f31985565894f741b3beebe024d743f4534923a33e2444e02e992",
+      "root_public_hex": "785f3912fbeabf00db10a4a0a04edfbcbef7b7db761c49737247fb85a4870731"
+    },
+    {
+      "id": "generated-4",
+      "entropy_hex": "14f151cf28094a7718de42a57d266ef716f25c0519717f5906f00763da6854df",
+      "phrase": "belt melody inherit exotic net describe gloom sign pistol truck option until hundred come behave comfort leg sight rose attract diet crouch fat toy",
+      "root_seed_hex": "48ac79949abf9e919c08fca44eca3090711166329ce1f2e9a284177f7f2214d3",
+      "root_public_hex": "72e00b442c0e786ed29daa679126bf82f265fbcc97b6fcf3c9ea364ba92b5567"
+    },
+    {
+      "id": "generated-5",
+      "entropy_hex": "450c96bd73c3b48e4e1916102049962b96a8a6c7251347ab0074e1c1c8140ff1",
+      "phrase": "eagle gorilla quantum travel deputy elbow debris carpet awake across grain fire hedgehog fat broken pen element fix brush seminar broken anxiety divert critic",
+      "root_seed_hex": "53cd3e893b1a10d1d31c71f6455e1a9ecc688dac47a3171e3f6796e1ab9ddd84",
+      "root_public_hex": "7970f8e738250978b0273d081308bc3db7c34baec59103cf00d76958be07e218"
+    },
+    {
+      "id": "generated-6",
+      "entropy_hex": "ff4ba36cc7e170843ca2a7003c8dceca9bff443bd7b145b00f53b6a78b4df17a",
+      "phrase": "young fringe swamp more blade dragon verb female ability tongue inhale news say pear urban wage east lesson stay hood judge plunge shine electric",
+      "root_seed_hex": "5e9c3d43a153069fd45357aaa497e72232958283b453f1705868a7758b85cfcf",
+      "root_public_hex": "7d31136e00594d1a060e9fb445c57eead8c51677e8a9777e73af39cb32a672cd"
+    },
+    {
+      "id": "generated-7",
+      "entropy_hex": "2a91af5b24d122782eed39d3da082f50e657fb68d0ab36860d22143c25ae6c9e",
+      "phrase": "clever miracle strategy endless banana despair roof poet stable space armed peace grace world person betray custom corn embrace chronic seat strong raven sunset",
+      "root_seed_hex": "21f1b327fb25507d29e2780723ca858098e80614bd7c00ec49f75026ddf166f3",
+      "root_public_hex": "929936e9e711a585332e319ab694d140d328fefb298f00623ce85e1a789cd863"
+    },
+    {
+      "id": "generated-8",
+      "entropy_hex": "b7c6cff3711d434a78662be935e9c574f5b9f1d2ef7f35f804fa77f8e1523778",
+      "phrase": "result cushion wolf timber stage pioneer thunder shell truck quantum image try fortune wedding entry useful curious scan direct useful mix poverty target bunker",
+      "root_seed_hex": "af8b80cece8ab8934561f5d00ecc4a63b8d87783d808e66a588b301bbf90c613",
+      "root_public_hex": "0a117ba95bc29306bec3a39b236194b738ec55ceac0650bee0fba0bd9fd03bdd"
+    },
+    {
+      "id": "generated-9",
+      "entropy_hex": "9e4bafba4a7ed8384b2dd74ea10629b595ce09396810dafff6c910837602bb7a",
+      "phrase": "oxygen frost update neutral unique bring coach road exchange amused media hen friend afraid toss acoustic sustain zero rather canal danger access unknown foster",
+      "root_seed_hex": "d842c5270538c8ec3ebd7ec1b07d58261eafc23efbc7ad8d60d4c49b43474b01",
+      "root_public_hex": "c0add358cf64e3840ad5a450d4afddf8384654fb638c0334d8fbb1b51415a4a7"
+    },
+    {
+      "id": "generated-10",
+      "entropy_hex": "e156a2a8d88e0c601951617f5a4c1d6620d29c1d044d775041e4fb3ef8423aae",
+      "phrase": "throw relax pretty rain this copy grab club leg sponsor also slush artwork evoke inject meadow jar link junior wait usage canal turkey seminar",
+      "root_seed_hex": "c26daf5642849c0c3d4fa26ccbfaf8538e07f49aafda9ad0d35935b1ef303282",
+      "root_public_hex": "2b7f9a894ea460a544e00af65af388d7ee1315f4c9e822338c47a11503d61905"
+    },
+    {
+      "id": "generated-11",
+      "entropy_hex": "aff1f53a008e542c72b8b0a4de1cdeee799806b8c941caf581a26da0b8d507c5",
+      "phrase": "quiz moral excess absurd torch bike slab bid pill valley dash table office addict tobacco choice slab project hammer swap argue hedgehog business sauce",
+      "root_seed_hex": "d0ac4a0b6cf118b577a4d725b18df77c9c9a762b589e983711d39e22b413e357",
+      "root_public_hex": "63ef0c3f5f8b25a4907257054e388f516ccf4a4091eaf5ad8077cdb07f02f1d1"
+    },
+    {
+      "id": "generated-12",
+      "entropy_hex": "240b25e4ab0a1e7237e49239242d429c71eb4a481a40c969a88828edc17cde79",
+      "phrase": "catch float junior figure peanut decorate test myself decrease cannon expose decline burger pioneer call elite siren essence capital fade swing salmon ketchup cigar",
+      "root_seed_hex": "d0bb5ef194c5dc83c3685b9e34634535ce433535be4627fcf2f32a30d3217ea4",
+      "root_public_hex": "2bb17322f7dc173670398146638ea5c01464f248ac5025549a8fdc5fe1f84843"
+    },
+    {
+      "id": "generated-13",
+      "entropy_hex": "2a4e8a680d9321e988feac4c4fe487165fba7e7a867fffe059473c51297c34a1",
+      "phrase": "clean inmate old brass craft visit catalog stereo era left canyon coach wing dish tube soup zoo actress fade judge barely safe spoon cloud",
+      "root_seed_hex": "c2c5664be81a76387b5308b6a32136faa95839937c372fe5513aa24df9a5f425",
+      "root_public_hex": "3a2a094c835d8c3ab4dc03c9e21c4d1c476efd20c5e6d01075a3d1aa16979c18"
+    },
+    {
+      "id": "generated-14",
+      "entropy_hex": "dde8ab420a79e82aec40de05f641a76c3224c125c48634fe7c522db011b584c4",
+      "phrase": "target earn spatial belt ozone betray rain bridge album rare hawk such car gauge novel move crunch view behind fork absurd suspect basic matter",
+      "root_seed_hex": "5a2f91f48b5bc58c3c00096be15ef3d71ed48b10f8b37eada57d7345b803783e",
+      "root_public_hex": "5479a7752f826895c9c51fdde3bde3fe3e3d8576f0c76db2e493a0894b30b432"
+    },
+    {
+      "id": "generated-15",
+      "entropy_hex": "8e9763bc20d365cc5898de1d8f6b756a124976549bf1013eb43c9fd8e5da9a09",
+      "phrase": "model roast upper double curve tower give bridge budget kitten tail stage cause robot fame lawsuit abuse volcano august distance mixture unhappy habit deliver",
+      "root_seed_hex": "d5f3f26c029a2f4736bca60248022cede7b8bc18e0c79ca9a8b01d6f147f39d7",
+      "root_public_hex": "ef38e86e932765374375c3b1a3926c7c9fd5f6b3d7526f4a3dc234e4c20658f0"
+    },
+    {
+      "id": "generated-16",
+      "entropy_hex": "c38785dbf456d81571eb6b782a4d14f5d44329cd5f8d1a6e581af8011190c316",
+      "phrase": "seminar destroy ivory trim horn apple sibling hope join fame early two during neutral cube vast bounce index allow useless baby silent arrange spare",
+      "root_seed_hex": "4be1bb4c15aa3df07b7f6fabb611b86010d7c8ab095353655b0765ad5fadfc3b",
+      "root_public_hex": "ef4b86af6e43adc6c50bc6429429c8627c2118f6d44dfe323d89777588a6dde9"
+    },
+    {
+      "id": "generated-17",
+      "entropy_hex": "d24dd29ce2f99634d56027cafa3fd7210e219f828cebd3076334d98fed3ee9a1",
+      "phrase": "spoil hub poet shine offer bounce few agent slab spin volume dragon tilt sound any output spread deposit snake reason yard panda pledge cover",
+      "root_seed_hex": "57588c9f3ca68b1d18a5731796e8b10c0f205e444d44602be1ef5b8eca296294",
+      "root_public_hex": "2a19e2d4aa2434ccf55cf59d910cd809fc9620cabd1b21420af49bb1b9df3cad"
+    },
+    {
+      "id": "generated-18",
+      "entropy_hex": "a13c14c309432e091fab54cbed8308326fe39f916fe04922a256dce232ef9005",
+      "phrase": "patrol thing cotton barely cream afraid leaf hedgehog slogan hire search gospel wreck sound east winter empty bench noble right case jelly divorce resemble",
+      "root_seed_hex": "28d110ea4e2ab957ce569e7b188a986de639e706ef6b553ba99bfdfda1af8e2b",
+      "root_public_hex": "bd77edc25637d2ea324ae5d9f40dd918a4d999c94f5df7917251a1b02cc0e87b"
+    },
+    {
+      "id": "generated-19",
+      "entropy_hex": "06478571a47673527516eec05dc178b718e8c312b2ef9c42fcb55b7679692b26",
+      "phrase": "alien destroy fragile employ grunt powder stairs tape scare unlock funny hotel model ghost enlist fuel ordinary blood coil report guide region prosper sudden",
+      "root_seed_hex": "52ff9675155aca1ab45a8fa3de596f316ebce55e8571f4edf136157f4230eb6f",
+      "root_public_hex": "c6311637acdf2dc271e90b77175c01db7ca41bd1e2d700a05d559c04d4b7dc7d"
+    },
+    {
+      "id": "generated-20",
+      "entropy_hex": "cd66a67f21864412fe5077a417191b7e924042e91c9d149161029a171424f163",
+      "phrase": "sniff cry panther drink gold annual welcome auction piano rhythm egg wood catch cannon piece neck behind mention doll crouch image bar sheriff illegal",
+      "root_seed_hex": "7acdc5c452491e11678c39d31c7fdafb033d2eca4e25766391b8fe91622f49bd",
+      "root_public_hex": "0274d4d8ae166e23419c75dad7cb6f51054a27416b915077ac2f61ddb739c68c"
+    },
+    {
+      "id": "generated-21",
+      "entropy_hex": "46d704c3b500bb881a9fabfdd38d5ce20c060c52994f52b7de48dc326b610b82",
+      "phrase": "egg return couch head arm series heavy voice worry organ fire series scatter alert engine clarify famous same mutual reveal chase rack come film",
+      "root_seed_hex": "357917ef25fc40aa758e16fe63870a2481ffedb9a2c8789542a61896433f41ba",
+      "root_public_hex": "27a64a3092935f30433f3ce2e5734682d1fb669b7bbbeb43fd35c2b5c803fe87"
+    },
+    {
+      "id": "generated-22",
+      "entropy_hex": "58623624d78bd0712be99981c54af1687dc7008a3e6d305e0d7622a275f066ed",
+      "phrase": "flash balance matrix pyramid rug decade quick creek limb clean rough special symbol leopard cigar soap core vacant frown earn chef wealth option sad",
+      "root_seed_hex": "0ca47ed136bcc01c9fcd91b6e5215492e2248f50c1e1c41d93828571b63a9333",
+      "root_public_hex": "b4c00ea9f816601a5818555e91fe392f8fef55162f5adc3db0c208bed6be1f68"
+    },
+    {
+      "id": "generated-23",
+      "entropy_hex": "83c10680dbdecd64347dff01533d68a12bb3f68c0272886f15f4d8514e391dad",
+      "phrase": "long amused parent response under rare spin say access okay focus drastic robot win copy exact mask judge large radar belt broken issue prison",
+      "root_seed_hex": "434525f189924ba7494414a980811fb5a7e0319739ff9fa6147b183e7277a97e",
+      "root_public_hex": "e9e4d007cd33c1d3069f2b63fb5359470b843ea82b824f64429c0591ebecab33"
+    },
+    {
+      "id": "generated-24",
+      "entropy_hex": "1cf4018ac620d7e686cfb7316d39c16f30311193401445a0816c145f9958dcd8",
+      "phrase": "brother parade glance middle aspect viable brass want cousin hawk icon taxi adapt match escape action east advice force chunk wet property inflict book",
+      "root_seed_hex": "5d5ccf8edcfcc4fb1e97c8603e0961809ec38592976263387cfc3fa52ccd389f",
+      "root_public_hex": "6d6abf3c2b32910819ea18fb4647cd4d1a743f9a05f5bd59e9c00f981a4fe3b6"
+    },
+    {
+      "id": "generated-25",
+      "entropy_hex": "38a83d7e97fc50c5bbc86282d1eb5291a6ba27c0c6ee1070c58f182ada9911ff",
+      "phrase": "december draft garden copper shallow glare upset arrange lizard monster start cash hill become adapt tape away mail glow core pumpkin erode elevator wear",
+      "root_seed_hex": "059dee09e416ae3e48036946b412406df8f5335e1ffa9750819110ca2d725e43",
+      "root_public_hex": "f96afe56b085b4eb022897887bd3065679430bcca857c967f63f7a43062cd41e"
+    },
+    {
+      "id": "generated-26",
+      "entropy_hex": "319c3e710edb64e5a70945552c4b77ebd84b84069e34fd16cf39d00fb5d55588",
+      "phrase": "cover tiger ordinary buffalo rent index order chunk festival girl target stumble lucky search bounce shoot wonder reopen solar parade win turkey file athlete",
+      "root_seed_hex": "ada3388e2778f47c423e0407061aaf074fa233a4c64ed9d186b6b507cb454438",
+      "root_public_hex": "b6b865e3cf079794954237f5c8244842dc35af2c4939fcce04d6f8a162ac02e2"
+    },
+    {
+      "id": "generated-27",
+      "entropy_hex": "c7a5e7e2b66cc7d1513299ed4fdf4b9c091c751d238526c2ab6e7d26dedd943c",
+      "phrase": "sibling connect weather holiday small trim dynamic farm unhappy leave spray day mushroom dentist innocent idle chat best swear where hospital human extend mule",
+      "root_seed_hex": "a9cb8a2fec2d179d071098aa1a3554d5a58d91c5bf8a16547c27950153efebd5",
+      "root_public_hex": "6c8e2e744ecd533b3b52979f9a52a735d43c386061570092df88f38abf3df0cb"
+    },
+    {
+      "id": "generated-28",
+      "entropy_hex": "f69e5ee5423c9fa329566a5c4f4fa18214d6083d29e75420279c910d72328515",
+      "phrase": "walk very rich love size spice pipe snap fox kidney trick aerobic estate advice visa diagram feature abuse transfer capital strong bone begin prepare",
+      "root_seed_hex": "ae9df18983a4745cde79e20ef67eaf6a51c721f6f238d9d440cb43bd0319538c",
+      "root_public_hex": "b07fb5b6a4f60478f1c23d536866c27c0c93ecd876a6f58e18060de279a6832d"
+    },
+    {
+      "id": "generated-29",
+      "entropy_hex": "438d757926f327bd787e6f15f1484dff74e8077439928e39d233c932935371a7",
+      "phrase": "drum hill furnace evil crash team tiger social bicycle medal beach year excess admit special crane mixed soldier mind mystery circle predict shoot usage",
+      "root_seed_hex": "928c7360851bf6ad658715b7c9c7bf44daf8440ee31831981d11538b168399e1",
+      "root_public_hex": "b142fad1efc2acfccd689face799f01b736ec0e69dbdf05f291e1de11a87c4db"
+    },
+    {
+      "id": "generated-30",
+      "entropy_hex": "6e1f22586ecd98c6c4e334afd5d7058e1f9194513fb9aed71249f931ed13f36d",
+      "phrase": "host weekend noodle talk sunset gloom bean grief quit push scrap bring weekend sketch eager warm put review mystery venue burst measure soap public",
+      "root_seed_hex": "60ee10f18a25c0570b137bd8428ea1a3a0fd99bd34f6e8541c6f1d9536daa154",
+      "root_public_hex": "ccdde342f8d7d67b9d99a7e198372b0e998ebf8d84a497eb74db63e35157521d"
+    },
+    {
+      "id": "generated-31",
+      "entropy_hex": "07ea1d02cfbe9d10d0f83839e254f87360fa344610651e73aaaa7bc8e8862aae",
+      "phrase": "among extend doll panda truth mask dumb alpha delay bargain dignity traffic autumn boss blue arrow bunker outer pride wasp model drink primary swift",
+      "root_seed_hex": "522652834a7ad1691ba504da0a5501927934123a60b31b242dc3335bb680f129",
+      "root_public_hex": "3427c0575751ab1e87054c45570bffcae55be00a9d83a482b7b9cb7234627045"
+    },
+    {
+      "id": "generated-32",
+      "entropy_hex": "73804742e8ea0ecd292f91d73e7665bad48c23a5184b7d3e5b91d9c855ae25f2",
+      "phrase": "inform acquire spawn spike path grief pigeon vendor strong victory offer interest emotion balcony nerve annual large version tongue receive luxury strike oak fish",
+      "root_seed_hex": "f46624c70f829bc8b04736c2303d3f479f683903ba4823abb52fe1f05ee11677",
+      "root_public_hex": "4cfbe26998e25fa1dc75da4db401bbd32fba42bc81a5c1184fbfe183847dfc34"
+    },
+    {
+      "id": "generated-33",
+      "entropy_hex": "00ea390c39821d03320d8ce4f3d0efaaf22b14b5adf92dfc5474e2bf72237f46",
+      "phrase": "abstract fade drink indoor canyon light sight ranch top ozone desk field cargo medal stove sand combine tired brush shell warm balance wonder shadow",
+      "root_seed_hex": "121eb8626ce35e32f8425a463d1bfd45b047574d940947ec55868d5768535818",
+      "root_public_hex": "3ba9635a442dbff87d47c5c3df41a15a20773a18b18d5404ad14d7c00600c0ce"
+    },
+    {
+      "id": "generated-34",
+      "entropy_hex": "86bbe2980fd11a5595ac5371c0538e3f1d98562bee9028e9d1cb7ed11f31a962",
+      "phrase": "mammal tenant plastic cabbage balance client find media impact action toe lawsuit sunset climb quick spirit cigar excess index world ball occur pitch exotic",
+      "root_seed_hex": "3c0b4b100528baba06fde8f4c4cdf5d7a7fac83bab7658124a1d22f2a452a212",
+      "root_public_hex": "a81f66a77213b3e5bea1e2c82bd4c02cef02b4286b9b291265c7651b6b3d90cb"
+    },
+    {
+      "id": "generated-35",
+      "entropy_hex": "3a76991b0f4677cb3d5add4ed3aea701e1f7e505823a6f7718c487e840870d92",
+      "phrase": "denial regular egg burden guess tortoise voice forum excite output prefer adult buyer verb bid elder hunt rhythm couple average lottery drum curve flag",
+      "root_seed_hex": "912203fdc7354ebdd0d5816459e53c369d93ea2d5c23aa39161d19acd0f727df",
+      "root_public_hex": "83994353d97da7cafbed022cf2a3231ec5a054409fcce0e579a4f033eaad5fda"
+    },
+    {
+      "id": "generated-36",
+      "entropy_hex": "d562b3f84331337f92f09bb76a37980935713a97bca16e85b13427b1c27ad564",
+      "phrase": "step better wrap major basket save envelope beach resist faculty toward bar finish outer galaxy neither hub collect escape exhaust bring dice few museum",
+      "root_seed_hex": "9d44c94c3c97ae7f16d55ddc8f1426539b4a354c5e7f760c18eee78b177b666f",
+      "root_public_hex": "a514685df95b00ac5d22760438728bbeaba5607511ff0678a5371d771e8de74a"
+    },
+    {
+      "id": "generated-37",
+      "entropy_hex": "466a83a9eec1587ee23d27f1f898cb614187e61a01bc6b179c9d121b39e4f98a",
+      "phrase": "edit favorite tuna talk better disorder material pilot vehicle shadow crazy secret blur vessel gym daring help rude chef category receive venue tower entry",
+      "root_seed_hex": "661ad85d3a2cd21f7a0ccbfa68d61f278ae2eef8fcb5df2011d903f660c80520",
+      "root_public_hex": "4b676ce8b54fb3ef332f3c6615565635b320b54121a1ac2dff387a72911601b0"
+    },
+    {
+      "id": "generated-38",
+      "entropy_hex": "386dcbecf9e081154eb4cb9ebafd532e252e05a2c9de4e36637800c67104083f",
+      "phrase": "debris hour will video amount melt depart offer pact subject feel fox fancy actress menu design evolve reason task account grow link can young",
+      "root_seed_hex": "19dc7d4e132ef4466c006bb619ad2e26d8550f2def10e86781ba6659a7695032",
+      "root_public_hex": "55910cf8cc0cec1f99813dff358694477ab469068387a7a34c2b4d754a875250"
+    },
+    {
+      "id": "generated-39",
+      "entropy_hex": "c5cd1cc1d8a36daba1060a6fa58cd966972d90fa3e6126e8152617b932ffeb26",
+      "phrase": "shift happy corn rally cycle still lottery scout hurry cluster curve snake index silent trophy slow cheap doll end control nasty lend prosper situate",
+      "root_seed_hex": "f08eefdbb49c4dcc45dbe0ac053fbaa87d02c790bf18825fd23bacca5aa6282e",
+      "root_public_hex": "0c2cf8ee8c7e999018257f44d6f11aed04a06d9ff181108565b55cc7f81909c2"
+    },
+    {
+      "id": "generated-40",
+      "entropy_hex": "a30d207e94ea4936fe7ecc29e9347ff834e7fe95ad2290793596d93a1efc823a",
+      "phrase": "perfect harbor cabbage clap pig opinion wheat sunset clarify endless cable vacant example young find picture motor situate grant raven peanut layer angry gain",
+      "root_seed_hex": "a835a329f34ec5b4dfbc57ea95be3ccd29fa35c6d5b7d7188627a34eff167d12",
+      "root_public_hex": "1e17b68f25b54fd2c57f2abe2e2a801c724a9246a8bb51c96608d73b1e21607d"
+    },
+    {
+      "id": "generated-41",
+      "entropy_hex": "0007eb60f56475b590599063486d3f523f1b4eb9ad6c0078cc8601deca3bc6c0",
+      "phrase": "abandon dismiss subway turn elder suspect door craft globe drop exist piece vast point trade pulse about shoe canoe admit uncover bulb brand access",
+      "root_seed_hex": "cb4094ccfef18ec634ce3b6bfd7480fb3b580b2f3f2225f21bf1e5212cda813c",
+      "root_public_hex": "c05ce55e3ee986d58ac163840590764d7d2be32a75ab4d3bdd129e6fe62efa91"
+    },
+    {
+      "id": "generated-42",
+      "entropy_hex": "3e737105e8f4212743fea369de3d30d4f1287268d1bd2cecc0adc27b5af2390f",
+      "phrase": "dinosaur oppose door spin dragon neck avocado stamp hawk vehicle equip prepare barely decrease person dash coconut gravity clock lumber remember jungle tomorrow twelve",
+      "root_seed_hex": "6dbb81a3958731c2ad9b408e22ede31073d3c5afe5fce84d1f860bd496028d4c",
+      "root_public_hex": "ec88f49df2a323b33e0f89d88d4466ebb4a6ef3c44d053c9f6b7426e1511d163"
+    },
+    {
+      "id": "generated-43",
+      "entropy_hex": "40db9c789b38d2f706d84add5162945b0ea4490309df042d0ccec48fa0e69fd5",
+      "phrase": "dolphin table bullet cushion minor knee bread announce tail mention pink render tumble cause around desk aerobic half crisp math wheel infant leg prosper",
+      "root_seed_hex": "8f496883cd9440f4d3db1e1b7a86da931186804dc88214ce8d5a4e9ce635ba9a",
+      "root_public_hex": "3d7dfe978efd1676ac4e32a308c965183f5be46f6ef61ff0edbd67400b697c95"
+    },
+    {
+      "id": "generated-44",
+      "entropy_hex": "ee772a482930d1d5d8747af1be28debfa7de4d821ad0b46257aed0e4880bafe1",
+      "phrase": "unveil rich must fame artist turtle gift monster vast vanish dash leg law chat anchor foam refuse bargain two peace embrace alarm sauce coral",
+      "root_seed_hex": "a6d1dbe6333a7ebad879903c292507c71c206bbfb07ecb61e59578915f812dc2",
+      "root_public_hex": "023453797a9688adad08cc4bdb93ca4a56242902f7cf8ebca4d0e0ead2a196bd"
+    },
+    {
+      "id": "generated-45",
+      "entropy_hex": "31dcdc2e60f42fcb48fe02c9dc217368d84f489fa6b4984f5eb908197ccbdcfd",
+      "phrase": "crack tragic argue sea drill toss catalog scare six three fresh spider lumber picture leader story obscure kit purity awake oak grass initial pigeon",
+      "root_seed_hex": "28e74af6faf44781417d4b909aab2b0b15d03f17152f0598d1e072298a7b5b50",
+      "root_public_hex": "b69d2591172dc7837a76ff2831d8d3c2fe7eb55566efe796af535f9a430dfa20"
+    },
+    {
+      "id": "generated-46",
+      "entropy_hex": "06c06417c01f23a81a53569138e5010afa3bb63b07e0a55bc4b9a5dbc5d68678",
+      "phrase": "almost add album lens vendor staff harsh hello muffin shrimp doctor bicycle photo swallow ugly winter pipe taste common entry rough twice boring amazing",
+      "root_seed_hex": "3165ba3374695e2d64abce967ffe84df12ea9406ac9c0f920251defe91356d5f",
+      "root_public_hex": "30b5f3378285edc05c732e2b9aaad55fe2dad25e989d3d07c46f44c528a01b8a"
+    },
+    {
+      "id": "generated-47",
+      "entropy_hex": "a23a812adadfd4607634a23ac4b7c8b8c7972f50b2127e273c15dd2b82542fb9",
+      "phrase": "peasant staff enjoy remember wool coral sugar nephew depart certain vendor immense just nut drift drastic lawsuit delay air ripple return claw same clinic",
+      "root_seed_hex": "eb01590a42a6c2851f985606772cd295e0885b1532ca558b091aa165e45b6e8f",
+      "root_public_hex": "e657c4d559eac855f0f8d9d604398d100da94cfa237ea74b24840b819c28771f"
+    },
+    {
+      "id": "generated-48",
+      "entropy_hex": "5da1617370b9039fe6a917059442fecf778ad9c0bf4224d47ddf3520375a1325",
+      "phrase": "frozen arch fresh thumb mother soup one carry airport pear sausage page judge hollow actual tribe cave physical jelly heart address public erode proof",
+      "root_seed_hex": "2ebcfe574ea62a19374be9e01c9530b34498f8d73f6ba565649cec9aaf34f34c",
+      "root_public_hex": "6b9dd39e4862e650f8a4b22380180f1501687806b21eda43543a01a94d59f2c9"
+    },
+    {
+      "id": "generated-49",
+      "entropy_hex": "363043a8be51045936d0268f55f7b54614da89e0c7f8324954a2d4fc27396080",
+      "phrase": "curtain link tuition lake aware clutch swap age monster quick unhappy method ethics eager loan yellow crane enjoy chunk prepare second original link advance",
+      "root_seed_hex": "d0266df007a349d6b122241d35d33bbc3483d7fa46c68c501984dd4c5bf7bf4c",
+      "root_public_hex": "a70ad8d9c6785e4199e8d6626fbc4bddbc047edd15550c383f329dd017f9148b"
+    },
+    {
+      "id": "generated-50",
+      "entropy_hex": "7bcb575b050a1c9a0050d664ddcfb9ebe96126a91f58c1ab9203e3d8ab0b0aca",
+      "phrase": "knock follow strategy anxiety peace escape access bracket gospel unveil unveil style noodle nation piece twelve script frame liberty sibling melt machine clinic energy",
+      "root_seed_hex": "f526e9951497c0065478525559f2821c29c563940a3f7b481e7ece569bfac940",
+      "root_public_hex": "9d2205f55635e8b249eb0ee3f220cc5b3b2b841fa4d09ae6af3d33cfac85240d"
+    },
+    {
+      "id": "generated-51",
+      "entropy_hex": "8e571dd11a3f9ab77a96b60cf43eb1b65fda7d50d1a28a54639ce52763049fa7",
+      "phrase": "mixture rib inmate crucial whale forum tumble strategy artefact peanut property hole world dirt drive crowd medal perfect transfer ski involve liquid leader whisper",
+      "root_seed_hex": "0d9ab1cc33156ba17032f0db31119e58d1670722d1ed7580840fc44e3b18697e",
+      "root_public_hex": "7a405a59de7c9fb59af3662ffb3d19aa49cf30c60f0283f480dd3b0f187cce67"
+    },
+    {
+      "id": "generated-52",
+      "entropy_hex": "f16f1ac31d2cfcb7ec72c9b41cbb635fcd499d51e96cbac0fb920b73463056d7",
+      "phrase": "vapor juice radio demise sound fossil range float reduce total sugar sauce stand solid element collect river amazing tonight black crucial blouse forget vital",
+      "root_seed_hex": "ada446c746b37cdd8e52582dd467b0f6854b5cd248664ed57a06fafe01690ac7",
+      "root_public_hex": "75d7874d5d63010832fb86ef8d2ab71f8d32dfebec8091605629d29e0e50ab13"
+    },
+    {
+      "id": "generated-53",
+      "entropy_hex": "8e835a5996fdfb58d89d55d2da77e97b943ae7bc00ed836f3eab5951fa7fe71c",
+      "phrase": "model bracket nose combine text property give primary spot squirrel where warm dry inherit useless buffalo lock ketchup print razor cabbage divide organ meat",
+      "root_seed_hex": "5d9670aaa2804584203831f92be6713dc7be1472bcf9550f943df181aee29c33",
+      "root_public_hex": "47061296c17dba0384cd192d4688ace361822ea3e5e5dee09b92b3f41bc535f3"
+    },
+    {
+      "id": "generated-54",
+      "entropy_hex": "cf4343a56b46745c2d8fb747ce683c412c5408f54bdc9d394cd8cdf920caa7a2",
+      "phrase": "soon borrow true story guard come renew want elephant infant audit liquid shed afford steel knee outdoor skill curtain orbit must grab ozone drink",
+      "root_seed_hex": "f5baef57705e9e3a05c809a8169bf52afd821d7dda6d52b31ec822da1d51bb6a",
+      "root_public_hex": "a012d56545885a6d187c2d44ce7eb44669d4c905de92da0f2b2ece050d9dc6ac"
+    },
+    {
+      "id": "generated-55",
+      "entropy_hex": "af24fcabc925214bbbd2b6b08066ed6288ae78491f3da977e50133b6298bd81a",
+      "phrase": "quality child cliff myself faith place urban fine rack add robust shallow memory destroy caught tray practice sand doctor guess glad shine gather effort",
+      "root_seed_hex": "31ce428b5d1e4fa993bad183703873fef6e0c7c899083a16a63a8ff8325fe16f",
+      "root_public_hex": "f49cb1e99781d2a5920a2c2a3ca94497ed0a7edb22dab20382cb54a9b3e70611"
+    },
+    {
+      "id": "generated-56",
+      "entropy_hex": "3c73dedb28d8a45a2e44d61e5b0e54b548bd79de0e46699a7f5884c7af0d45ba",
+      "phrase": "detect page replace faculty medal code ribbon onion bundle such news hedgehog mesh rude join silver hat stadium stomach another kit mammal black fee",
+      "root_seed_hex": "e7eb8b412f1234b5934b51906d6937f8b358cf227630211f8134157a0311ef03",
+      "root_public_hex": "8dbcd6938e791413b8920090b822eca2862327ba95d26c76c6e55fe83085d830"
+    },
+    {
+      "id": "generated-57",
+      "entropy_hex": "3894900aa7db45567f97a1bc4ed95505ccc7cb05211a7f0719928aae4a10451d",
+      "phrase": "decade pig actor exile reform private wrestle vintage rough item fetch argue small tortoise behind cash lecture decide gorilla best tool amused behave relief",
+      "root_seed_hex": "d49df604fd94bed6cac074aa9805d164fae0f58262f008d26781e2ea579c581a",
+      "root_public_hex": "b6054a6447ded52fb6dda9c622e12055e7973415ca98a79d83844d7e31be0e08"
+    },
+    {
+      "id": "generated-58",
+      "entropy_hex": "331192e8ee24064312759844a7decc8841413987fb6e02821631d628e606b653",
+      "phrase": "credit milk riot sword document canoe endorse reason dwarf discover rebel awesome beef orphan cable horse action awful midnight proof mobile addict sun lab",
+      "root_seed_hex": "2e24f33213cdab5c6bf36ad711a0a97df092cc2672ac4b48835f4241c172fef8",
+      "root_public_hex": "8c3ac767ebc89613a340935c7c1f9e25baa783a9e2525f97f869b6d69cf21776"
+    },
+    {
+      "id": "generated-59",
+      "entropy_hex": "57562676186bd34543ab76683b1339efaaff3a8ab04ff57bbaaa26525d3b7cd6",
+      "phrase": "firm raise outside cotton rule pencil attitude human habit sudden solar tent quiz outer client antique voice tape pride erosion chair oval viable song",
+      "root_seed_hex": "9220805e20e88a5645c7b0a4ee417bfba23afa2a25d76a8750820b823689e6a2",
+      "root_public_hex": "1534749903e6e8ca7dfa86e811e55485c842c6ac0a9212bf3dcace3e6227b4fc"
+    },
+    {
+      "id": "generated-60",
+      "entropy_hex": "9df4ed6b68fd49b7bd9a682cc67ad4626572788732f377dd4fc865b0ff6ac5bc",
+      "phrase": "over polar food spin stand swift wait escape coast critic relax shadow fire detail broom fury jelly tuna velvet slice avocado rely black march",
+      "root_seed_hex": "4324688b980cbf2c39bfa1a72e1f440a4fbbf1fb941c6373362a14797e1b82cb",
+      "root_public_hex": "2efa6f945b012e58d6c907ed03abb28e2655668e5d7ddda5c90ca62a84bc899a"
+    },
+    {
+      "id": "generated-61",
+      "entropy_hex": "b843dc11c8ac6b4017ae546af55045ead492ee424b08462f57e79aed3ac6e2ab",
+      "phrase": "reunion bus afford mule shop parade gadget skin helmet pride badge stick empty jaguar ankle genre economy kingdom wheat cupboard squirrel gloom melt hawk",
+      "root_seed_hex": "57c63bf4428c6a60506f8277dcc183af2ae655141e1cafdac2917c6c3a83833d",
+      "root_public_hex": "958c9ff9014db664a8b4d62cde031e449c2d7a74dac121a9fcc89768f81a1c14"
+    },
+    {
+      "id": "generated-62",
+      "entropy_hex": "173bce97191999291caf88d5e4f74ba97086ae4101afb9adb4a2c6a654b8be5c",
+      "phrase": "blame taxi place cram office nest increase valve sting chicken spray fancy anchor fire advice curious rifle horror chunk minute grab fox west myth",
+      "root_seed_hex": "da5032b2ff92758e0f7248154abaf30c81d6eec917ae0d684f62fcd3baf686fa",
+      "root_public_hex": "9a5af109ad3a5a761e6385b1f506f859a4dbb5a7310804720bb46dd2f48aeb73"
+    },
+    {
+      "id": "generated-63",
+      "entropy_hex": "00e087ffe29d56fca23d17e85f7b3f958e91bedc3db891e5e4e236c35bbfa041",
+      "phrase": "abstract aerobic zoo share step layer material pepper tribe wink soup climb trouble term ill require music connect decade horn cup thank library clock",
+      "root_seed_hex": "5cc4bad82376612d715e56a89d3bc4a368186e68eeb21a105fc9444bfe9bb4d3",
+      "root_public_hex": "fac2c8dbab67c1119d095b04887486359347bd09231e94f93e119d7ba5f86cf4"
+    }
+  ]
+}

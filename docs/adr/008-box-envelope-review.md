@@ -121,7 +121,7 @@ Required cases include the doc/10 properties, changed kind/attachments and
 recipient context, every-bit corruption, wrong keys, revocation, complete size
 boundaries, malformed records, manifest dependency order and chunk finality.
 Gate E additionally needs the independent security review and its specified
-tests. Phase 1 and subsequent phase gates remain pending.
+tests. The current development-gate audit is in docs/spikes/phase-1-gate-audit.md.
 
 ## Current Phase 1 gate audit
 
@@ -132,14 +132,14 @@ tests. Phase 1 and subsequent phase gates remain pending.
 | Small Box seal/open and receipts | box.ts, complete-envelope acceptance, Python profile/Receipt fixtures and receipt input-snapshot regression | Implemented locally, real-phone verification pending |
 | Chunked profile and authenticated manifest | Stream callbacks, separately signed manifests, 0 B through 5 MiB round trips, corruption/finality/retry tests and independent file fixtures | Implemented locally; external review gates release under amended rules |
 | Whole-Box and manifest parser fuzzing | 5000 bounded byte inputs per parser, every-bit fixture corruption and collection-head cap regression | Pass locally for tested inputs |
-| Recovery phrase format | BIP-39 entropy/checksum and root HKDF mapping frozen in docs/04; module and vectors pending | Incomplete implementation |
+| Recovery phrase format | recovery.ts, eight published pairs, 72 independent root/public-key cases, packaged MIT word data, fresh review | Implemented locally; phone/browser recovery unverified |
 | Node portability | Existing components compile and pass on Node 24.11.0 | Verified for implemented components |
 | Real-device coverage | Xiaomi deflate and compression comparison verified. Identity/HPKE and complete Boxes unverified on phones. | Partial |
 | Required external review | Owner confirmed unavailable and amended AGENTS.md/docs/05 | Public release, security claims and Gate E remain gated |
-| Interim review | Self-review in ADR 011, Python vectors in ADR 012, fresh code-review findings/dispositions in phase-1-envelope-adversarial-review.md | Recorded for envelope module, full Phase 1 audit remains pending |
-| Subsequent phases | docs/05 requires phase acceptance in order | Awaiting remaining Phase 1 work, including recovery |
+| Interim review | ADR 011 self-review; ADR 012/013 independent vectors; fresh envelope and recovery review records | Recorded for Phase 1 Node implementation |
+| Subsequent phases | docs/spikes/phase-1-gate-audit.md records the development-gate audit | Phase 2 may start after final CI confirms this revision |
 
-## Review task report
+## Historical pre-freeze review task report
 
 Task is Box envelope audit, Phase 1, based on 6ff854f. The implementation commit
 is provided in the handoff. Existing checks pass 1 foundation test, 52 Vitest

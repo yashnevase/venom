@@ -261,11 +261,29 @@ def verify_envelopes(document):
     return len(document['vectors']) + len(document['negative_vectors']) + len(document['negative_file_vectors'])
 
 
+def verify_published_recovery(document):
+    words = (Path(__file__).resolve().parent.parent / 'packages/core/src/data/bip39-english.txt').read_text().splitlines()
+    for vector in document['vectors']:
+        entropy = bytes.fromhex(vector['entropy_hex'])
+        assert len(entropy) == 32
+        bits = ''.join(f'{byte:08b}' for byte in entropy + hashlib.sha256(entropy).digest()[:1])
+        phrase = ' '.join(words[int(bits[index:index+11], 2)] for index in range(0, 264, 11))
+        assert phrase == vector['phrase']
+    return len(document['vectors'])
+
+
+def verify_recovery(document):
+    assert document['v'] == 1
+    subprocess.run([sys.executable, 'tools/vectors/recovery_vectors.py', '--check'], check=True)
+    return len(document['vectors'])
+
+
 def main():
     directory = Path(__file__).resolve().parent.parent / 'packages' / 'test-vectors'
     verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'box-headers.json': verify_box_headers,
                  'chunks.json': verify_chunks,
-                 'identity.json': verify_identity, 'hpke.json': verify_hpke, 'deflate.json': verify_deflate, 'envelopes.json': verify_envelopes}
+                 'identity.json': verify_identity, 'hpke.json': verify_hpke, 'deflate.json': verify_deflate, 'envelopes.json': verify_envelopes,
+                 'bip39-published.json': verify_published_recovery, 'recovery.json': verify_recovery}
     checked = 0
     for path in sorted(directory.glob('*.json')):
         if path.name not in verifiers:

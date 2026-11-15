@@ -6,7 +6,7 @@ Phase 1 currently contains Tag, deterministic CBOR, a delimited Box header
 codec, chunk-integrity and local identity modules, plus the RFC 9180 HPKE Base
 adapter, experimental complete envelopes, streamed files and Receipts. The owner's 2026-11-15 approval is recorded in ADR 002. Bounded
 deflate is selected for v1 in ADR 006.
-The full seal/open, receipt and chunked-profile acceptance gate remains pending.
+The Phase 1 development-gate evidence is recorded in docs/spikes/phase-1-gate-audit.md.
 External review gates public release, security promises and Gate E. The interim
 self-review, independent vectors and implementation adversarial review gate
 Phase 1 development under AGENTS.md.
@@ -25,7 +25,7 @@ const window = await deriveTagWindow(tagKey, 0n);
 
 `tagKey` is a 32-byte Uint8Array supplied by the caller. The counter is an
 unsigned 64-bit bigint encoded big-endian. Both interpretations are recorded in
-ADR 002 pending protocol freeze. The caller maintains per-direction secrets and
+docs/04 revision 2. The caller maintains per-direction secrets and
 counters. `deriveTagWindow` returns 64 tags. Counter exhaustion returns a typed
 error. A resync beacon awaits D-6.
 
@@ -148,7 +148,8 @@ X25519 key material with WebCrypto. It also accepts three exact 32-byte seeds
 named root, deviceSigning and deviceEncryption. Returned private CryptoKeys are
 non-extractable. exportSeeds returns copies of the raw secrets in memory for the
 future encrypted-backup integration. The caller must encrypt those secrets
-before persistence. Recovery-word and encrypted-backup formats remain pending.
+before persistence. Root recovery uses the approved 24-word mapping below.
+The signed backup and storage adapters are Phase 2 work.
 
 Public-byte access returns copies. Native RFC 8410 imports and a transient JWK
 export derive public keys from supplied seeds. The API performs zero disk writes.
@@ -209,8 +210,8 @@ X25519 private and public keys. Missing native primitives and invalid input,
 key, budget or authentication conditions return HpkeResult failures.
 
 RFC fixtures, hostile-input tests and component measurements are recorded in
-docs/spikes/phase-1-hpke.md. D-8's streaming review and full Box acceptance remain
-pending.
+docs/spikes/phase-1-hpke.md. Complete-envelope checks are in
+docs/spikes/phase-1-envelopes.md. External D-8 review remains a release gate.
 
 ## Deflate candidate API
 
@@ -226,9 +227,8 @@ if (compressed.ok) {
 
 The caller supplies payload bytes and both limits. The 16 KiB values above are
 example conditions. ADR 006 selects this bounded deflate candidate for v1. The
-complete Box pipeline remains pending. This module implements the deflate candidate already named in
-docs/04, using RFC 1950 zlib framing. The wire envelope and its compression marker
-are separate integration work. Compressed bytes can vary by implementation.
+complete Box pipeline uses the bounded codec under docs/04 revision 2, including
+its declared uncompressed-size field. This component uses RFC 1950 zlib framing. Compressed bytes can vary by implementation.
 
 compressDeflate uses native CompressionStream. Missing native compression returns
 unsupported-compression. decompressDeflate uses pako 3.0.3's public low-level
@@ -307,3 +307,34 @@ contract. The sender may not be an original recipient. The verifier snapshots
 those local inputs and checks the returned Receipt against them, without opening
 the original payload. Phase 2 must establish the outbox record at sealing time
 and validate its signed durable export when restoring it.
+
+## Recovery API
+
+```ts
+import { createRecovery, recoverRootSeed, createIdentityKeys } from '@openmesh/core';
+
+const material = await createRecovery();
+if (material.ok) {
+  const identity = await createIdentityKeys({
+    root: material.value.rootSeed,
+    deviceSigning: crypto.getRandomValues(new Uint8Array(32)),
+    deviceEncryption: crypto.getRandomValues(new Uint8Array(32)),
+  });
+  const restoredRoot = await recoverRootSeed(material.value.phrase);
+}
+```
+
+createRecovery generates 32 entropy bytes, the English BIP-39 24-word encoding
+and the OpenMesh HKDF-derived root seed. entropyToRecoveryPhrase and
+recoveryPhraseToEntropy expose the bounded encoding/validation operations.
+deriveRootSeedFromEntropy exposes the owner's direct entropy-to-HKDF mapping.
+The phrase restores the root. Fresh device keys use independent random bytes.
+The Phase 2 signed backup carries previous device keys, contacts and counters.
+
+Phrase parsing applies NFKD, lowercase and whitespace normalization, with
+512 UTF-16 units before and after normalization, 24 known words and a checksum.
+Inputs are copied before native asynchronous operations. Byte results are owned
+copies. Published BIP-39 entropy/phrase examples and independent Python root-seed
+and Ed25519 public-key fixtures are checked in CI. Word data and its MIT notice
+ship in dist/data. ADR 013 records source hashes, size and review scope. These
+Node checks have no phone/browser recovery result.

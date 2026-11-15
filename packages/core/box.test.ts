@@ -284,3 +284,36 @@ it('keeps file completion false after output failure and allows an explicit retr
         .toBe(true);
     expect((await createReceipt(opened, receipt)).ok).toBe(true);
 });
+
+it('T-UNIT-1 round trips seeded random file contents and sizes through 5 MiB', async () => {
+    let seed = 0x4f4d0004;
+    const next = () => {
+        seed ^= seed << 13;
+        seed ^= seed >>> 17;
+        seed ^= seed << 5;
+        return seed >>> 0;
+    };
+    for (let trial = 0; trial < 16; trial++) {
+        const length = next() % (5 * 1024 * 1024 + 1);
+        const input = Uint8Array.from({ length }, () => next() & 255);
+        const chunks: { index: number; bytes: Uint8Array }[] = [];
+        const file = value(await sealFile({ sender: sender(), source: source(input), size: length,
+            name: 'property.bin', mediaType: '', now, emit: (index, chunk) => {
+                chunks.push({ index, bytes: chunk });
+                return Promise.resolve();
+            } }));
+        const wire = value(await sealBox({ ...sendOptions(), profile: 'chunked', kind: 1,
+            body: new Map([['attachments', [file.descriptor]]]), manifest: file.manifest }));
+        const opened = value(await openBox(wire, receiveOptions()));
+        async function* ciphertext() {
+            for (const chunk of chunks) yield await Promise.resolve(chunk);
+        }
+        const output: Uint8Array[] = [];
+        expect((await openFile(opened, { manifest: file.manifest, source: ciphertext(),
+            emit: (_index, chunk) => { output.push(chunk); return Promise.resolve(); } })).ok).toBe(true);
+        const actual = Buffer.concat(output);
+        expect(actual.length).toBe(length);
+        expect(new Uint8Array(await globalThis.crypto.subtle.digest('SHA-256', actual)))
+            .toEqual(new Uint8Array(await globalThis.crypto.subtle.digest('SHA-256', input)));
+    }
+}, 30000);

@@ -71,3 +71,10 @@ The CI job installs the pinned tooling before checking every suite.
 The fountain-stretched-deflate fixture includes legal empty DEFLATE blocks and
 exceeds 1 MiB of compressed input while its decoded body remains small. It tests
 the complete-envelope input budget separately from the declared output limit.
+
+`bip39-published.json` holds eight English 256-bit entropy/phrase pairs from the
+pinned MIT-licensed Trezor fixture revision. `recovery.json` holds 72 independent
+entropy, phrase, OpenMesh root-seed and Ed25519 root-public-key cases, including
+those eight examples. tools/vectors/recovery_vectors.py uses Python SHA/HMAC and
+the existing cryptography tooling. CI regenerates those exact bytes. The English
+wordlist's provenance and MIT notice are under packages/core/src/data and ADR 013.

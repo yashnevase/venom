@@ -11,7 +11,8 @@ Experimental, not independently reviewed.
 The owner explicitly approved option 1, random stream_id for chunk AAD while
 retaining file_id as the final signed-manifest hash, on 2026-11-15. docs/04
 development revision 2 freezes the resulting wire specification. Its acceptance
-tests, implementation and independent vectors remain pending.
+implementation tests and independent vectors are recorded in the acceptance
+sections below. The whole Phase 1 gate audit is in docs/spikes/phase-1-gate-audit.md.
 
 ## Problem
 
@@ -163,7 +164,7 @@ size and license evidence remain a separate dependency task before adoption.
 - [x] Specify manifest signature coverage and chunk-count/size/hash consistency.
 - [x] Specify HPKE context and wrapping limits, padding and decompression bounds.
 - [x] Specify Receipt signer/reference/status matching and replay behavior.
-- [ ] Verify recovery using independently generated vectors.
+- [x] Verify recovery using independently generated vectors.
 - [x] Generate full profile and Receipt vectors with a different implementation.
 - [x] Show acceptance suite failing before implementing seal/open and receipts.
 - [x] Pass every-bit fixture corruption and bounded whole-Box/Manifest parser fuzzing.
@@ -189,7 +190,7 @@ or test code. It independently identified the stream-identifier cycle.
 | P1 16384-byte plaintext bucket exceeds the small-envelope cap | docs/04 section 5 freezes the exact encoded-size formula and recipient-count examples. |
 | P1 32-byte Receipt reference differs from random 16-byte header.box_id | docs/04 sections 6 and 9 distinguish the identifiers, specify exact reference bytes and require expected-recipient checks. |
 | P1 file stream must precede header-bound signature | docs/04 sections 4 and 7 separate stream and control, define key delivery and require finality/key lifetime checks. |
-| P2 schema widths, sorting, domains and resource bounds remain schematic | Exact values are in docs/04. Independent vectors remain pending before Phase 1 acceptance. |
+| P2 schema widths, sorting, domains and resource bounds remain schematic | Exact values are in docs/04. ADR 012/013 and the acceptance audit record the independent vectors. |
 
 The pass produced six findings, five P1 and one P2. It ran zero tests and made
 zero implementation observations. The spec dispositions above require acceptance tests and a later implementation
@@ -225,6 +226,7 @@ The experimental-notice acceptance checks failed before label integration.
 
 Fresh implementation-review findings and corrections are recorded in
 `docs/spikes/phase-1-envelope-adversarial-review.md`. The final Phase 1 gate still
-requires the remaining recovery implementation/vectors and a whole-phase audit.
+is audited in docs/spikes/phase-1-gate-audit.md, including the recovery module
+and independent fixtures.
 All envelope operations remain unverified on real phones. External review
 continues to gate public release, security promises and Gate E.
