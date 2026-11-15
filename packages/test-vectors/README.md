@@ -1,10 +1,12 @@
 # Protocol vectors
 
+Experimental, not independently reviewed.
+
 `tags.json` contains 8 tag vectors generated independently with Python's HMAC
 implementation. TypeScript verifies them with WebCrypto. The standalone
 `tools/verify-vectors.py` rechecks them independently in CI. The runner rejects
-unknown vector suites until their verifier exists. Receipt, sealed Box,
-manifest, chunked and fountain suites remain pending their implementation phases.
+unknown vector suites until their verifier exists. The complete envelope and
+Receipt fixtures are described below; full Phase 1 acceptance is tracked in ADR 008.
 
 `cbor.json` contains 26 deterministic encoding vectors checked against an
 independent Python implementation of the RFC 8949 integer/value subset. JSON
@@ -17,9 +19,9 @@ fixture distinguishes bytewise RFC 8949 ordering from length-first ordering.
 fountain Box header profiles described in docs/04. Python independently checks
 each encoded map byte string. TypeScript checks the same fixtures through the
 strict header codec, including unknown-version handling and malformed fields.
-These vectors cover the separately delimited header item only. The draft's
-`Header || SealedPayload` boundary framing, signed transcript and payload
-encoding remain unresolved for the reviewed Box integration.
+These vectors cover the separately delimited header item. Complete v1 Boxes
+use the version-prefixed outer array and stricter profile/time rules in docs/04
+and envelopes.json.
 
 `chunks.json` contains 10 SHA-256 fixtures and 9 file-size selection cases from
 docs/11. Byte fixtures use literal hex or the bounded index-mod-251 debug pattern.
@@ -55,3 +57,17 @@ end and remaining input, and enforces an output limit. TypeScript checks the
 same fixtures through the component API. Encoder bytes can vary between valid
 implementations. The test compares decoded content. These candidate-component
 vectors use the D-2 deflate selection. Full Box integration remains pending.
+
+`envelopes.json` is generated with Python cryptography 50.0.2 and a standalone
+standard-library CBOR encoder. It contains nine complete-profile/Receipt fixtures, seven independently
+generated envelope rejection fixtures and three malformed file-stream fixtures. All seeds are public.
+The TypeScript acceptance suite opens the fixtures, verifies file chunks and
+Receipts, and rejects altered signed fields, padding and decompression bounds.
+`tools/vectors/envelope_vectors.py --check` regenerates the exact committed bytes.
+Pinned tooling dependencies are in tools/vectors/requirements.txt and ADR 012.
+Use OPENMESH_VECTOR_PYTHON to select the isolated generator environment locally.
+The CI job installs the pinned tooling before checking every suite.
+
+The fountain-stretched-deflate fixture includes legal empty DEFLATE blocks and
+exceeds 1 MiB of compressed input while its decoded body remains small. It tests
+the complete-envelope input budget separately from the declared output limit.

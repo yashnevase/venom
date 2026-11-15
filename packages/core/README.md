@@ -1,11 +1,15 @@
 # Protocol core
 
+Experimental, not independently reviewed.
+
 Phase 1 currently contains Tag, deterministic CBOR, a delimited Box header
 codec, chunk-integrity and local identity modules, plus the RFC 9180 HPKE Base
-adapter. The owner's 2026-11-15 approval is recorded in ADR 002. Bounded
+adapter, experimental complete envelopes, streamed files and Receipts. The owner's 2026-11-15 approval is recorded in ADR 002. Bounded
 deflate is selected for v1 in ADR 006.
 The full seal/open, receipt and chunked-profile acceptance gate remains pending.
-Streaming encryption requires the external review specified by D-8.
+External review gates public release, security promises and Gate E. The interim
+self-review, independent vectors and implementation adversarial review gate
+Phase 1 development under AGENTS.md.
 
 ## Tag API
 
@@ -35,7 +39,7 @@ const encoded = encodeCbor(new Map([['v', 1]]), limits);
 if (encoded.ok) {
   const decoded = decodeCbor(encoded.value, limits);
 }
-const prefix = decodeCborPrefix(boxBytesFromCarrier, limits);
+const prefix = decodeCborPrefix(legacyHeaderAndOpaquePayload, limits);
 ```
 
 Each caller supplies all three limits for its record/profile. The example uses
@@ -69,12 +73,12 @@ const encoded = encodeBoxHeader({
 }, limits);
 if (encoded.ok) {
   const decoded = decodeBoxHeader(encoded.value, limits);
-  const prefix = decodeBoxHeaderPrefix(boxBytesFromCarrier, limits);
+  const prefix = decodeBoxHeaderPrefix(legacyHeaderAndOpaquePayload, limits);
 }
 ```
 
 This codec encodes one deterministic-CBOR header item. decodeBoxHeaderPrefix
-reads that self-delimited item at the start of `Header || SealedPayload` and
+reads that self-delimited item at the start of a legacy `Header || SealedPayload` component concatenation and
 reports the boundary offset without decoding or copying the remaining payload.
 It requires the docs/04 fields and 16-byte box ID/tag, accepts the
 small, chunked and fountain profiles, validates optional chunk sizes against
@@ -84,10 +88,9 @@ preserves unsigned values as bigint, and returns
 keys return `invalid-header`. The caller supplies CBOR byte, depth and item
 budgets. Byte fields are owned copies.
 
-This module does not encrypt or open payloads, define the signed transcript, or
-assign a unit to `created_coarse`. Those decisions remain part of the reviewed
-Box integration. Golden vectors are in
-`packages/test-vectors/box-headers.json`.
+The complete v1 Box parser is parseBox, using the version-prefixed outer array
+and coarse-day Unix-second rule from docs/04. Golden standalone-header vectors
+are in `packages/test-vectors/box-headers.json`.
 
 ## Chunk API
 
@@ -110,7 +113,7 @@ docs/11's inclusive boundaries, choosing 64 KiB up to 64 MiB, 256 KiB above
 identifyChunk snapshots one byte buffer and computes its 32-byte SHA-256
 chunkId with WebCrypto. It returns the bytes and their ID together. verifyChunk
 compares against the caller's expected ID and returns the checked owned bytes.
-The expected ID must come from the authenticated manifest at the expected
+The expected ID comes from the authenticated manifest at the expected
 position. Both the source bytes and expected ID are copied before asynchronous
 hashing, isolating the check from later caller-buffer mutations.
 
@@ -270,3 +273,37 @@ Measurements and device coverage are in `docs/spikes/phase-1-tags.md` and
 `docs/spikes/phase-1-identity.md`, `docs/spikes/phase-1-hpke.md` and
 `docs/spikes/phase-1-deflate.md`. Public
 claims are tracked in `docs/claims-ledger.md`.
+
+## Experimental envelope and file APIs
+
+`sealBox` and `openBox` use docs/04 revision 2. Callers supply a rooted sender
+certificate, certified recipients, explicit verification time and tag. The
+complete envelope is version-prefixed deterministic CBOR. `parseBox` and
+`parseManifest` apply wire ceilings before cryptographic processing.
+
+`sealFile` consumes an async byte source and calls an awaited per-index output
+callback for each ciphertext chunk. `openFile` takes the `OpenedBox` handle,
+manifest and an indexed async ciphertext source. It calls an awaited per-index
+plaintext output callback. File callbacks must stage output until the returned
+result succeeds and discard partial staging after failure. Reordering and
+identical duplicates are accepted. The core retains a chunk buffer and metadata,
+while callers own storage, cancellation and source lifetime. Source bytes must
+remain stable until their yielded item is consumed.
+
+`createReceipt` accepts only a handle returned by `openBox`. A file handle becomes
+eligible after `openFile` succeeds. The internal verification state is separate
+from the exposed body/header copies. `verifyReceipt` returns a deterministic
+idempotency key. Phase 2 storage must apply that key atomically with delivery
+state. Repeated validation itself performs no durable deduplication.
+
+The acceptance record and independent vector provenance are in ADRs 011 and 012
+and docs/spikes/phase-1-envelopes.md. Full Phase 1 completion and phone results
+remain separately tracked.
+
+Receipt verification requires exact original bytes from the trusted local sent
+outbox and the expected recipient from that stored send policy. An original
+supplied by the incoming receipt or another network peer is outside this API
+contract. The sender may not be an original recipient. The verifier snapshots
+those local inputs and checks the returned Receipt against them, without opening
+the original payload. Phase 2 must establish the outbox record at sealing time
+and validate its signed durable export when restoring it.

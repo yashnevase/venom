@@ -129,14 +129,15 @@ tests. Phase 1 and subsequent phase gates remain pending.
 |---|---|---|
 | Identity and device certification | identity.ts, identity.json, component tests | Implemented component, Node coverage |
 | Tags and counter window | tag.ts, tags.json, component tests | Implemented component |
-| Small Box seal/open and receipts | Box-header CBOR codec and profile vectors exist. No seal/open or Receipt API and no complete Box/Receipt vectors. | Incomplete, wire integration review required |
-| Chunked profile and authenticated manifest | chunk.ts covers sizing/hash checks. Complete stream and manifest suites absent. | Incomplete, D-8 review required |
-| Whole-Box and manifest parser fuzzing | Component parsers have fuzz coverage. Integrated parsers absent. | Incomplete |
-| Recovery phrase format | D-7's word encoding and root mapping remain pending in ADR 002 | Incomplete |
+| Small Box seal/open and receipts | box.ts, complete-envelope acceptance, Python profile/Receipt fixtures and receipt input-snapshot regression | Implemented locally, real-phone verification pending |
+| Chunked profile and authenticated manifest | Stream callbacks, separately signed manifests, 0 B through 5 MiB round trips, corruption/finality/retry tests and independent file fixtures | Implemented locally; external review gates release under amended rules |
+| Whole-Box and manifest parser fuzzing | 5000 bounded byte inputs per parser, every-bit fixture corruption and collection-head cap regression | Pass locally for tested inputs |
+| Recovery phrase format | BIP-39 entropy/checksum and root HKDF mapping frozen in docs/04; module and vectors pending | Incomplete implementation |
 | Node portability | Existing components compile and pass on Node 24.11.0 | Verified for implemented components |
 | Real-device coverage | Xiaomi deflate and compression comparison verified. Identity/HPKE and complete Boxes unverified on phones. | Partial |
-| Required external review | Owner confirmed no external review. ADR 002 and D-8 remain pending. | Missing |
-| Subsequent phases | docs/05 requires phase acceptance in order | Awaiting Phase 1 gate |
+| Required external review | Owner confirmed unavailable and amended AGENTS.md/docs/05 | Public release, security claims and Gate E remain gated |
+| Interim review | Self-review in ADR 011, Python vectors in ADR 012, fresh code-review findings/dispositions in phase-1-envelope-adversarial-review.md | Recorded for envelope module, full Phase 1 audit remains pending |
+| Subsequent phases | docs/05 requires phase acceptance in order | Awaiting remaining Phase 1 work, including recovery |
 
 ## Review task report
 

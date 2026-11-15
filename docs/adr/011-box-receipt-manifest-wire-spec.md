@@ -164,11 +164,11 @@ size and license evidence remain a separate dependency task before adoption.
 - [x] Specify HPKE context and wrapping limits, padding and decompression bounds.
 - [x] Specify Receipt signer/reference/status matching and replay behavior.
 - [ ] Verify recovery using independently generated vectors.
-- [ ] Generate full profile vectors with a different implementation.
-- [ ] Show full acceptance tests failing before implementing seal/open and receipts.
-- [ ] Pass every-bit corruption and bounded whole-Box/Manifest parser fuzzing.
-- [ ] Record fresh-session adversarial findings and their disposition.
-- [ ] Display the experimental notice and audit security claims before builds.
+- [x] Generate full profile and Receipt vectors with a different implementation.
+- [x] Show acceptance suite failing before implementing seal/open and receipts.
+- [x] Pass every-bit fixture corruption and bounded whole-Box/Manifest parser fuzzing.
+- [x] Record fresh-session adversarial findings and their disposition.
+- [x] Display the experimental notice in current build outputs, READMEs and diagnostic screens.
 
 These checks do not replace a cryptographer. External review remains required
 before public release, security promises and Gate E.
@@ -212,3 +212,19 @@ Its two documentation follow-ups were addressed by stating exact inclusive
 chunk thresholds in docs/04 and aligning T1 and the record sketches in docs/09
 and docs/11. Implementation acceptance, independent cryptographic vectors and
 implementation adversarial review remain outstanding.
+
+## Envelope implementation acceptance
+
+The initial full-envelope acceptance suite failed because box.js was absent.
+Implementation is in box.ts and box-wire.ts, reusing the existing identity,
+HPKE, CBOR, chunk-size and deflate modules. The independent generator in ADR 012
+provides nine positive and ten rejection fixtures. The native tests cover 0 B,
+65520 B, 200000 B and 5 MiB files, complete-envelope bucket selection, corruption,
+truncation, wrong keys/roots, revocation, file-output retry and Receipt policy.
+The experimental-notice acceptance checks failed before label integration.
+
+Fresh implementation-review findings and corrections are recorded in
+`docs/spikes/phase-1-envelope-adversarial-review.md`. The final Phase 1 gate still
+requires the remaining recovery implementation/vectors and a whole-phase audit.
+All envelope operations remain unverified on real phones. External review
+continues to gate public release, security promises and Gate E.

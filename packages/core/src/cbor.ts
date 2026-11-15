@@ -8,6 +8,7 @@ export interface CborLimits {
   maxBytes: number;
   maxDepth: number;
   maxItems: number;
+  maxArrayLength?: number;
 }
 export type CborError = 'invalid-limits' | 'limit-exceeded' | 'unsupported-value'
   | 'invalid-cbor' | 'non-deterministic';
@@ -33,7 +34,8 @@ function readLimits(value: unknown): CborLimits {
   if (!value || typeof value !== 'object') throw new CodecFailure('invalid-limits');
   const fields = value as Record<string, unknown>;
   return { maxBytes: requireBound(fields.maxBytes), maxDepth: requireBound(fields.maxDepth),
-    maxItems: requireBound(fields.maxItems) };
+    maxItems: requireBound(fields.maxItems),
+    ...(fields.maxArrayLength === undefined ? {} : { maxArrayLength: requireBound(fields.maxArrayLength) }) };
 }
 
 interface EncodeBudget {
@@ -81,6 +83,9 @@ function snapshot(value: unknown, budget: EncodeBudget, depth: number): CborValu
   budget.ancestors.add(value);
   try {
     if (Array.isArray(value)) {
+      if (budget.limits.maxArrayLength !== undefined && value.length > budget.limits.maxArrayLength) {
+        throw new CodecFailure('limit-exceeded');
+      }
       if (value.length > budget.limits.maxItems - budget.items) throw new CodecFailure('limit-exceeded');
       if (Reflect.ownKeys(value).length !== value.length + 1) throw new CodecFailure('unsupported-value');
       const array: CborValue[] = [];
@@ -149,6 +154,8 @@ class BoundedTokenizer extends Tokenizer {
       if (typeof length !== 'number' || !Number.isSafeInteger(length) || length < 0) {
         throw new CodecFailure('invalid-cbor');
       }
+      if (token.type.name === 'array' && this.limits.maxArrayLength !== undefined
+        && length > this.limits.maxArrayLength) throw new CodecFailure('limit-exceeded');
       const count = length * (token.type.name === 'map' ? 2 : 1);
       if (count > this.limits.maxItems - this.items) throw new CodecFailure('limit-exceeded');
       this.remaining.push(count);

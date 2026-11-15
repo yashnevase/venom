@@ -5,9 +5,14 @@
   "type": "module",
   "license": "Apache-2.0",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
-  "scripts": { "build": "tsc -p tsconfig.json" },
+  "scripts": {
+    "build": "node ../../tools/build-notice.mjs && tsc -p tsconfig.json"
+  },
   "dependencies": {
     "cborg": "7.0.0",
     "pako": "3.0.3"

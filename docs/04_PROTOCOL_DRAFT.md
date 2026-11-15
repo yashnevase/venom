@@ -339,7 +339,11 @@ small or QR fountain envelope, so its receipt-body manifest reference is distinc
 from its own Header's optional manifest field.
 
 The original sender supplies the expected content reference, original signed
-recipient set, certificate trust anchors and current revocation policy. Require
+recipient set, certificate trust anchors and current revocation policy from its
+trusted local sent outbox. Establish this outbox context at sealing and validate
+its signed durable export during restore. Original bytes or recipient policy
+received from the Receipt or a network peer cannot establish that context. The
+sender may not be an original recipient and need not unwrap the original Box. Require
 receipt signer id = body.device = one expected original recipient. Validate its
 certificate, expiry and revocation before applying the receipt. Drop an unknown
 content reference. Reject mismatched manifest, status, signer or revoked device.

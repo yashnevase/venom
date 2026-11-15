@@ -149,3 +149,11 @@ describe('Phase 1 deterministic CBOR acceptance', () => {
       accepted, elapsed_ms: performance.now() - started, slowest_decode_ms: slowest }));
   });
 });
+
+it('CBOR-ARRAY-CAP rejects a collection head before constructing or reading its elements', () => {
+  const bounded = { ...limits, maxArrayLength: 20 };
+  expect(decodeCbor(new Uint8Array([0x95]), bounded))
+    .toEqual({ ok: false, error: 'limit-exceeded' });
+  expect(encodeCbor(Array.from({ length: 21 }, () => 0), bounded))
+    .toEqual({ ok: false, error: 'limit-exceeded' });
+});

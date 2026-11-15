@@ -16,3 +16,8 @@ export { sealHpkeBase, openHpkeBase } from './hpke.js';
 export type { HpkeError, HpkeResult, HpkeLimits, HpkeContext, HpkeCiphertext } from './hpke.js';
 export { compressDeflate, decompressDeflate } from './compression.js';
 export type { CompressionError, CompressionResult, CompressionLimits } from './compression.js';
+export { sealBox, openBox, parseBox, parseManifest, referenceDevice,
+  sealFile, openFile, createReceipt, verifyReceipt } from './box.js';
+export type { ProtocolResult, DeviceContact, BoxSender, SealBoxOptions, OpenBoxOptions,
+  OpenedBox, SealFileOptions, SealedFile, OpenFileOptions, ReceiptOptions,
+  VerifyReceiptOptions } from './box.js';

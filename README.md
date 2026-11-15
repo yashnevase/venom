@@ -1,5 +1,7 @@
 # venom
 
+Experimental, not independently reviewed.
+
 OpenMesh reference project.
 
 Working product codename is maintained in `packages/core/src/config.ts` once
@@ -14,16 +16,15 @@ Use Node 24.11.0 and pnpm 11.25.0.
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm check
+python3 -m venv /tmp/openmesh-vector-env
+/tmp/openmesh-vector-env/bin/python -m pip install -r tools/vectors/requirements.txt
+OPENMESH_VECTOR_PYTHON=/tmp/openmesh-vector-env/bin/python pnpm check
 pnpm audit --audit-level=low
 ```
 
-Phase 0 passed local checks and GitHub CI. Phase 1 currently contains Tag,
-deterministic CBOR, chunk-integrity, local identity and RFC 9180 HPKE Base modules.
-The bounded deflate candidate is recorded in ADR 006, with D-2's final choice
-pending phone measurements. Owner approval of the implementation direction is
-recorded in ADR 002. The full Phase 1 gate and
-D-8's external streaming-encryption review remain pending.
+Phase 1 now includes experimental envelope, file-stream and Receipt APIs using
+docs/04 revision 2. The complete Phase 1 gate remains pending. External review
+gates public release, security promises and Gate E under the owner amendment.
 Phase status, measurements,
 and unverified work are recorded in `docs/spikes/phase-0.md`,
 `docs/spikes/phase-1-tags.md`, and `docs/claims-ledger.md`.

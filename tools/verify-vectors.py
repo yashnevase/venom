@@ -4,6 +4,7 @@ import hmac
 import json
 import shutil
 import subprocess
+import sys
 import tempfile
 import zlib
 from pathlib import Path
@@ -254,11 +255,17 @@ def verify_deflate(document):
     return len(document['vectors']) + len(document['rejections'])
 
 
+def verify_envelopes(document):
+    assert document['v'] == 1
+    subprocess.run([sys.executable, 'tools/vectors/envelope_vectors.py', '--check'], check=True)
+    return len(document['vectors']) + len(document['negative_vectors']) + len(document['negative_file_vectors'])
+
+
 def main():
     directory = Path(__file__).resolve().parent.parent / 'packages' / 'test-vectors'
     verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'box-headers.json': verify_box_headers,
                  'chunks.json': verify_chunks,
-                 'identity.json': verify_identity, 'hpke.json': verify_hpke, 'deflate.json': verify_deflate}
+                 'identity.json': verify_identity, 'hpke.json': verify_hpke, 'deflate.json': verify_deflate, 'envelopes.json': verify_envelopes}
     checked = 0
     for path in sorted(directory.glob('*.json')):
         if path.name not in verifiers:
