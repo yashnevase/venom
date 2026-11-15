@@ -70,3 +70,22 @@ OPFS file inventory and atomic activation. They have no production UI caller yet
 An empty validator is suitable only for synthetic test records. It does not
 satisfy application restore requirements. Restore failures propagate to the
 caller. The adapter supplies rollback semantics for a failed commit.
+
+## Local identity
+
+createLocalIdentity creates a 24-word recovery phrase, independently random
+device signing/agreement seeds and a root-signed device certificate. It returns
+an unlocked sender and a protected identity/current record. Store only the
+record. Present the phrase explicitly to the user and keep the sender in memory
+while unlocked. Neither phrase nor root seed is stored in the record. Creation
+uses a certificate without an expiry, supported by the existing core API and
+recorded in ADR 016.
+
+unlockLocalIdentity captures the bounded stored bytes before its first await,
+opens the existing backup envelope using the supplied phrase, checks the exact
+identity schema, reconstructs the keys, verifies certificate time/revocation and
+checks both device public keys against that certificate. An active sender is
+returned only after these checks. Phrase possession without the record cannot
+recover the independently random previous device seeds. Renewals, device-list
+management and the unlock UI remain application work. JavaScript runtime memory
+and browser storage behavior need real-device validation.

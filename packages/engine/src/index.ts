@@ -6,3 +6,5 @@ export { createVerifiedBundleSource } from './export.js';
 export { createCacheBackup, restoreCacheBackup } from './backup.js';
 export type { BackupRecord, BackupLimits, BackupSnapshotSource, ValidateBackupRecords,
   ReplaceBackupRecords } from './backup.js';
+export { createLocalIdentity, unlockLocalIdentity } from './local-identity.js';
+export type { CreatedLocalIdentity } from './local-identity.js';

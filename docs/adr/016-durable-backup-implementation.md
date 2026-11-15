@@ -156,3 +156,22 @@ OPFS inventory consistency. The replacement adapter must enforce the contact
 resynchronization state. Passing an empty validator or ignoring that state is
 invalid application integration. Neither hook currently has a production UI
 caller. No physical-phone result is established by the synthetic record tests.
+
+## Local identity cache record
+
+The Phase 2 identity/current value is the existing protected backup envelope,
+containing deterministic CBOR `[1, device_signing_seed, device_agreement_seed,
+certificate_bytes, revocation_bytes_or_null]`. Device seeds are independently
+random 32-byte values. The root seed is reconstructed from the phrase under
+docs/04 and is omitted from the stored payload. The recovery entropy and phrase
+are never written to this record. The envelope's root matches the supplied
+phrase, and its existing signature/AAD construction is unchanged.
+
+Unlock reconstructs the keys, verifies the root-signed certificate at the caller's
+time, applies a supplied revocation proof, and compares both device public keys
+against the certificate before returning an active sender. The identity codec
+and envelope cap is 16384 bytes, using the existing small-record ceiling. A
+certificate/revocation is capped at 1024 bytes each. Newly created certificates
+use the core's optional-expiry behavior without an expiry. Certificate renewal
+and revocation-management UI remain later integration tasks. This adds no
+primitive or protocol message format.

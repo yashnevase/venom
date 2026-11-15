@@ -383,3 +383,33 @@ test('P2-BACKUP-BROWSER round trips a consistent cache snapshot through native b
   })()`);
   expect(result).toEqual({ restored: [1, 2, 3], otherMissing: true, requiresResync: true, rejected: true, writes: 0 });
 });
+
+test('P2-IDENTITY-BROWSER reopens a stored identity and uses its restored sender', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8321/');
+  const result: unknown = await page.evaluate(`(async () => {
+    const store = await import('/dist/store/index.js');
+    const engine = await import('/dist/browser-engine/engine/index.js');
+    const core = await import('/dist/browser-engine/core/index.js');
+    const unwrap = result => { if (!result.ok) throw new Error(result.error); return result.value; };
+    const now = 1794700800;
+    const created = await engine.createLocalIdentity(now);
+    const name = 'test-identity-' + crypto.randomUUID();
+    let cache = await store.openCache(name, { maxRecordBytes: 16384, maxOperations: 4 });
+    await cache.writeBatch([{ store: 'identity', key: 'current', value: created.record }]);
+    cache.close();
+    cache = await store.openCache(name, { maxRecordBytes: 16384, maxOperations: 4 });
+    const wire = await cache.get('identity', 'current');
+    const restored = await engine.unlockLocalIdentity(wire, created.phrase, now);
+    const recipient = await engine.createLocalIdentity(now);
+    const box = unwrap(await core.sealBox({ sender: restored, recipients: [recipient.sender.contact],
+      tag: new Uint8Array(16), now, profile: 'small', kind: 0, body: new Map([['text', 'Restored sender']]) }));
+    const opened = unwrap(await core.openBox(box, { recipient: recipient.sender,
+      expectedSender: created.sender.contact, now }));
+    let wrongPhraseRejected = false;
+    try { await engine.unlockLocalIdentity(wire, recipient.phrase, now); }
+    catch { wrongPhraseRejected = true; }
+    cache.close(); indexedDB.deleteDatabase(name);
+    return { words: created.phrase.split(' ').length, text: opened.body.get('text'), wrongPhraseRejected };
+  })()`);
+  expect(result).toEqual({ words: 24, text: 'Restored sender', wrongPhraseRejected: true });
+});

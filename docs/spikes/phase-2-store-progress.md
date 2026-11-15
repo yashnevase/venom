@@ -125,3 +125,27 @@ This increment passes 171 unit tests, 187 independent vector comparisons,
 28 Chromium tests, strict types, lint, foundations and license checks. The
 Chromium suite completed in 6.4 seconds on the development Mac. No new dependency
 or claims-ledger row was added. No real-phone behavior was verified.
+
+## Application identity record
+
+The local-identity acceptance suite first failed because the module did not
+exist. createLocalIdentity and unlockLocalIdentity now use the existing core
+recovery, identity, certificate and backup APIs without changing core. The
+protected identity/current payload contains separate random device seeds, the
+root-signed certificate and optional revocation proof. Root entropy/phrase are
+omitted. ADR 016 freezes the payload and records the choice of no certificate
+expiry for new identities.
+
+Eight identity tests cover exact key recovery, wrong phrase, corruption,
+not-yet-valid/expired/different-root certificates, both device-key mismatches,
+malformed versions/seeds, revocation, pre-await input capture, distinct keys and
+the real identity record passing through the cache backup validator boundary.
+P2-IDENTITY-BROWSER creates/persists/closes/reopens/unlocks an IndexedDB identity
+and uses its sender to seal a message opened by a second native browser identity.
+A wrong phrase fails. It passes in Chromium on the development Mac.
+
+The full suite passes 179 unit tests, 187 independent vector comparisons,
+29 Chromium tests, strict types, lint, foundations and license checks. The browser
+suite completed in 7.3 seconds. No new dependency or core edit was made. These
+are local test observations. Physical-device persistence, memory behavior,
+phrase presentation/confirmation, device management and the UI remain pending.
