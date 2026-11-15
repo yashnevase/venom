@@ -104,3 +104,26 @@ It checks whether changed draft-shaped kind/attachments fields alter the literal
 signed transcript, finds a signature-placeholder compression boundary, and
 measures primitive envelope components. The integrated Box codec is pending its
 wire freeze. The evidence is for that review.
+
+# S-4 saved-copy diagnostic
+
+Run `pnpm build`, then open `tools/spikes/dist/saved-copy.html` from the local
+filesystem. The generated HTML includes its script and Apache license. The
+adjacent `saved-copy.sha256` contains the SHA-256 of the complete HTML artifact.
+Run checks, reload the page, and run again to observe the previous scratch
+token. Remove test data deletes the diagnostic's IndexedDB database. Select
+report selects the JSON for manual copying. Keys are ephemeral test keys.
+
+`pnpm test:browser` runs S4-FILE, S4-DENIAL and S4-INDEPENDENT in isolated
+Chromium contexts. `pnpm test` runs S4-HASH-BUILD, which compares the artifact
+digest and changes a title byte sequence to check that its digest differs.
+The digest comparison runs outside the HTML page. A trusted signed release
+hash list and an app-visible copy-verification workflow remain pending.
+
+On a Mac with Chrome installed, run `node tools/run-saved-copy-spike.mjs` after
+building. This uses temporary profiles in bundled Chromium and installed Chrome,
+requests the browser sandbox, sets the contexts offline, and records reload,
+renamed-copy, different-directory and browser-restart observations. It closes the
+browsers and removes its temporary profiles. Results overwrite
+`docs/spikes/S-4-mac-observations.json`. These observations use headless browsers.
+The S-4 report records device gaps and the provisional saved-copy UX decision.

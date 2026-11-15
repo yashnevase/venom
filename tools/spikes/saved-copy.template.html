@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<!--LICENSE_TEXT-->
+<title>Saved-copy diagnostic</title>
+<style>
+body { font: 16px system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; color: #17212b; }
+button, textarea { box-sizing: border-box; width: 100%; padding: .75rem; font: inherit; }
+button { min-height: 48px; margin: .4rem 0; }
+label { display: block; margin: 1rem 0 .4rem; }
+textarea { min-height: 24rem; font: 12px monospace; }
+</style>
+<h1>Saved-copy diagnostic</h1>
+<p>Run from the saved HTML file. Run once, reload, then run again to check the previous scratch token.</p>
+<p>The Remove test data button clears this diagnostic's scratch database.</p>
+<button id="run">Run checks</button>
+<button id="remove">Remove test data</button>
+<p role="status">Ready</p>
+<label for="report">Report</label>
+<textarea id="report" readonly spellcheck="false"></textarea>
+<button id="select">Select report</button>
+<script type="module">
+/*INLINE_PROBE*/
+</script>
+</html>

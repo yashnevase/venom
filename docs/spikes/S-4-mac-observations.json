@@ -1,0 +1,697 @@
+{
+  "test": "S-4",
+  "measured_at": "2026-11-15T00:07:53.051Z",
+  "node": "v24.11.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "kernel": "25.1.0",
+  "source_commit": "5ed061fde7cb3b04711f665666d34e81d587e9b4",
+  "artifact_bytes": 20802,
+  "artifact_sha256": "f3f0f2b8aaea732376860921bda734ecd64e7ba0493bf3525156a69a705580bb",
+  "observations": [
+    {
+      "channel": "chromium",
+      "version": "159.0.8154.6",
+      "headless": true,
+      "chromium_sandbox_requested": true,
+      "offline": true,
+      "cases": [
+        {
+          "case": "original",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:51.153Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 13.399999998509884
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 1.300000000745058
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0.6999999992549419
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0.5
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": null,
+              "roundtrip": true,
+              "written_token": "1794701271147-0.3506537841620635",
+              "elapsed_ms": 56.30000000074506
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "reload",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:51.246Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.19999999925494194
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.09999999776482582
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701271147-0.3506537841620635",
+              "roundtrip": true,
+              "written_token": "1794701271244-0.37214318523039513",
+              "elapsed_ms": 16.899999998509884
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "renamed-copy",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:51.310Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.3999999985098839
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0.09999999776482582
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701271244-0.37214318523039513",
+              "roundtrip": true,
+              "written_token": "1794701271310-0.5241928568275434",
+              "elapsed_ms": 15.700000002980232
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "different-directory-copy",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:51.375Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.5
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701271310-0.5241928568275434",
+              "roundtrip": true,
+              "written_token": "1794701271375-0.49424331036946323",
+              "elapsed_ms": 15.600000001490116
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "original-after-copies",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:51.442Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.19999999925494194
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.19999999925494194
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701271375-0.49424331036946323",
+              "roundtrip": true,
+              "written_token": "1794701271442-0.3035396408763893",
+              "elapsed_ms": 15.699999999254942
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "browser-restart",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:51.640Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.6999999992549419
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0.09999999776482582
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701271442-0.3035396408763893",
+              "roundtrip": true,
+              "written_token": "1794701271640-0.8381711356434699",
+              "elapsed_ms": 15.699999999254942
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        }
+      ],
+      "same_file_reload_retained": true,
+      "browser_restart_retained": true,
+      "http_requests": 0
+    },
+    {
+      "channel": "chrome",
+      "version": "157.0.8103.52",
+      "headless": true,
+      "chromium_sandbox_requested": true,
+      "offline": true,
+      "cases": [
+        {
+          "case": "original",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:52.296Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.5999999977648258
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.20000000298023224
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0.09999999776482582
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": null,
+              "roundtrip": true,
+              "written_token": "1794701272296-0.7211743041571301",
+              "elapsed_ms": 18.300000000745058
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "reload",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:52.359Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.19999999925494194
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.20000000298023224
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701272296-0.7211743041571301",
+              "roundtrip": true,
+              "written_token": "1794701272358-0.6036061088797245",
+              "elapsed_ms": 14.800000000745058
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "renamed-copy",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:52.426Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.5
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.20000000298023224
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0.09999999776482582
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701272358-0.6036061088797245",
+              "roundtrip": true,
+              "written_token": "1794701272425-0.19616241724959826",
+              "elapsed_ms": 15.699999999254942
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "different-directory-copy",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:52.492Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.5
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0.09999999776482582
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701272425-0.19616241724959826",
+              "roundtrip": true,
+              "written_token": "1794701272492-0.7713807643985169",
+              "elapsed_ms": 15
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "original-after-copies",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:52.559Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.30000000074505806
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.19999999925494194
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701272492-0.7713807643985169",
+              "roundtrip": true,
+              "written_token": "1794701272558-0.46204339717560783",
+              "elapsed_ms": 14.800000000745058
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        },
+        {
+          "case": "browser-restart",
+          "report": {
+            "probe": "S-4-capabilities",
+            "v": 1,
+            "measured_at": "2026-11-15T00:07:52.987Z",
+            "protocol": "file:",
+            "origin": "file://",
+            "secure_context": true,
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+            "crypto": [
+              {
+                "algorithm": "Ed25519",
+                "supported": true,
+                "elapsed_ms": 0.6999999992549419
+              },
+              {
+                "algorithm": "X25519",
+                "supported": true,
+                "elapsed_ms": 0.10000000149011612
+              },
+              {
+                "algorithm": "HKDF-SHA256",
+                "supported": true,
+                "elapsed_ms": 0.09999999776482582
+              },
+              {
+                "algorithm": "AES-256-GCM",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "HMAC-SHA256",
+                "supported": true,
+                "elapsed_ms": 0
+              },
+              {
+                "algorithm": "SHA-256",
+                "supported": true,
+                "elapsed_ms": 0
+              }
+            ],
+            "storage": {
+              "ok": true,
+              "previous_token": "1794701272558-0.46204339717560783",
+              "roundtrip": true,
+              "written_token": "1794701272987-0.23429885646201198",
+              "elapsed_ms": 17.100000001490116
+            },
+            "source_fetch": {
+              "ok": false,
+              "error": "TypeError"
+            }
+          }
+        }
+      ],
+      "same_file_reload_retained": true,
+      "browser_restart_retained": true,
+      "http_requests": 0
+    }
+  ]
+}
