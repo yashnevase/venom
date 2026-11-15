@@ -53,3 +53,20 @@ Browser downloads, IndexedDB/OPFS staging, signed backup, UI and real-phone
 execution remain pending Phase 2 integrations. This module alone does not pass
 the full Phase 2 gate. See docs/spikes/phase-2-bundle-progress.md for the staged
 acceptance history and task handoff for final check/commit evidence.
+
+## Backup orchestration
+
+createCacheBackup snapshots all docs/11 metadata stores, bounds and sorts byte
+records, calls a mandatory application-schema validator, and seals the canonical
+snapshot with the core backup envelope. restoreCacheBackup authenticates and
+parses the complete snapshot, validates schemas, then calls a replacement adapter
+with requiresContactResynchronization=true. The adapter must enforce this state
+atomically with replacement. Validators receive copies, so mutation cannot alter
+the signed/restored record set. Limits and recovery entropy are captured before
+asynchronous snapshot collection.
+
+These APIs require integration with identity/contact/outbox schema validation,
+OPFS file inventory and atomic activation. They have no production UI caller yet.
+An empty validator is suitable only for synthetic test records. It does not
+satisfy application restore requirements. Restore failures propagate to the
+caller. The adapter supplies rollback semantics for a failed commit.

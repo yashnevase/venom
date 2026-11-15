@@ -129,3 +129,30 @@ The review cannot establish full snapshot schema correctness, consistent capture
 atomic replacement or stale-counter recovery. Those remain engine tasks. The
 API is an experimental backup envelope, with application restore still pending.
 No external cryptographer review or public-release approval is implied.
+
+## Snapshot container and orchestration
+
+Version 1 snapshot bytes are deterministic CBOR `[1, records]`. Each record is
+`[store_name, key, value_bytes]`, sorted lexicographically by store then key using
+JavaScript string comparison. Store names are exactly the twelve docs/11 working
+stores. Keys have 1 to 512 UTF-16 code units. Duplicate pairs, unknown stores,
+extra tuple fields, non-byte values and noncanonical ordering are rejected.
+Caller limits bound the complete codec input, depth, item count, record count,
+per-record values and aggregate record-value bytes. The enclosing backup from
+this ADR supplies its version prefix, signature and outer protection.
+
+createCacheBackup captures every metadata store in a single snapshot operation,
+validates disposable owned copies through a mandatory application validator,
+then signs the original bounded snapshot. restoreCacheBackup authenticates the
+outer envelope, validates the snapshot framing and application schemas, then
+invokes a replacement adapter. The adapter must atomically install records and
+mark restored contact sessions as requiring resynchronization before sending.
+A validator failure invokes no replacement. Replacement failure is propagated.
+
+These orchestration hooks are not a complete application restore. The mandatory
+application validator must check identity/certificate relationships, contact
+secrets/counters, trusted outgoing originals, delivery/deduplication state and
+OPFS inventory consistency. The replacement adapter must enforce the contact
+resynchronization state. Passing an empty validator or ignoring that state is
+invalid application integration. Neither hook currently has a production UI
+caller. No physical-phone result is established by the synthetic record tests.

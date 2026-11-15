@@ -349,3 +349,37 @@ test('P2-STORE-ROLLBACK preserves existing data on duplicate input and write fai
   })()`);
   expect(result).toEqual({ duplicateRejected: true, writeRejected: true, retained: [1], newMissing: true, cleared: true });
 });
+
+test('P2-BACKUP-BROWSER round trips a consistent cache snapshot through native backup and atomic replacement', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8321/');
+  const result: unknown = await page.evaluate(`(async () => {
+    const store = await import('/dist/store/index.js');
+    const engine = await import('/dist/browser-engine/engine/index.js');
+    const name = 'test-backup-' + crypto.randomUUID();
+    const cache = await store.openCache(name, { maxRecordBytes: 4096, maxOperations: 8 });
+    const limits = { maxBytes: 32768, maxDepth: 8, maxItems: 256, maxRecords: 8, maxRecordBytes: 4096 };
+    const entropy = new Uint8Array(32).fill(7);
+    await cache.writeBatch([{ store: 'boxes', key: 'original', value: new Uint8Array([1, 2, 3]) }]);
+    const validate = entries => {
+      if (entries.length !== 1 || entries[0].store !== 'boxes' || entries[0].key !== 'original'
+        || entries[0].value.join(',') !== '1,2,3') throw new Error('Synthetic schema mismatch');
+    };
+    const wire = await engine.createCacheBackup(cache, entropy, 60, limits, validate);
+    await cache.replaceAll([{ store: 'boxes', key: 'other', value: new Uint8Array([9]) }]);
+    let requiresResync = false;
+    await engine.restoreCacheBackup(wire, entropy, limits, validate, async (entries, policy) => {
+      requiresResync = policy.requiresContactResynchronization;
+      await cache.replaceAll(entries);
+    });
+    const restored = await cache.get('boxes', 'original');
+    const otherMissing = await cache.get('boxes', 'other') === undefined;
+    let writes = 0;
+    const damaged = wire.slice(); damaged[damaged.length - 1] ^= 1;
+    let rejected = false;
+    try { await engine.restoreCacheBackup(damaged, entropy, limits, validate, () => { writes++; }); }
+    catch { rejected = true; }
+    cache.close(); indexedDB.deleteDatabase(name);
+    return { restored: [...restored], otherMissing, requiresResync, rejected, writes };
+  })()`);
+  expect(result).toEqual({ restored: [1, 2, 3], otherMissing: true, requiresResync: true, rejected: true, writes: 0 });
+});

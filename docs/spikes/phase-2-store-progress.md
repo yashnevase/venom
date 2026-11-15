@@ -102,3 +102,26 @@ tests and 139 dependency license checks. Eight browser tests target the store
 snapshot/replacement behavior and earlier store contracts. No claims-ledger row
 was added. Full application restore and real-device storage validation remain
 pending.
+
+## Backup snapshot boundary
+
+The engine backup acceptance suite first failed because the module did not
+exist. It now covers snapshot capture, native envelope round trip, mandatory
+application validation before replacement, wrong entropy, tampering, truncation,
+unknown envelope version, duplicate/unknown/over-budget records, failed final
+replacement, limits/entropy capture and disposable validator buffers. Authenticated
+malformed inner snapshots test unsupported versions, tuple shapes and ordering.
+ADR 016 records the exact deterministic snapshot framing.
+
+P2-BACKUP-BROWSER passes with the actual staged engine/core/store modules,
+native browser crypto and IndexedDB snapshot/replacement. It restores a synthetic
+byte record, removes intervening state, forwards the contact-resynchronization
+requirement and invokes no replacement after tampering. This does not implement
+production identity/contact/outbox validators or persist the resynchronization
+requirement in an application session. OPFS inventory and real-device restore
+remain pending. There is no production UI caller yet.
+
+This increment passes 171 unit tests, 187 independent vector comparisons,
+28 Chromium tests, strict types, lint, foundations and license checks. The
+Chromium suite completed in 6.4 seconds on the development Mac. No new dependency
+or claims-ledger row was added. No real-phone behavior was verified.
