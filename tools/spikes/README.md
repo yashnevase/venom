@@ -133,8 +133,11 @@ The S-4 report records device gaps and the provisional saved-copy UX decision.
 Build with `pnpm build`, then use the local static server above and open
 `/raptorq.html`. Run benchmark measures fixed 200 KiB and 1 MiB public fixtures
 in a dedicated worker. Enter device notes before starting. Select report
-selects the resulting JSON for manual copying. Reports stay in the page until
-manually copied. Eight trials run per packet size and reception pattern.
+selects the resulting JSON for manual copying. Save report downloads the same
+JSON as `openmesh-s1-raptorq.json` through a native download link for attachment.
+The link displays a request status after tapping. The current Blob URL stays
+available until another report replaces it. Eight
+trials run per packet size and reception pattern.
 
 The packet budgets are 512, 1024 and 1280 bytes, including the four-byte RFC 6330
 payload ID. Each encode creates 100% repair packets. Ordered, late/drop and
@@ -151,9 +154,9 @@ page to retry after initialization failure or timeout. The staged build file
 records dependency versions, npm integrity, source-base commit, byte sizes and
 asset hashes. MIT and upstream Apache notices accompany the files.
 
-Run `pnpm exec vitest run tools/raptorq.test.ts` for the five codec/evidence tests
+Run `pnpm exec vitest run tools/raptorq.test.ts` for the six codec/evidence tests
 and `pnpm exec playwright test tools/raptorq.browser.test.ts` for the three worker
-tests. The browser suite checks completion after subsequent HTTP is blocked,
+tests. The browser suite checks completion and exact JSON download after subsequent HTTP is blocked,
 unavailable WASM and a simulated non-completing worker deadline. With the port
 8322 static server running, `node tools/run-raptorq-spike.mjs` saves a fresh Mac
 observation under docs/spikes. The evidence test compares its asset hashes and

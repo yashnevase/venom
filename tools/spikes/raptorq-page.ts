@@ -2,16 +2,27 @@ export {};
 
 const run = document.querySelector<HTMLButtonElement>('#run');
 const select = document.querySelector<HTMLButtonElement>('#select');
+const save = document.querySelector<HTMLAnchorElement>('#save');
+const downloadStatus = document.querySelector<HTMLElement>('#download-status');
 const notes = document.querySelector<HTMLInputElement>('#notes');
 const output = document.querySelector<HTMLTextAreaElement>('#report');
 const status = document.querySelector<HTMLElement>('[role="status"]');
-if (!run || !select || !notes || !output || !status) throw new Error('Missing diagnostic control');
+if (!run || !select || !save || !downloadStatus || !notes || !output || !status) throw new Error('Missing diagnostic control');
 const reportBox = output;
 const state = status;
+const downloadLink = save;
 let deadline: number | undefined;
 let build: unknown;
 let worker: Worker | undefined;
 let initialized = false;
+let reportUrl: string | undefined;
+
+function prepareDownload(): void {
+  if (reportUrl) URL.revokeObjectURL(reportUrl);
+  reportUrl = URL.createObjectURL(new Blob([reportBox.value], { type: 'application/json' }));
+  downloadLink.href = reportUrl;
+  downloadLink.removeAttribute('aria-disabled');
+}
 
 function stop(outcome: string, error?: string): void {
   if (deadline !== undefined) clearTimeout(deadline);
@@ -22,10 +33,11 @@ function stop(outcome: string, error?: string): void {
   reportBox.value = JSON.stringify({ probe: 'S-1-codec', v: 1, outcome, error,
     user_agent: navigator.userAgent, secure_context: isSecureContext,
     device_notes: notes?.value ?? '', build }, null, 2);
+  prepareDownload();
 }
 
 try {
-  const response = await fetch('./dist/raptorq/build.json');
+  const response = await fetch('./dist/raptorq/build.json', { cache: 'no-store' });
   if (!response.ok) throw new Error('MissingBuildMetadata');
   build = await response.json() as unknown;
   worker = new Worker('./dist/raptorq/raptorq-worker.js', { type: 'module' });
@@ -47,6 +59,7 @@ try {
       reportBox.value = JSON.stringify({ ...message, probe: 'S-1-codec', v: 1, measured_at: new Date().toISOString(),
         user_agent: navigator.userAgent, secure_context: isSecureContext, device_notes: notes.value,
         build }, null, 2);
+      prepareDownload();
       state.textContent = 'Complete';
       run.disabled = false;
     } else if (message.type === 'initialization-failed') {
@@ -68,3 +81,6 @@ try {
   stop('initialization-failed', error instanceof Error ? error.name : 'UnknownError');
 }
 select.addEventListener('click', () => { reportBox.focus(); reportBox.select(); });
+save.addEventListener('click', () => {
+  downloadStatus.textContent = 'Download requested. Check browser Downloads.';
+});

@@ -78,3 +78,31 @@ it('S1-REPORT matches the staged assets and recomputes all saved trial summaries
     }
   }
 });
+
+it('S1-PHONE-PARTIAL validates the supplied samples while preserving incomplete coverage and missing build metadata', async () => {
+  const report = JSON.parse(await readFile(new URL('../docs/spikes/S-1-raptorq-xiaomi-partial.json', import.meta.url), 'utf8')) as {
+    full_report_received: boolean; missing_metadata: string[];
+    complete_cases: { input_bytes: number; iterations: number;
+      trial_fields_shared: { matched: boolean; decoded_bytes: number; error: null };
+      encode: { samples_ms: number[]; median_ms: number; p95_ms: number };
+      decode: { samples_ms: number[]; median_ms: number; p95_ms: number } }[];
+    partial_case: { encode: { samples_ms: number[]; median_ms: number; p95_ms: number };
+      decode: { samples_ms: number[]; median_ms: number; p95_ms: number } };
+  };
+  expect(report.full_report_received).toBe(false);
+  expect(report.missing_metadata).toContain('build');
+  expect(report.complete_cases).toHaveLength(5);
+  expect(report.complete_cases.reduce((count, row) => count + row.iterations, 0)).toBe(40);
+  for (const row of report.complete_cases) {
+    expect(row.trial_fields_shared).toMatchObject({ matched: true, decoded_bytes: row.input_bytes, error: null });
+  }
+  for (const row of [...report.complete_cases, report.partial_case]) {
+    for (const operation of ['encode', 'decode'] as const) {
+      const values = [...row[operation].samples_ms].sort((a, b) => a - b);
+      expect(values).toHaveLength(8);
+      expect(values.every((value) => Number.isFinite(value) && value >= 0)).toBe(true);
+      expect(row[operation].median_ms).toBe(((values[3] ?? 0) + (values[4] ?? 0)) / 2);
+      expect(row[operation].p95_ms).toBe(values[7]);
+    }
+  }
+});

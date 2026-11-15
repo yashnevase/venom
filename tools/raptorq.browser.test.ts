@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
 
 test('S1-BROWSER runs the worker codec benchmark after initialization with further HTTP blocked', async ({ page, context }) => {
   test.setTimeout(120_000);
@@ -19,6 +20,18 @@ test('S1-BROWSER runs the worker codec benchmark after initialization with furth
   expect(result.device_notes).toBe('Playwright Mac codec fixture');
   expect(result.cases).toHaveLength(18);
   expect(result.cases.every((row) => row.outcome === 'verified' && row.completed_trials === 8)).toBe(true);
+  const save = page.getByRole('link', { name: 'Save report' });
+  await expect(save).toHaveAttribute('href', /^blob:/);
+  await expect(save).toHaveAttribute('download', 'openmesh-s1-raptorq.json');
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    save.click(),
+  ]);
+  expect(download.suggestedFilename()).toBe('openmesh-s1-raptorq.json');
+  const path = await download.path();
+  if (!path) throw new Error('Missing report download');
+  expect(JSON.parse(await readFile(path, 'utf8'))).toEqual(result);
+  await expect(page.getByText('Download requested. Check browser Downloads.')).toBeVisible();
   expect(requests).toEqual([]);
 });
 

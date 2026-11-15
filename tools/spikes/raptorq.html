@@ -6,8 +6,9 @@
 <title>RaptorQ codec diagnostic</title>
 <style>
 body { font: 16px system-ui, sans-serif; max-width: 44rem; margin: 2rem auto; padding: 0 1rem; color: #17212b; }
-button, input, textarea { box-sizing: border-box; width: 100%; font: inherit; padding: .75rem; }
-button { min-height: 48px; margin: .4rem 0; }
+button, a, input, textarea { box-sizing: border-box; width: 100%; font: inherit; padding: .75rem; }
+button, a { display: block; min-height: 48px; margin: .4rem 0; text-align: center; }
+a[aria-disabled="true"] { pointer-events: none; opacity: .5; }
 label { display: block; margin: 1rem 0 .4rem; }
 textarea { min-height: 24rem; font: 12px monospace; }
 </style>
@@ -19,6 +20,8 @@ textarea { min-height: 24rem; font: 12px monospace; }
 <p role="status">Loading</p>
 <label for="report">Report</label>
 <textarea id="report" readonly spellcheck="false"></textarea>
+<a id="save" aria-disabled="true" download="openmesh-s1-raptorq.json">Save report</a>
+<p id="download-status" aria-live="polite"></p>
 <button id="select">Select report</button>
-<script type="module" src="./dist/raptorq/raptorq-page.js"></script>
+<script type="module" src="./dist/raptorq/raptorq-page.js?export=2"></script>
 </html>

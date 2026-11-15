@@ -9,7 +9,7 @@
   "v": 1,
   "type": "complete",
   "outcome": "verified",
-  "initialization_ms": 1.6000000014901161,
+  "initialization_ms": 2.400000002235174,
   "heap_before_bytes": 1179648,
   "heap_after_bytes": 9830400,
   "cases": [
@@ -23,17 +23,17 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 2.349999999627471,
-        "p95_ms": 7.100000001490116,
+        "median_ms": 2.550000000745058,
+        "p95_ms": 7.199999999254942,
         "samples_ms": [
-          7.100000001490116,
-          2.900000002235174,
-          3,
+          7.199999999254942,
+          2.800000000745058,
+          3.599999997764826,
           2.2000000029802322,
-          2.300000000745058,
+          2.2999999970197678,
+          2.7000000029802322,
           2.399999998509884,
-          2.100000001490116,
-          2.099999997764826
+          1.8999999985098839
         ]
       },
       "decode": {
@@ -41,18 +41,18 @@
         "p95_ms": 0.6000000014901161,
         "samples_ms": [
           0.6000000014901161,
-          0.30000000074505806,
-          0.30000000074505806,
-          0,
           0.19999999925494194,
-          0.10000000149011612,
+          0.30000000074505806,
           0.09999999776482582,
-          0.10000000149011612
+          0,
+          0,
+          0.10000000149011612,
+          0.19999999925494194
         ]
       },
       "trials": [
         {
-          "encode_ms": 7.100000001490116,
+          "encode_ms": 7.199999999254942,
           "decode_ms": 0.6000000014901161,
           "generated_packets": 808,
           "delivered_packets": 404,
@@ -64,8 +64,8 @@
           "error": null
         },
         {
-          "encode_ms": 2.900000002235174,
-          "decode_ms": 0.30000000074505806,
+          "encode_ms": 2.800000000745058,
+          "decode_ms": 0.19999999925494194,
           "generated_packets": 808,
           "delivered_packets": 404,
           "skipped_packets": 0,
@@ -76,7 +76,7 @@
           "error": null
         },
         {
-          "encode_ms": 3,
+          "encode_ms": 3.599999997764826,
           "decode_ms": 0.30000000074505806,
           "generated_packets": 808,
           "delivered_packets": 404,
@@ -89,6 +89,18 @@
         },
         {
           "encode_ms": 2.2000000029802322,
+          "decode_ms": 0.09999999776482582,
+          "generated_packets": 808,
+          "delivered_packets": 404,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 2.2999999970197678,
           "decode_ms": 0,
           "generated_packets": 808,
           "delivered_packets": 404,
@@ -100,8 +112,8 @@
           "error": null
         },
         {
-          "encode_ms": 2.300000000745058,
-          "decode_ms": 0.19999999925494194,
+          "encode_ms": 2.7000000029802322,
+          "decode_ms": 0,
           "generated_packets": 808,
           "delivered_packets": 404,
           "skipped_packets": 0,
@@ -124,20 +136,8 @@
           "error": null
         },
         {
-          "encode_ms": 2.100000001490116,
-          "decode_ms": 0.09999999776482582,
-          "generated_packets": 808,
-          "delivered_packets": 404,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 2.099999997764826,
-          "decode_ms": 0.10000000149011612,
+          "encode_ms": 1.8999999985098839,
+          "decode_ms": 0.19999999925494194,
           "generated_packets": 808,
           "delivered_packets": 404,
           "skipped_packets": 0,
@@ -159,109 +159,37 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 2.100000001490116,
-        "p95_ms": 2.300000000745058,
+        "median_ms": 2.050000000745058,
+        "p95_ms": 2.199999999254942,
         "samples_ms": [
+          2,
+          2,
           2.100000001490116,
           2.100000001490116,
+          1.9000000022351742,
           2.100000001490116,
-          2.300000000745058,
-          2.100000001490116,
-          2.100000001490116,
-          2.300000000745058,
+          2.199999999254942,
           2
         ]
       },
       "decode": {
-        "median_ms": 1.7499999981373549,
-        "p95_ms": 1.9000000022351742,
+        "median_ms": 1.699999999254942,
+        "p95_ms": 1.800000000745058,
         "samples_ms": [
+          1.7000000029802322,
+          1.699999999254942,
           1.800000000745058,
           1.699999999254942,
           1.699999999254942,
-          1.9000000022351742,
-          1.7999999970197678,
-          1.800000000745058,
           1.699999999254942,
-          1.5999999977648258
+          1.6000000014901161,
+          1.6000000014901161
         ]
       },
       "trials": [
         {
-          "encode_ms": 2.100000001490116,
-          "decode_ms": 1.800000000745058,
-          "generated_packets": 808,
-          "delivered_packets": 404,
-          "skipped_packets": 324,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 2.100000001490116,
-          "decode_ms": 1.699999999254942,
-          "generated_packets": 808,
-          "delivered_packets": 404,
-          "skipped_packets": 324,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 2.100000001490116,
-          "decode_ms": 1.699999999254942,
-          "generated_packets": 808,
-          "delivered_packets": 404,
-          "skipped_packets": 324,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 2.300000000745058,
-          "decode_ms": 1.9000000022351742,
-          "generated_packets": 808,
-          "delivered_packets": 404,
-          "skipped_packets": 324,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 2.100000001490116,
-          "decode_ms": 1.7999999970197678,
-          "generated_packets": 808,
-          "delivered_packets": 404,
-          "skipped_packets": 324,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 2.100000001490116,
-          "decode_ms": 1.800000000745058,
-          "generated_packets": 808,
-          "delivered_packets": 404,
-          "skipped_packets": 324,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 2.300000000745058,
-          "decode_ms": 1.699999999254942,
+          "encode_ms": 2,
+          "decode_ms": 1.7000000029802322,
           "generated_packets": 808,
           "delivered_packets": 404,
           "skipped_packets": 324,
@@ -273,7 +201,79 @@
         },
         {
           "encode_ms": 2,
-          "decode_ms": 1.5999999977648258,
+          "decode_ms": 1.699999999254942,
+          "generated_packets": 808,
+          "delivered_packets": 404,
+          "skipped_packets": 324,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 2.100000001490116,
+          "decode_ms": 1.800000000745058,
+          "generated_packets": 808,
+          "delivered_packets": 404,
+          "skipped_packets": 324,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 2.100000001490116,
+          "decode_ms": 1.699999999254942,
+          "generated_packets": 808,
+          "delivered_packets": 404,
+          "skipped_packets": 324,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.9000000022351742,
+          "decode_ms": 1.699999999254942,
+          "generated_packets": 808,
+          "delivered_packets": 404,
+          "skipped_packets": 324,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 2.100000001490116,
+          "decode_ms": 1.699999999254942,
+          "generated_packets": 808,
+          "delivered_packets": 404,
+          "skipped_packets": 324,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 2.199999999254942,
+          "decode_ms": 1.6000000014901161,
+          "generated_packets": 808,
+          "delivered_packets": 404,
+          "skipped_packets": 324,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 2,
+          "decode_ms": 1.6000000014901161,
           "generated_packets": 808,
           "delivered_packets": 404,
           "skipped_packets": 324,
@@ -300,53 +300,29 @@
         "samples_ms": [
           2,
           2.2000000029802322,
-          2,
-          2,
-          1.800000000745058,
+          1.9000000022351742,
           2,
           1.8999999985098839,
+          2,
+          2,
           2
         ]
       },
       "decode": {
-        "median_ms": 0.19999999925494194,
-        "p95_ms": 0.20000000298023224,
+        "median_ms": 0.15000000037252903,
+        "p95_ms": 0.19999999925494194,
         "samples_ms": [
-          0.19999999925494194,
-          0.19999999925494194,
           0.09999999776482582,
-          0.20000000298023224,
           0.10000000149011612,
-          0.20000000298023224,
-          0.09999999776482582,
+          0.19999999925494194,
+          0.10000000149011612,
+          0.10000000149011612,
+          0.19999999925494194,
+          0.19999999925494194,
           0.19999999925494194
         ]
       },
       "trials": [
-        {
-          "encode_ms": 2,
-          "decode_ms": 0.19999999925494194,
-          "generated_packets": 808,
-          "delivered_packets": 807,
-          "skipped_packets": 0,
-          "duplicate_packets": 403,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 2.2000000029802322,
-          "decode_ms": 0.19999999925494194,
-          "generated_packets": 808,
-          "delivered_packets": 807,
-          "skipped_packets": 0,
-          "duplicate_packets": 403,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
         {
           "encode_ms": 2,
           "decode_ms": 0.09999999776482582,
@@ -360,8 +336,8 @@
           "error": null
         },
         {
-          "encode_ms": 2,
-          "decode_ms": 0.20000000298023224,
+          "encode_ms": 2.2000000029802322,
+          "decode_ms": 0.10000000149011612,
           "generated_packets": 808,
           "delivered_packets": 807,
           "skipped_packets": 0,
@@ -372,7 +348,31 @@
           "error": null
         },
         {
-          "encode_ms": 1.800000000745058,
+          "encode_ms": 1.9000000022351742,
+          "decode_ms": 0.19999999925494194,
+          "generated_packets": 808,
+          "delivered_packets": 807,
+          "skipped_packets": 0,
+          "duplicate_packets": 403,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 2,
+          "decode_ms": 0.10000000149011612,
+          "generated_packets": 808,
+          "delivered_packets": 807,
+          "skipped_packets": 0,
+          "duplicate_packets": 403,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.8999999985098839,
           "decode_ms": 0.10000000149011612,
           "generated_packets": 808,
           "delivered_packets": 807,
@@ -385,7 +385,7 @@
         },
         {
           "encode_ms": 2,
-          "decode_ms": 0.20000000298023224,
+          "decode_ms": 0.19999999925494194,
           "generated_packets": 808,
           "delivered_packets": 807,
           "skipped_packets": 0,
@@ -396,8 +396,8 @@
           "error": null
         },
         {
-          "encode_ms": 1.8999999985098839,
-          "decode_ms": 0.09999999776482582,
+          "encode_ms": 2,
+          "decode_ms": 0.19999999925494194,
           "generated_packets": 808,
           "delivered_packets": 807,
           "skipped_packets": 0,
@@ -431,61 +431,37 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 1.800000000745058,
-        "p95_ms": 2.399999998509884,
+        "median_ms": 1.799999998882413,
+        "p95_ms": 2.199999999254942,
         "samples_ms": [
-          2.399999998509884,
-          1.8999999985098839,
-          1.800000000745058,
+          2.199999999254942,
           1.9000000022351742,
+          1.7999999970197678,
           1.800000000745058,
           1.699999999254942,
+          1.800000000745058,
           1.699999999254942,
-          1.800000000745058
+          1.7000000029802322
         ]
       },
       "decode": {
-        "median_ms": 0,
-        "p95_ms": 0.19999999925494194,
+        "median_ms": 0.09999999776482582,
+        "p95_ms": 0.20000000298023224,
         "samples_ms": [
+          0.09999999776482582,
+          0.09999999776482582,
+          0.20000000298023224,
           0,
-          0,
-          0,
-          0,
-          0,
+          0.20000000298023224,
           0.10000000149011612,
-          0.19999999925494194,
+          0,
           0
         ]
       },
       "trials": [
         {
-          "encode_ms": 2.399999998509884,
-          "decode_ms": 0,
-          "generated_packets": 402,
-          "delivered_packets": 201,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.8999999985098839,
-          "decode_ms": 0,
-          "generated_packets": 402,
-          "delivered_packets": 201,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.800000000745058,
-          "decode_ms": 0,
+          "encode_ms": 2.199999999254942,
+          "decode_ms": 0.09999999776482582,
           "generated_packets": 402,
           "delivered_packets": 201,
           "skipped_packets": 0,
@@ -497,7 +473,19 @@
         },
         {
           "encode_ms": 1.9000000022351742,
-          "decode_ms": 0,
+          "decode_ms": 0.09999999776482582,
+          "generated_packets": 402,
+          "delivered_packets": 201,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.7999999970197678,
+          "decode_ms": 0.20000000298023224,
           "generated_packets": 402,
           "delivered_packets": 201,
           "skipped_packets": 0,
@@ -521,6 +509,18 @@
         },
         {
           "encode_ms": 1.699999999254942,
+          "decode_ms": 0.20000000298023224,
+          "generated_packets": 402,
+          "delivered_packets": 201,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.800000000745058,
           "decode_ms": 0.10000000149011612,
           "generated_packets": 402,
           "delivered_packets": 201,
@@ -533,7 +533,7 @@
         },
         {
           "encode_ms": 1.699999999254942,
-          "decode_ms": 0.19999999925494194,
+          "decode_ms": 0,
           "generated_packets": 402,
           "delivered_packets": 201,
           "skipped_packets": 0,
@@ -544,7 +544,7 @@
           "error": null
         },
         {
-          "encode_ms": 1.800000000745058,
+          "encode_ms": 1.7000000029802322,
           "decode_ms": 0,
           "generated_packets": 402,
           "delivered_packets": 201,
@@ -567,37 +567,61 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 1.650000000372529,
-        "p95_ms": 1.800000000745058,
+        "median_ms": 1.699999999254942,
+        "p95_ms": 1.7000000029802322,
         "samples_ms": [
-          1.800000000745058,
+          1.7000000029802322,
+          1.699999999254942,
+          1.699999999254942,
           1.6000000014901161,
-          1.5999999977648258,
           1.699999999254942,
-          1.5999999977648258,
           1.699999999254942,
-          1.800000000745058,
+          1.699999999254942,
           1.6000000014901161
         ]
       },
       "decode": {
-        "median_ms": 1.450000001117587,
-        "p95_ms": 1.5,
+        "median_ms": 1.5,
+        "p95_ms": 1.6000000014901161,
         "samples_ms": [
-          1.4000000022351742,
+          1.5,
+          1.6000000014901161,
           1.5,
           1.5,
           1.4000000022351742,
           1.5,
-          1.3999999985098839,
-          1.3999999985098839,
+          1.5,
           1.5
         ]
       },
       "trials": [
         {
-          "encode_ms": 1.800000000745058,
-          "decode_ms": 1.4000000022351742,
+          "encode_ms": 1.7000000029802322,
+          "decode_ms": 1.5,
+          "generated_packets": 402,
+          "delivered_packets": 201,
+          "skipped_packets": 161,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.699999999254942,
+          "decode_ms": 1.6000000014901161,
+          "generated_packets": 402,
+          "delivered_packets": 201,
+          "skipped_packets": 161,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.699999999254942,
+          "decode_ms": 1.5,
           "generated_packets": 402,
           "delivered_packets": 201,
           "skipped_packets": 161,
@@ -620,18 +644,6 @@
           "error": null
         },
         {
-          "encode_ms": 1.5999999977648258,
-          "decode_ms": 1.5,
-          "generated_packets": 402,
-          "delivered_packets": 201,
-          "skipped_packets": 161,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
           "encode_ms": 1.699999999254942,
           "decode_ms": 1.4000000022351742,
           "generated_packets": 402,
@@ -644,7 +656,7 @@
           "error": null
         },
         {
-          "encode_ms": 1.5999999977648258,
+          "encode_ms": 1.699999999254942,
           "decode_ms": 1.5,
           "generated_packets": 402,
           "delivered_packets": 201,
@@ -657,19 +669,7 @@
         },
         {
           "encode_ms": 1.699999999254942,
-          "decode_ms": 1.3999999985098839,
-          "generated_packets": 402,
-          "delivered_packets": 201,
-          "skipped_packets": 161,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.800000000745058,
-          "decode_ms": 1.3999999985098839,
+          "decode_ms": 1.5,
           "generated_packets": 402,
           "delivered_packets": 201,
           "skipped_packets": 161,
@@ -703,61 +703,49 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 1.6000000014901161,
+        "median_ms": 1.699999999254942,
         "p95_ms": 1.7000000029802322,
         "samples_ms": [
+          1.6000000014901161,
           1.699999999254942,
-          1.6000000014901161,
-          1.6000000014901161,
           1.5999999977648258,
           1.7000000029802322,
           1.5999999977648258,
           1.699999999254942,
-          1.6000000014901161
+          1.699999999254942,
+          1.699999999254942
         ]
       },
       "decode": {
-        "median_ms": 0.09999999776482582,
-        "p95_ms": 0.19999999925494194,
+        "median_ms": 0.10000000149011612,
+        "p95_ms": 0.20000000298023224,
         "samples_ms": [
-          0,
+          0.10000000149011612,
+          0.10000000149011612,
+          0.20000000298023224,
           0.09999999776482582,
           0,
           0.10000000149011612,
-          0.09999999776482582,
           0.19999999925494194,
-          0,
-          0.10000000149011612
+          0
         ]
       },
       "trials": [
         {
+          "encode_ms": 1.6000000014901161,
+          "decode_ms": 0.10000000149011612,
+          "generated_packets": 402,
+          "delivered_packets": 401,
+          "skipped_packets": 0,
+          "duplicate_packets": 200,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
           "encode_ms": 1.699999999254942,
-          "decode_ms": 0,
-          "generated_packets": 402,
-          "delivered_packets": 401,
-          "skipped_packets": 0,
-          "duplicate_packets": 200,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.6000000014901161,
-          "decode_ms": 0.09999999776482582,
-          "generated_packets": 402,
-          "delivered_packets": 401,
-          "skipped_packets": 0,
-          "duplicate_packets": 200,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.6000000014901161,
-          "decode_ms": 0,
+          "decode_ms": 0.10000000149011612,
           "generated_packets": 402,
           "delivered_packets": 401,
           "skipped_packets": 0,
@@ -769,7 +757,7 @@
         },
         {
           "encode_ms": 1.5999999977648258,
-          "decode_ms": 0.10000000149011612,
+          "decode_ms": 0.20000000298023224,
           "generated_packets": 402,
           "delivered_packets": 401,
           "skipped_packets": 0,
@@ -793,6 +781,30 @@
         },
         {
           "encode_ms": 1.5999999977648258,
+          "decode_ms": 0,
+          "generated_packets": 402,
+          "delivered_packets": 401,
+          "skipped_packets": 0,
+          "duplicate_packets": 200,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.699999999254942,
+          "decode_ms": 0.10000000149011612,
+          "generated_packets": 402,
+          "delivered_packets": 401,
+          "skipped_packets": 0,
+          "duplicate_packets": 200,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.699999999254942,
           "decode_ms": 0.19999999925494194,
           "generated_packets": 402,
           "delivered_packets": 401,
@@ -814,18 +826,6 @@
           "decoded_bytes": 204800,
           "matched": true,
           "error": null
-        },
-        {
-          "encode_ms": 1.6000000014901161,
-          "decode_ms": 0.10000000149011612,
-          "generated_packets": 402,
-          "delivered_packets": 401,
-          "skipped_packets": 0,
-          "duplicate_packets": 200,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
         }
       ]
     },
@@ -839,49 +839,37 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 1.450000001117587,
-        "p95_ms": 1.6000000014901161,
+        "median_ms": 1.5,
+        "p95_ms": 1.5,
         "samples_ms": [
-          1.2999999970197678,
-          1.3999999985098839,
           1.5,
-          1.6000000014901161,
-          1.3999999985098839,
+          1.5,
+          1.4000000022351742,
           1.4000000022351742,
           1.5,
+          1.5,
+          1.3999999985098839,
           1.5
         ]
       },
       "decode": {
-        "median_ms": 0.04999999888241291,
+        "median_ms": 0.09999999962747097,
         "p95_ms": 0.10000000149011612,
         "samples_ms": [
           0,
           0.10000000149011612,
+          0.09999999776482582,
+          0.09999999776482582,
+          0,
           0.10000000149011612,
-          0,
-          0,
-          0.09999999776482582,
-          0.09999999776482582,
-          0
+          0.10000000149011612,
+          0.10000000149011612
         ]
       },
       "trials": [
         {
-          "encode_ms": 1.2999999970197678,
+          "encode_ms": 1.5,
           "decode_ms": 0,
-          "generated_packets": 322,
-          "delivered_packets": 161,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.3999999985098839,
-          "decode_ms": 0.10000000149011612,
           "generated_packets": 322,
           "delivered_packets": 161,
           "skipped_packets": 0,
@@ -904,20 +892,8 @@
           "error": null
         },
         {
-          "encode_ms": 1.6000000014901161,
-          "decode_ms": 0,
-          "generated_packets": 322,
-          "delivered_packets": 161,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.3999999985098839,
-          "decode_ms": 0,
+          "encode_ms": 1.4000000022351742,
+          "decode_ms": 0.09999999776482582,
           "generated_packets": 322,
           "delivered_packets": 161,
           "skipped_packets": 0,
@@ -941,7 +917,7 @@
         },
         {
           "encode_ms": 1.5,
-          "decode_ms": 0.09999999776482582,
+          "decode_ms": 0,
           "generated_packets": 322,
           "delivered_packets": 161,
           "skipped_packets": 0,
@@ -953,7 +929,31 @@
         },
         {
           "encode_ms": 1.5,
-          "decode_ms": 0,
+          "decode_ms": 0.10000000149011612,
+          "generated_packets": 322,
+          "delivered_packets": 161,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.3999999985098839,
+          "decode_ms": 0.10000000149011612,
+          "generated_packets": 322,
+          "delivered_packets": 161,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.5,
+          "decode_ms": 0.10000000149011612,
           "generated_packets": 322,
           "delivered_packets": 161,
           "skipped_packets": 0,
@@ -976,11 +976,11 @@
       "outcome": "verified",
       "encode": {
         "median_ms": 1.5,
-        "p95_ms": 1.5,
+        "p95_ms": 1.5999999977648258,
         "samples_ms": [
-          1.300000000745058,
+          1.4000000022351742,
           1.5,
-          1.5,
+          1.5999999977648258,
           1.5,
           1.5,
           1.5,
@@ -992,19 +992,55 @@
         "median_ms": 1.300000000745058,
         "p95_ms": 1.4000000022351742,
         "samples_ms": [
+          1.300000000745058,
           1.2999999970197678,
           1.300000000745058,
-          1.3999999985098839,
+          1.2999999970197678,
+          1.2000000029802322,
+          1.300000000745058,
           1.4000000022351742,
-          1.300000000745058,
-          1.1000000014901161,
-          1.300000000745058,
           1.300000000745058
         ]
       },
       "trials": [
         {
-          "encode_ms": 1.300000000745058,
+          "encode_ms": 1.4000000022351742,
+          "decode_ms": 1.300000000745058,
+          "generated_packets": 322,
+          "delivered_packets": 161,
+          "skipped_packets": 129,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.5,
+          "decode_ms": 1.2999999970197678,
+          "generated_packets": 322,
+          "delivered_packets": 161,
+          "skipped_packets": 129,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.5999999977648258,
+          "decode_ms": 1.300000000745058,
+          "generated_packets": 322,
+          "delivered_packets": 161,
+          "skipped_packets": 129,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.5,
           "decode_ms": 1.2999999970197678,
           "generated_packets": 322,
           "delivered_packets": 161,
@@ -1017,7 +1053,7 @@
         },
         {
           "encode_ms": 1.5,
-          "decode_ms": 1.300000000745058,
+          "decode_ms": 1.2000000029802322,
           "generated_packets": 322,
           "delivered_packets": 161,
           "skipped_packets": 129,
@@ -1029,7 +1065,7 @@
         },
         {
           "encode_ms": 1.5,
-          "decode_ms": 1.3999999985098839,
+          "decode_ms": 1.300000000745058,
           "generated_packets": 322,
           "delivered_packets": 161,
           "skipped_packets": 129,
@@ -1042,42 +1078,6 @@
         {
           "encode_ms": 1.5,
           "decode_ms": 1.4000000022351742,
-          "generated_packets": 322,
-          "delivered_packets": 161,
-          "skipped_packets": 129,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.5,
-          "decode_ms": 1.300000000745058,
-          "generated_packets": 322,
-          "delivered_packets": 161,
-          "skipped_packets": 129,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.5,
-          "decode_ms": 1.1000000014901161,
-          "generated_packets": 322,
-          "delivered_packets": 161,
-          "skipped_packets": 129,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.5,
-          "decode_ms": 1.300000000745058,
           "generated_packets": 322,
           "delivered_packets": 161,
           "skipped_packets": 129,
@@ -1116,26 +1116,26 @@
         "samples_ms": [
           1.4000000022351742,
           1.5,
-          1.3999999985098839,
-          1.3999999985098839,
+          1.5,
+          1.4000000022351742,
           1.4000000022351742,
           1.5,
-          1.5,
-          1.2999999970197678
+          1.4000000022351742,
+          1.3999999985098839
         ]
       },
       "decode": {
-        "median_ms": 0.04999999888241291,
-        "p95_ms": 0.10000000149011612,
+        "median_ms": 0.09999999776482582,
+        "p95_ms": 0.19999999925494194,
         "samples_ms": [
           0.09999999776482582,
+          0.19999999925494194,
           0,
+          0.09999999776482582,
+          0.09999999776482582,
           0.10000000149011612,
-          0.10000000149011612,
-          0,
-          0,
-          0,
-          0.10000000149011612
+          0.09999999776482582,
+          0
         ]
       },
       "trials": [
@@ -1153,6 +1153,18 @@
         },
         {
           "encode_ms": 1.5,
+          "decode_ms": 0.19999999925494194,
+          "generated_packets": 322,
+          "delivered_packets": 321,
+          "skipped_packets": 0,
+          "duplicate_packets": 160,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.5,
           "decode_ms": 0,
           "generated_packets": 322,
           "delivered_packets": 321,
@@ -1164,8 +1176,8 @@
           "error": null
         },
         {
-          "encode_ms": 1.3999999985098839,
-          "decode_ms": 0.10000000149011612,
+          "encode_ms": 1.4000000022351742,
+          "decode_ms": 0.09999999776482582,
           "generated_packets": 322,
           "delivered_packets": 321,
           "skipped_packets": 0,
@@ -1176,7 +1188,19 @@
           "error": null
         },
         {
-          "encode_ms": 1.3999999985098839,
+          "encode_ms": 1.4000000022351742,
+          "decode_ms": 0.09999999776482582,
+          "generated_packets": 322,
+          "delivered_packets": 321,
+          "skipped_packets": 0,
+          "duplicate_packets": 160,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 204800,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 1.5,
           "decode_ms": 0.10000000149011612,
           "generated_packets": 322,
           "delivered_packets": 321,
@@ -1189,7 +1213,7 @@
         },
         {
           "encode_ms": 1.4000000022351742,
-          "decode_ms": 0,
+          "decode_ms": 0.09999999776482582,
           "generated_packets": 322,
           "delivered_packets": 321,
           "skipped_packets": 0,
@@ -1200,32 +1224,8 @@
           "error": null
         },
         {
-          "encode_ms": 1.5,
+          "encode_ms": 1.3999999985098839,
           "decode_ms": 0,
-          "generated_packets": 322,
-          "delivered_packets": 321,
-          "skipped_packets": 0,
-          "duplicate_packets": 160,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.5,
-          "decode_ms": 0,
-          "generated_packets": 322,
-          "delivered_packets": 321,
-          "skipped_packets": 0,
-          "duplicate_packets": 160,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 204800,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 1.2999999970197678,
-          "decode_ms": 0.10000000149011612,
           "generated_packets": 322,
           "delivered_packets": 321,
           "skipped_packets": 0,
@@ -1247,49 +1247,37 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 12.150000000372529,
-        "p95_ms": 13,
+        "median_ms": 12.099999999627471,
+        "p95_ms": 12.799999997019768,
         "samples_ms": [
-          12.399999998509884,
-          13,
+          12.799999997019768,
           12.199999999254942,
-          12.100000001490116,
-          12.699999999254942,
-          11.400000002235174,
+          12.300000000745058,
+          12,
+          12.599999997764826,
           11.5,
-          12.099999997764826
+          11.599999997764826,
+          12
         ]
       },
       "decode": {
-        "median_ms": 0.5499999988824129,
-        "p95_ms": 0.7999999970197678,
+        "median_ms": 0.6000000014901161,
+        "p95_ms": 0.8999999985098839,
         "samples_ms": [
-          0.7999999970197678,
+          0.8999999985098839,
+          0.7000000029802322,
+          0.5,
           0.6000000014901161,
-          0.5,
-          0.5,
           0.6000000014901161,
-          0.5,
-          0.5999999977648258,
-          0.5
+          0.6000000014901161,
+          0.6000000014901161,
+          0.6999999992549419
         ]
       },
       "trials": [
         {
-          "encode_ms": 12.399999998509884,
-          "decode_ms": 0.7999999970197678,
-          "generated_packets": 4130,
-          "delivered_packets": 2065,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 13,
-          "decode_ms": 0.6000000014901161,
+          "encode_ms": 12.799999997019768,
+          "decode_ms": 0.8999999985098839,
           "generated_packets": 4130,
           "delivered_packets": 2065,
           "skipped_packets": 0,
@@ -1301,6 +1289,18 @@
         },
         {
           "encode_ms": 12.199999999254942,
+          "decode_ms": 0.7000000029802322,
+          "generated_packets": 4130,
+          "delivered_packets": 2065,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 12.300000000745058,
           "decode_ms": 0.5,
           "generated_packets": 4130,
           "delivered_packets": 2065,
@@ -1312,19 +1312,7 @@
           "error": null
         },
         {
-          "encode_ms": 12.100000001490116,
-          "decode_ms": 0.5,
-          "generated_packets": 4130,
-          "delivered_packets": 2065,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 12.699999999254942,
+          "encode_ms": 12,
           "decode_ms": 0.6000000014901161,
           "generated_packets": 4130,
           "delivered_packets": 2065,
@@ -1336,8 +1324,8 @@
           "error": null
         },
         {
-          "encode_ms": 11.400000002235174,
-          "decode_ms": 0.5,
+          "encode_ms": 12.599999997764826,
+          "decode_ms": 0.6000000014901161,
           "generated_packets": 4130,
           "delivered_packets": 2065,
           "skipped_packets": 0,
@@ -1349,7 +1337,7 @@
         },
         {
           "encode_ms": 11.5,
-          "decode_ms": 0.5999999977648258,
+          "decode_ms": 0.6000000014901161,
           "generated_packets": 4130,
           "delivered_packets": 2065,
           "skipped_packets": 0,
@@ -1360,8 +1348,20 @@
           "error": null
         },
         {
-          "encode_ms": 12.099999997764826,
-          "decode_ms": 0.5,
+          "encode_ms": 11.599999997764826,
+          "decode_ms": 0.6000000014901161,
+          "generated_packets": 4130,
+          "delivered_packets": 2065,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 12,
+          "decode_ms": 0.6999999992549419,
           "generated_packets": 4130,
           "delivered_packets": 2065,
           "skipped_packets": 0,
@@ -1383,37 +1383,37 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 11.700000001117587,
-        "p95_ms": 12.800000000745058,
+        "median_ms": 11.600000001490116,
+        "p95_ms": 12.900000002235174,
         "samples_ms": [
-          11.199999999254942,
-          12.199999999254942,
-          11.699999999254942,
-          12.400000002235174,
-          11.399999998509884,
+          11.400000002235174,
+          12.399999998509884,
+          11.700000002980232,
+          11.899999998509884,
           11.5,
-          12.800000000745058,
-          11.700000002980232
+          11.199999999254942,
+          12.900000002235174,
+          11.5
         ]
       },
       "decode": {
-        "median_ms": 9.950000001117587,
-        "p95_ms": 10.199999999254942,
+        "median_ms": 9.899999998509884,
+        "p95_ms": 10.200000002980232,
         "samples_ms": [
-          10.199999999254942,
-          9.900000002235174,
+          10.200000002980232,
           10,
-          9.699999999254942,
+          9.800000000745058,
+          9.800000000745058,
           9.899999998509884,
-          9.699999999254942,
+          9.899999998509884,
           10,
-          10
+          9.699999999254942
         ]
       },
       "trials": [
         {
-          "encode_ms": 11.199999999254942,
-          "decode_ms": 10.199999999254942,
+          "encode_ms": 11.400000002235174,
+          "decode_ms": 10.200000002980232,
           "generated_packets": 4130,
           "delivered_packets": 2065,
           "skipped_packets": 1652,
@@ -1424,67 +1424,7 @@
           "error": null
         },
         {
-          "encode_ms": 12.199999999254942,
-          "decode_ms": 9.900000002235174,
-          "generated_packets": 4130,
-          "delivered_packets": 2065,
-          "skipped_packets": 1652,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 11.699999999254942,
-          "decode_ms": 10,
-          "generated_packets": 4130,
-          "delivered_packets": 2065,
-          "skipped_packets": 1652,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 12.400000002235174,
-          "decode_ms": 9.699999999254942,
-          "generated_packets": 4130,
-          "delivered_packets": 2065,
-          "skipped_packets": 1652,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 11.399999998509884,
-          "decode_ms": 9.899999998509884,
-          "generated_packets": 4130,
-          "delivered_packets": 2065,
-          "skipped_packets": 1652,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 11.5,
-          "decode_ms": 9.699999999254942,
-          "generated_packets": 4130,
-          "delivered_packets": 2065,
-          "skipped_packets": 1652,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 12.800000000745058,
+          "encode_ms": 12.399999998509884,
           "decode_ms": 10,
           "generated_packets": 4130,
           "delivered_packets": 2065,
@@ -1497,7 +1437,67 @@
         },
         {
           "encode_ms": 11.700000002980232,
+          "decode_ms": 9.800000000745058,
+          "generated_packets": 4130,
+          "delivered_packets": 2065,
+          "skipped_packets": 1652,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 11.899999998509884,
+          "decode_ms": 9.800000000745058,
+          "generated_packets": 4130,
+          "delivered_packets": 2065,
+          "skipped_packets": 1652,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 11.5,
+          "decode_ms": 9.899999998509884,
+          "generated_packets": 4130,
+          "delivered_packets": 2065,
+          "skipped_packets": 1652,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 11.199999999254942,
+          "decode_ms": 9.899999998509884,
+          "generated_packets": 4130,
+          "delivered_packets": 2065,
+          "skipped_packets": 1652,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 12.900000002235174,
           "decode_ms": 10,
+          "generated_packets": 4130,
+          "delivered_packets": 2065,
+          "skipped_packets": 1652,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 11.5,
+          "decode_ms": 9.699999999254942,
           "generated_packets": 4130,
           "delivered_packets": 2065,
           "skipped_packets": 1652,
@@ -1519,36 +1519,36 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 11.5,
-        "p95_ms": 12.099999997764826,
+        "median_ms": 11.849999999627471,
+        "p95_ms": 12.800000000745058,
         "samples_ms": [
-          11.799999997019768,
+          11.899999998509884,
+          12,
+          12.800000000745058,
+          11.800000000745058,
           11.699999999254942,
-          12.099999997764826,
-          11.299999997019768,
-          11.5,
-          11.5,
-          11.5,
-          11.199999999254942
+          11.899999998509884,
+          11.699999999254942,
+          11.5
         ]
       },
       "decode": {
-        "median_ms": 0.8000000007450581,
+        "median_ms": 0.849999999627471,
         "p95_ms": 1,
         "samples_ms": [
           1,
-          0.7999999970197678,
-          0.8999999985098839,
+          0.8000000007450581,
+          1,
+          0.9000000022351742,
           0.8000000007450581,
           0.8000000007450581,
-          0.7999999970197678,
           0.8000000007450581,
-          0.7999999970197678
+          0.8999999985098839
         ]
       },
       "trials": [
         {
-          "encode_ms": 11.799999997019768,
+          "encode_ms": 11.899999998509884,
           "decode_ms": 1,
           "generated_packets": 4130,
           "delivered_packets": 4129,
@@ -1560,8 +1560,44 @@
           "error": null
         },
         {
+          "encode_ms": 12,
+          "decode_ms": 0.8000000007450581,
+          "generated_packets": 4130,
+          "delivered_packets": 4129,
+          "skipped_packets": 0,
+          "duplicate_packets": 2064,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 12.800000000745058,
+          "decode_ms": 1,
+          "generated_packets": 4130,
+          "delivered_packets": 4129,
+          "skipped_packets": 0,
+          "duplicate_packets": 2064,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 11.800000000745058,
+          "decode_ms": 0.9000000022351742,
+          "generated_packets": 4130,
+          "delivered_packets": 4129,
+          "skipped_packets": 0,
+          "duplicate_packets": 2064,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
           "encode_ms": 11.699999999254942,
-          "decode_ms": 0.7999999970197678,
+          "decode_ms": 0.8000000007450581,
           "generated_packets": 4130,
           "delivered_packets": 4129,
           "skipped_packets": 0,
@@ -1572,68 +1608,32 @@
           "error": null
         },
         {
-          "encode_ms": 12.099999997764826,
+          "encode_ms": 11.899999998509884,
+          "decode_ms": 0.8000000007450581,
+          "generated_packets": 4130,
+          "delivered_packets": 4129,
+          "skipped_packets": 0,
+          "duplicate_packets": 2064,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 11.699999999254942,
+          "decode_ms": 0.8000000007450581,
+          "generated_packets": 4130,
+          "delivered_packets": 4129,
+          "skipped_packets": 0,
+          "duplicate_packets": 2064,
+          "max_packet_bytes": 512,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 11.5,
           "decode_ms": 0.8999999985098839,
-          "generated_packets": 4130,
-          "delivered_packets": 4129,
-          "skipped_packets": 0,
-          "duplicate_packets": 2064,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 11.299999997019768,
-          "decode_ms": 0.8000000007450581,
-          "generated_packets": 4130,
-          "delivered_packets": 4129,
-          "skipped_packets": 0,
-          "duplicate_packets": 2064,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 11.5,
-          "decode_ms": 0.8000000007450581,
-          "generated_packets": 4130,
-          "delivered_packets": 4129,
-          "skipped_packets": 0,
-          "duplicate_packets": 2064,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 11.5,
-          "decode_ms": 0.7999999970197678,
-          "generated_packets": 4130,
-          "delivered_packets": 4129,
-          "skipped_packets": 0,
-          "duplicate_packets": 2064,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 11.5,
-          "decode_ms": 0.8000000007450581,
-          "generated_packets": 4130,
-          "delivered_packets": 4129,
-          "skipped_packets": 0,
-          "duplicate_packets": 2064,
-          "max_packet_bytes": 512,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 11.199999999254942,
-          "decode_ms": 0.7999999970197678,
           "generated_packets": 4130,
           "delivered_packets": 4129,
           "skipped_packets": 0,
@@ -1655,35 +1655,71 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 7.800000000745058,
-        "p95_ms": 8.100000001490116,
+        "median_ms": 8.050000000745058,
+        "p95_ms": 8.600000001490116,
         "samples_ms": [
-          7.800000000745058,
-          7.799999997019768,
-          7.800000000745058,
-          7.699999999254942,
           8.100000001490116,
+          7.600000001490116,
+          8.400000002235174,
           7.800000000745058,
-          7.899999998509884,
-          7.800000000745058
+          8.600000001490116,
+          8,
+          8,
+          8.199999999254942
         ]
       },
       "decode": {
-        "median_ms": 0.40000000037252903,
+        "median_ms": 0.30000000074505806,
         "p95_ms": 0.5,
         "samples_ms": [
+          0.30000000074505806,
+          0.30000000074505806,
           0.3999999985098839,
-          0.4000000022351742,
           0.3999999985098839,
+          0.5,
           0.29999999701976776,
-          0.5,
-          0.5,
-          0.4000000022351742,
-          0.3999999985098839
+          0.30000000074505806,
+          0.29999999701976776
         ]
       },
       "trials": [
         {
+          "encode_ms": 8.100000001490116,
+          "decode_ms": 0.30000000074505806,
+          "generated_packets": 2058,
+          "delivered_packets": 1029,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.600000001490116,
+          "decode_ms": 0.30000000074505806,
+          "generated_packets": 2058,
+          "delivered_packets": 1029,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 8.400000002235174,
+          "decode_ms": 0.3999999985098839,
+          "generated_packets": 2058,
+          "delivered_packets": 1029,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
           "encode_ms": 7.800000000745058,
           "decode_ms": 0.3999999985098839,
           "generated_packets": 2058,
@@ -1696,8 +1732,8 @@
           "error": null
         },
         {
-          "encode_ms": 7.799999997019768,
-          "decode_ms": 0.4000000022351742,
+          "encode_ms": 8.600000001490116,
+          "decode_ms": 0.5,
           "generated_packets": 2058,
           "delivered_packets": 1029,
           "skipped_packets": 0,
@@ -1708,19 +1744,7 @@
           "error": null
         },
         {
-          "encode_ms": 7.800000000745058,
-          "decode_ms": 0.3999999985098839,
-          "generated_packets": 2058,
-          "delivered_packets": 1029,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.699999999254942,
+          "encode_ms": 8,
           "decode_ms": 0.29999999701976776,
           "generated_packets": 2058,
           "delivered_packets": 1029,
@@ -1732,8 +1756,8 @@
           "error": null
         },
         {
-          "encode_ms": 8.100000001490116,
-          "decode_ms": 0.5,
+          "encode_ms": 8,
+          "decode_ms": 0.30000000074505806,
           "generated_packets": 2058,
           "delivered_packets": 1029,
           "skipped_packets": 0,
@@ -1744,32 +1768,8 @@
           "error": null
         },
         {
-          "encode_ms": 7.800000000745058,
-          "decode_ms": 0.5,
-          "generated_packets": 2058,
-          "delivered_packets": 1029,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.899999998509884,
-          "decode_ms": 0.4000000022351742,
-          "generated_packets": 2058,
-          "delivered_packets": 1029,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.800000000745058,
-          "decode_ms": 0.3999999985098839,
+          "encode_ms": 8.199999999254942,
+          "decode_ms": 0.29999999701976776,
           "generated_packets": 2058,
           "delivered_packets": 1029,
           "skipped_packets": 0,
@@ -1791,37 +1791,61 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 7.749999998137355,
-        "p95_ms": 8.199999999254942,
+        "median_ms": 7.849999997764826,
+        "p95_ms": 8.400000002235174,
         "samples_ms": [
-          8,
+          8.400000002235174,
+          8.100000001490116,
+          8.300000000745058,
           7.699999999254942,
-          8.199999999254942,
-          7.599999997764826,
-          7.699999999254942,
-          7.699999999254942,
-          7.800000000745058,
-          7.799999997019768
+          7.899999998509884,
+          7.5,
+          7.799999997019768,
+          7.699999999254942
         ]
       },
       "decode": {
-        "median_ms": 6.650000000372529,
-        "p95_ms": 6.899999998509884,
+        "median_ms": 6.699999999254942,
+        "p95_ms": 7,
         "samples_ms": [
-          6.899999998509884,
+          7,
           6.699999999254942,
-          6.800000000745058,
-          6.599999997764826,
+          6.900000002235174,
           6.699999999254942,
-          6.600000001490116,
-          6.5,
+          6.699999999254942,
+          6.699999999254942,
+          6.700000002980232,
           6.600000001490116
         ]
       },
       "trials": [
         {
-          "encode_ms": 8,
-          "decode_ms": 6.899999998509884,
+          "encode_ms": 8.400000002235174,
+          "decode_ms": 7,
+          "generated_packets": 2058,
+          "delivered_packets": 1029,
+          "skipped_packets": 823,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 8.100000001490116,
+          "decode_ms": 6.699999999254942,
+          "generated_packets": 2058,
+          "delivered_packets": 1029,
+          "skipped_packets": 823,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 8.300000000745058,
+          "decode_ms": 6.900000002235174,
           "generated_packets": 2058,
           "delivered_packets": 1029,
           "skipped_packets": 823,
@@ -1844,31 +1868,7 @@
           "error": null
         },
         {
-          "encode_ms": 8.199999999254942,
-          "decode_ms": 6.800000000745058,
-          "generated_packets": 2058,
-          "delivered_packets": 1029,
-          "skipped_packets": 823,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.599999997764826,
-          "decode_ms": 6.599999997764826,
-          "generated_packets": 2058,
-          "delivered_packets": 1029,
-          "skipped_packets": 823,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.699999999254942,
+          "encode_ms": 7.899999998509884,
           "decode_ms": 6.699999999254942,
           "generated_packets": 2058,
           "delivered_packets": 1029,
@@ -1880,20 +1880,8 @@
           "error": null
         },
         {
-          "encode_ms": 7.699999999254942,
-          "decode_ms": 6.600000001490116,
-          "generated_packets": 2058,
-          "delivered_packets": 1029,
-          "skipped_packets": 823,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.800000000745058,
-          "decode_ms": 6.5,
+          "encode_ms": 7.5,
+          "decode_ms": 6.699999999254942,
           "generated_packets": 2058,
           "delivered_packets": 1029,
           "skipped_packets": 823,
@@ -1905,6 +1893,18 @@
         },
         {
           "encode_ms": 7.799999997019768,
+          "decode_ms": 6.700000002980232,
+          "generated_packets": 2058,
+          "delivered_packets": 1029,
+          "skipped_packets": 823,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.699999999254942,
           "decode_ms": 6.600000001490116,
           "generated_packets": 2058,
           "delivered_packets": 1029,
@@ -1927,31 +1927,31 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 7.649999998509884,
-        "p95_ms": 8.5,
+        "median_ms": 7.700000001117587,
+        "p95_ms": 8.400000002235174,
         "samples_ms": [
           7.5,
-          7.699999999254942,
-          8.5,
-          7.599999997764826,
+          7.5,
+          8.400000002235174,
           7.700000002980232,
-          7.599999997764826,
+          7.899999998509884,
           7.900000002235174,
-          7.5
+          7.599999997764826,
+          7.699999999254942
         ]
       },
       "decode": {
-        "median_ms": 0.6000000014901161,
-        "p95_ms": 0.8999999985098839,
+        "median_ms": 0.650000000372529,
+        "p95_ms": 0.7999999970197678,
         "samples_ms": [
           0.5,
+          0.6999999992549419,
+          0.6999999992549419,
+          0.7999999970197678,
           0.6000000014901161,
-          0.8999999985098839,
-          0.6999999992549419,
           0.5999999977648258,
-          0.6999999992549419,
-          0.5,
-          0.6000000014901161
+          0.6000000014901161,
+          0.6999999992549419
         ]
       },
       "trials": [
@@ -1968,8 +1968,8 @@
           "error": null
         },
         {
-          "encode_ms": 7.699999999254942,
-          "decode_ms": 0.6000000014901161,
+          "encode_ms": 7.5,
+          "decode_ms": 0.6999999992549419,
           "generated_packets": 2058,
           "delivered_packets": 2057,
           "skipped_packets": 0,
@@ -1980,19 +1980,7 @@
           "error": null
         },
         {
-          "encode_ms": 8.5,
-          "decode_ms": 0.8999999985098839,
-          "generated_packets": 2058,
-          "delivered_packets": 2057,
-          "skipped_packets": 0,
-          "duplicate_packets": 1028,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.599999997764826,
+          "encode_ms": 8.400000002235174,
           "decode_ms": 0.6999999992549419,
           "generated_packets": 2058,
           "delivered_packets": 2057,
@@ -2005,6 +1993,30 @@
         },
         {
           "encode_ms": 7.700000002980232,
+          "decode_ms": 0.7999999970197678,
+          "generated_packets": 2058,
+          "delivered_packets": 2057,
+          "skipped_packets": 0,
+          "duplicate_packets": 1028,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.899999998509884,
+          "decode_ms": 0.6000000014901161,
+          "generated_packets": 2058,
+          "delivered_packets": 2057,
+          "skipped_packets": 0,
+          "duplicate_packets": 1028,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.900000002235174,
           "decode_ms": 0.5999999977648258,
           "generated_packets": 2058,
           "delivered_packets": 2057,
@@ -2017,31 +2029,19 @@
         },
         {
           "encode_ms": 7.599999997764826,
-          "decode_ms": 0.6999999992549419,
-          "generated_packets": 2058,
-          "delivered_packets": 2057,
-          "skipped_packets": 0,
-          "duplicate_packets": 1028,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.900000002235174,
-          "decode_ms": 0.5,
-          "generated_packets": 2058,
-          "delivered_packets": 2057,
-          "skipped_packets": 0,
-          "duplicate_packets": 1028,
-          "max_packet_bytes": 1024,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.5,
           "decode_ms": 0.6000000014901161,
+          "generated_packets": 2058,
+          "delivered_packets": 2057,
+          "skipped_packets": 0,
+          "duplicate_packets": 1028,
+          "max_packet_bytes": 1024,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.699999999254942,
+          "decode_ms": 0.6999999992549419,
           "generated_packets": 2058,
           "delivered_packets": 2057,
           "skipped_packets": 0,
@@ -2063,36 +2063,48 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 7,
-        "p95_ms": 7.199999999254942,
+        "median_ms": 7.099999999627471,
+        "p95_ms": 7.799999997019768,
         "samples_ms": [
-          6.700000002980232,
-          6.900000002235174,
           7.099999997764826,
+          7,
           7.100000001490116,
-          7,
-          7,
-          7,
-          7.199999999254942
+          7.099999997764826,
+          7.199999999254942,
+          7.100000001490116,
+          6.899999998509884,
+          7.799999997019768
         ]
       },
       "decode": {
-        "median_ms": 0.3999999985098839,
+        "median_ms": 0.34999999962747097,
         "p95_ms": 0.5,
         "samples_ms": [
+          0.5,
           0.4000000022351742,
-          0.3999999985098839,
+          0.29999999701976776,
           0.30000000074505806,
-          0.3999999985098839,
           0.30000000074505806,
+          0.29999999701976776,
           0.3999999985098839,
-          0.3999999985098839,
-          0.5
+          0.4000000022351742
         ]
       },
       "trials": [
         {
-          "encode_ms": 6.700000002980232,
+          "encode_ms": 7.099999997764826,
+          "decode_ms": 0.5,
+          "generated_packets": 1644,
+          "delivered_packets": 822,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7,
           "decode_ms": 0.4000000022351742,
           "generated_packets": 1644,
           "delivered_packets": 822,
@@ -2104,8 +2116,8 @@
           "error": null
         },
         {
-          "encode_ms": 6.900000002235174,
-          "decode_ms": 0.3999999985098839,
+          "encode_ms": 7.100000001490116,
+          "decode_ms": 0.29999999701976776,
           "generated_packets": 1644,
           "delivered_packets": 822,
           "skipped_packets": 0,
@@ -2128,19 +2140,7 @@
           "error": null
         },
         {
-          "encode_ms": 7.100000001490116,
-          "decode_ms": 0.3999999985098839,
-          "generated_packets": 1644,
-          "delivered_packets": 822,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7,
+          "encode_ms": 7.199999999254942,
           "decode_ms": 0.30000000074505806,
           "generated_packets": 1644,
           "delivered_packets": 822,
@@ -2152,7 +2152,19 @@
           "error": null
         },
         {
-          "encode_ms": 7,
+          "encode_ms": 7.100000001490116,
+          "decode_ms": 0.29999999701976776,
+          "generated_packets": 1644,
+          "delivered_packets": 822,
+          "skipped_packets": 0,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 6.899999998509884,
           "decode_ms": 0.3999999985098839,
           "generated_packets": 1644,
           "delivered_packets": 822,
@@ -2164,20 +2176,8 @@
           "error": null
         },
         {
-          "encode_ms": 7,
-          "decode_ms": 0.3999999985098839,
-          "generated_packets": 1644,
-          "delivered_packets": 822,
-          "skipped_packets": 0,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7.199999999254942,
-          "decode_ms": 0.5,
+          "encode_ms": 7.799999997019768,
+          "decode_ms": 0.4000000022351742,
           "generated_packets": 1644,
           "delivered_packets": 822,
           "skipped_packets": 0,
@@ -2199,85 +2199,37 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 6.900000000372529,
-        "p95_ms": 7,
+        "median_ms": 7.199999999254942,
+        "p95_ms": 7.300000000745058,
         "samples_ms": [
+          6.800000000745058,
           7,
-          6.899999998509884,
-          6.899999998509884,
-          6.900000002235174,
-          6.899999998509884,
-          7,
-          6.899999998509884,
-          7
+          7.300000000745058,
+          7.199999999254942,
+          7.100000001490116,
+          7.199999999254942,
+          7.199999999254942,
+          7.200000002980232
         ]
       },
       "decode": {
-        "median_ms": 6.100000001490116,
-        "p95_ms": 6.200000002980232,
+        "median_ms": 6.25,
+        "p95_ms": 6.399999998509884,
         "samples_ms": [
-          6.100000001490116,
-          6.100000001490116,
-          6.200000002980232,
-          6,
-          6.099999997764826,
+          6.300000000745058,
+          6.300000000745058,
+          6.399999998509884,
           6.199999999254942,
+          6.300000000745058,
           6.100000001490116,
-          6
+          6,
+          6.199999999254942
         ]
       },
       "trials": [
         {
-          "encode_ms": 7,
-          "decode_ms": 6.100000001490116,
-          "generated_packets": 1644,
-          "delivered_packets": 822,
-          "skipped_packets": 658,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 6.899999998509884,
-          "decode_ms": 6.100000001490116,
-          "generated_packets": 1644,
-          "delivered_packets": 822,
-          "skipped_packets": 658,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 6.899999998509884,
-          "decode_ms": 6.200000002980232,
-          "generated_packets": 1644,
-          "delivered_packets": 822,
-          "skipped_packets": 658,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 6.900000002235174,
-          "decode_ms": 6,
-          "generated_packets": 1644,
-          "delivered_packets": 822,
-          "skipped_packets": 658,
-          "duplicate_packets": 0,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 6.899999998509884,
-          "decode_ms": 6.099999997764826,
+          "encode_ms": 6.800000000745058,
+          "decode_ms": 6.300000000745058,
           "generated_packets": 1644,
           "delivered_packets": 822,
           "skipped_packets": 658,
@@ -2289,6 +2241,30 @@
         },
         {
           "encode_ms": 7,
+          "decode_ms": 6.300000000745058,
+          "generated_packets": 1644,
+          "delivered_packets": 822,
+          "skipped_packets": 658,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.300000000745058,
+          "decode_ms": 6.399999998509884,
+          "generated_packets": 1644,
+          "delivered_packets": 822,
+          "skipped_packets": 658,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.199999999254942,
           "decode_ms": 6.199999999254942,
           "generated_packets": 1644,
           "delivered_packets": 822,
@@ -2300,7 +2276,19 @@
           "error": null
         },
         {
-          "encode_ms": 6.899999998509884,
+          "encode_ms": 7.100000001490116,
+          "decode_ms": 6.300000000745058,
+          "generated_packets": 1644,
+          "delivered_packets": 822,
+          "skipped_packets": 658,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.199999999254942,
           "decode_ms": 6.100000001490116,
           "generated_packets": 1644,
           "delivered_packets": 822,
@@ -2312,8 +2300,20 @@
           "error": null
         },
         {
-          "encode_ms": 7,
+          "encode_ms": 7.199999999254942,
           "decode_ms": 6,
+          "generated_packets": 1644,
+          "delivered_packets": 822,
+          "skipped_packets": 658,
+          "duplicate_packets": 0,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7.200000002980232,
+          "decode_ms": 6.199999999254942,
           "generated_packets": 1644,
           "delivered_packets": 822,
           "skipped_packets": 658,
@@ -2335,37 +2335,37 @@
       "completed_trials": 8,
       "outcome": "verified",
       "encode": {
-        "median_ms": 6.900000000372529,
-        "p95_ms": 7.199999999254942,
+        "median_ms": 7.099999999627471,
+        "p95_ms": 7.300000000745058,
         "samples_ms": [
-          6.899999998509884,
-          6.799999997019768,
+          7.099999997764826,
+          7.199999999254942,
+          7.300000000745058,
+          7.100000001490116,
           6.900000002235174,
           7,
           6.899999998509884,
-          7.100000001490116,
-          6.800000000745058,
           7.199999999254942
         ]
       },
       "decode": {
-        "median_ms": 0.4500000011175871,
-        "p95_ms": 0.6000000014901161,
+        "median_ms": 0.5999999977648258,
+        "p95_ms": 0.6999999992549419,
         "samples_ms": [
-          0.5,
-          0.3999999985098839,
-          0.4000000022351742,
-          0.3999999985098839,
-          0.3999999985098839,
-          0.5,
+          0.6999999992549419,
           0.6000000014901161,
-          0.5
+          0.5999999977648258,
+          0.5,
+          0.5,
+          0.5,
+          0.6999999992549419,
+          0.5999999977648258
         ]
       },
       "trials": [
         {
-          "encode_ms": 6.899999998509884,
-          "decode_ms": 0.5,
+          "encode_ms": 7.099999997764826,
+          "decode_ms": 0.6999999992549419,
           "generated_packets": 1644,
           "delivered_packets": 1643,
           "skipped_packets": 0,
@@ -2376,8 +2376,8 @@
           "error": null
         },
         {
-          "encode_ms": 6.799999997019768,
-          "decode_ms": 0.3999999985098839,
+          "encode_ms": 7.199999999254942,
+          "decode_ms": 0.6000000014901161,
           "generated_packets": 1644,
           "delivered_packets": 1643,
           "skipped_packets": 0,
@@ -2388,32 +2388,8 @@
           "error": null
         },
         {
-          "encode_ms": 6.900000002235174,
-          "decode_ms": 0.4000000022351742,
-          "generated_packets": 1644,
-          "delivered_packets": 1643,
-          "skipped_packets": 0,
-          "duplicate_packets": 821,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 7,
-          "decode_ms": 0.3999999985098839,
-          "generated_packets": 1644,
-          "delivered_packets": 1643,
-          "skipped_packets": 0,
-          "duplicate_packets": 821,
-          "max_packet_bytes": 1280,
-          "decoded_bytes": 1048576,
-          "matched": true,
-          "error": null
-        },
-        {
-          "encode_ms": 6.899999998509884,
-          "decode_ms": 0.3999999985098839,
+          "encode_ms": 7.300000000745058,
+          "decode_ms": 0.5999999977648258,
           "generated_packets": 1644,
           "delivered_packets": 1643,
           "skipped_packets": 0,
@@ -2436,8 +2412,32 @@
           "error": null
         },
         {
-          "encode_ms": 6.800000000745058,
-          "decode_ms": 0.6000000014901161,
+          "encode_ms": 6.900000002235174,
+          "decode_ms": 0.5,
+          "generated_packets": 1644,
+          "delivered_packets": 1643,
+          "skipped_packets": 0,
+          "duplicate_packets": 821,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 7,
+          "decode_ms": 0.5,
+          "generated_packets": 1644,
+          "delivered_packets": 1643,
+          "skipped_packets": 0,
+          "duplicate_packets": 821,
+          "max_packet_bytes": 1280,
+          "decoded_bytes": 1048576,
+          "matched": true,
+          "error": null
+        },
+        {
+          "encode_ms": 6.899999998509884,
+          "decode_ms": 0.6999999992549419,
           "generated_packets": 1644,
           "delivered_packets": 1643,
           "skipped_packets": 0,
@@ -2449,7 +2449,7 @@
         },
         {
           "encode_ms": 7.199999999254942,
-          "decode_ms": 0.5,
+          "decode_ms": 0.5999999977648258,
           "generated_packets": 1644,
           "delivered_packets": 1643,
           "skipped_packets": 0,
@@ -2463,12 +2463,12 @@
     }
   ],
   "probe": "S-1-codec",
-  "measured_at": "2026-11-15T00:54:35.808Z",
+  "measured_at": "2026-11-15T06:34:52.140Z",
   "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
   "secure_context": true,
   "device_notes": "Mac arm64, headless Chromium, HTTP loopback, dedicated-worker codec only",
   "build": {
-    "source_base": "e86b6dbb41b3e51cac0c4ee6aa534a6e92f43047",
+    "source_base": "e5502b347583c1998d0ae76e133c6c68ff6d2767",
     "package": "@raptorqr/raptorq-wasm",
     "version": "0.1.1",
     "declared_crate": "raptorq 2.0.1",
@@ -2493,9 +2493,9 @@
       {
         "name": "raptorq-page.js",
         "dependency": false,
-        "bytes": 3338,
-        "gzip_bytes": 1125,
-        "sha256": "915e3b776877c2c01840735cb49f182539ee1785f002491c2d97b6264d02df36"
+        "bytes": 3994,
+        "gzip_bytes": 1325,
+        "sha256": "be0449a58b75a78f749faa47f9bf31d447e29e173741c8ddfde5d3c207c03bf7"
       },
       {
         "name": "codec/index.js",
