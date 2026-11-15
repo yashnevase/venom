@@ -154,3 +154,4 @@ export function sourceFromBlob(blob: Blob, readBytes: number): SealedBox {
     }
   } });
 }
+export { createBlobWriter } from './blob-writer.js';

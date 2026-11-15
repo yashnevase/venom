@@ -61,3 +61,16 @@ snapshots, concurrent/repeated sends and a 5 MiB transfer in 320 writes of 16 Ki
 No runtime dependency was added. Raw checks and real-device gaps are recorded in
 docs/spikes/phase-2-file-carrier.md. Browser file-picker/download, local storage,
 real phones and the complete two-profile Phase 2 flow remain pending.
+
+## Bounded Blob export staging
+
+createBlobWriter(declaredSize, maxBytes, publish) supplies a FileWriter for small
+explicitly capped artifacts. Writes are copied into in-memory staging. Commit
+requires the exact declared byte count and calls publish once with the finished
+application/octet-stream Blob. The publisher owns file naming, download-link
+lifetime and user interaction. A completed callback establishes only artifact
+publication, not delivery or a completed browser download. Use an on-disk writer
+for transfers beyond the application's measured in-memory limit. Abort discards
+unpublished pieces. Once publication starts, cancellation belongs to the
+publisher. Node tests cover copy ownership, length checks, abort, concurrent
+commit rejection and publisher failure. Browser downloads remain unverified.
