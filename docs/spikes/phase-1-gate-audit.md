@@ -5,9 +5,8 @@ Experimental, not independently reviewed.
 ## Scope and verdict
 
 Audit the Phase 1 Node protocol-core gate in docs/05 under the owner's amendment
-in AGENTS.md. Local criteria pass on Node 24.11.0, Mac arm64. Final CI for the
-recovery revision must also pass before starting Phase 2. The handoff records
-that run and implementation commit. This is the development gate. Public release,
+in AGENTS.md. Local criteria pass on Node 24.11.0, Mac arm64. Recovery commit 51e129e passed
+GitHub CI runs 43698351178 and 43698346187. Phase 2 development may proceed. This is the development gate. Public release,
 security promises and Gate E require the outstanding external review.
 
 ## Requirements and authoritative evidence
@@ -30,7 +29,7 @@ security promises and Gate E require the outstanding external review.
 | No browser/network dependency in core | Imports from 13 TypeScript source files, package manifest and compiled entry | Imports are local modules, cborg and pako. No Node platform/upper-layer imports. Compiled entry loads in Node 24.11.0. |
 | Self-review and independent review | ADR 011 checklist, ADRs 012/013 vectors, fresh envelope/recovery review records | Required development evidence recorded. These do not replace a cryptographer. |
 | Experimental labels and claims | REVIEW-NOTICE tests, README, current diagnostic pages, build status files and ledger | Current label checks pass. Ledger entries describe test/arithmetic observations. |
-| Per-phase branch and CI | phase-1/protocol-core; previous envelope CI 43696447987, final recovery CI in handoff | Final recovery CI confirmation required for progression. |
+| Per-phase branch and CI | phase-1/protocol-core; previous envelope CI 43696447987, final recovery CI in handoff | Recovery commit 51e129e passed both CI runs. |
 
 ## Reproduction
 

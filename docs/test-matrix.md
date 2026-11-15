@@ -23,3 +23,4 @@
 | P1-ENV | Mac only | Node 24.11.0 arm64 | Local, zero carrier traffic | 120 unit tests and 101 independent vector checks pass; file fixtures through 5 MiB | 2026-11-15 | Includes pre-existing component tests. Complete envelopes/Receipt/streams unverified on Xiaomi or iPhone. |
 | P1-ENV-PHONE | Xiaomi Note 13 / other devices | Android 16 reported by owner | Pending | No new envelope run | 2026-11-15 | Existing compression/codec results retained separately. Offline hotspot remains pending. |
 | P1-RECOVERY | Mac only | Node 24.11.0 arm64 | Local, no I/O | 11 recovery tests, eight published pairs and 72 independent root/public cases pass | 2026-11-15 | Browser/phone recovery and signed-backup restoration pending. |
+| P2-FILE | Mac only | Node 24.11.0 arm64 | No network | 13 adapter tests pass; 5 MiB emitted in 320 writes of at most 16 KiB | 2026-11-15 | Browser/file-picker/download/storage and real-phone runs pending. |

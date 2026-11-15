@@ -137,7 +137,7 @@ tests. The current development-gate audit is in docs/spikes/phase-1-gate-audit.m
 | Real-device coverage | Xiaomi deflate and compression comparison verified. Identity/HPKE and complete Boxes unverified on phones. | Partial |
 | Required external review | Owner confirmed unavailable and amended AGENTS.md/docs/05 | Public release, security claims and Gate E remain gated |
 | Interim review | ADR 011 self-review; ADR 012/013 independent vectors; fresh envelope and recovery review records | Recorded for Phase 1 Node implementation |
-| Subsequent phases | docs/spikes/phase-1-gate-audit.md records the development-gate audit | Phase 2 may start after final CI confirms this revision |
+| Subsequent phases | docs/spikes/phase-1-gate-audit.md records the development-gate audit | Phase 2 may start; recovery commit 51e129e passed CI |
 
 ## Historical pre-freeze review task report
 
