@@ -8,9 +8,10 @@ release, security promises and Gate E. Phase development uses the interim checks
 
 Experimental, not independently reviewed.
 
-Wire freeze is pending the identifier dependency correction below. This ADR
-records the owner's requested construction and a concrete correction for review.
-The existing docs/04 revision continues to describe the draft until the freeze.
+The owner explicitly approved option 1, random stream_id for chunk AAD while
+retaining file_id as the final signed-manifest hash, on 2026-11-15. docs/04
+development revision 2 freezes the resulting wire specification. Its acceptance
+tests, implementation and independent vectors remain pending.
 
 ## Problem
 
@@ -91,7 +92,7 @@ an excluded-field rule if interpreted as the hash of that same manifest.
 
 ## Recommendation
 
-Approve option 1. The resulting order is executable.
+Option 1 is accepted by the owner. The resulting order is executable.
 
 ```text
 random stream_id + random per-file key
@@ -106,9 +107,44 @@ sign the uncompressed body with that header. Append the resulting signature to
 the already computed compressed body. This supplies the header hash before
 signing without compressing a signature or estimating its contents.
 
-Freeze neither replacement identifier convention until the owner decides the
-conflict. After that decision, publish exact schemas, byte concatenations,
-profile limits and overhead tables in docs/04, then write acceptance tests.
+The accepted convention, exact schemas, byte concatenations, profile limits
+and overhead tables are recorded in docs/04 revision 2. Full acceptance tests
+are the next implementation task and must fail before seal/open is implemented.
+
+## Frozen serialization and resource choices
+
+The owner delegated completion of the wire freeze. docs/04 revision 2 records
+these additional serialization choices explicitly for implementation review.
+
+- Version byte plus one deterministic CBOR four-item outer array. Header stays a
+  map. Recipient entries are three-item arrays with 16/32/48-byte fields.
+- Device id is the first 16 bytes of SHA-256 of the rooted certificate reference.
+  Certificate/revocation maps and verification rules reuse ADR 004.
+- The control plaintext uses a CBOR prefix, fixed 64-byte signature and zero
+  padding. File metadata/key lives in a descriptor. File chunks contain raw
+  file bytes, independently of that control payload. v1 has one file per Box.
+- Recipient wraps are created before payload encryption. Payload AAD binds
+  SHA-256 of the complete canonical recipient list, including every wrap.
+- Manifest signatures have their own domain and exclude sig from their input.
+  file_id is outside the signed manifest. Header/descriptor hashes must agree.
+- Header.box_id remains random16. Receipt.body.box_id is the owner's requested
+  digest32 with its exact concatenation specified separately. HPKE uses random16.
+- Fountain bucket increments after 16384 bytes are 65536. Chunked increments
+  use the selected header chunk size. Empty streams have one empty final chunk.
+- Separate parser ceilings bound metadata and streams. Existing docs/11 chunk
+  and frame defaults remain the basis for selection. The aggregate per-file GCM
+  budget is sum(ceil(plaintext_chunk_bytes/16)+4)<=2^32. The extra four GHASH
+  blocks cover the 41-byte AAD and length block with a 96-bit nonce. This is a
+  development engineering ceiling requiring external review, with no measured
+  phone-capacity or security claim.
+
+The complete-envelope formula was independently checked with a standalone Python
+standard-library CBOR subset, without cborg. WIRE-SIZE-1 exercised 1920 cases
+across recipient counts 1 through 20 and CBOR length-width boundaries. All matched
+the specified formula. Five bucket rows matched exactly. The twenty-recipient
+1024-byte bucket cannot fit the wrappers. Raw results are recorded in
+`docs/spikes/phase-1-wire-size-calculations.json`. This is encoding arithmetic,
+with zero cryptographic-vector or runtime-performance evidence.
 
 ## Dependencies
 
@@ -117,16 +153,16 @@ size and license evidence remain a separate dependency task before adoption.
 
 ## Self-review checklist
 
-- [ ] Resolve stream identity and manifest self-reference with the owner.
-- [ ] Freeze exact schemas, identifiers, integer widths, transcript domains and
+- [x] Resolve stream identity and manifest self-reference with the owner.
+- [x] Freeze exact schemas, identifiers, integer widths, transcript domains and
       version framing. Validate all lengths before allocation.
-- [ ] Prove header sizing and manifest construction have executable orders.
-- [ ] Publish complete-envelope overhead for each bucket and recipient count.
-- [ ] Bind semantic body fields, certificate reference and recipient set.
-- [ ] Specify unique key/nonce lifetimes, counter caps, finality and empty streams.
-- [ ] Specify manifest signature coverage and chunk-count/size/hash consistency.
-- [ ] Specify HPKE context and wrapping limits, padding and decompression bounds.
-- [ ] Specify Receipt signer/reference/status matching and replay behavior.
+- [x] Specify executable header-sizing and manifest-construction orders.
+- [x] Publish an exact envelope-size formula for every recipient count and bucket.
+- [x] Specify semantic body, certificate-reference and recipient-set binding.
+- [x] Specify unique key/nonce lifetimes, counter caps, finality and empty streams.
+- [x] Specify manifest signature coverage and chunk-count/size/hash consistency.
+- [x] Specify HPKE context and wrapping limits, padding and decompression bounds.
+- [x] Specify Receipt signer/reference/status matching and replay behavior.
 - [ ] Verify recovery using independently generated vectors.
 - [ ] Generate full profile vectors with a different implementation.
 - [ ] Show full acceptance tests failing before implementing seal/open and receipts.
@@ -148,19 +184,31 @@ or test code. It independently identified the stream-identifier cycle.
 
 | Finding | Disposition for the freeze |
 |---|---|
-| P1 file_id needed before the manifest that defines it | Option 1 awaits owner clarification. |
-| P1 optional manifest.file_id self-reference and signature dependency | Propose omitting file_id from manifest bytes, signing an unsigned manifest transcript separately, then hashing the final signed manifest. |
-| P1 16384-byte plaintext bucket exceeds the small-envelope cap | Select by complete encoded size and actual recipient count. Exact accounting remains pending. |
-| P1 32-byte Receipt reference differs from random 16-byte header.box_id | Specify both explicitly, HPKE uses header.box_id. Freeze exact reference bytes and expected-recipient checks. |
-| P1 file stream must precede header-bound signature | Specify a separate stream and control envelope, including file-key delivery, finality and key lifetime. |
-| P2 schema widths, sorting, domains and resource bounds remain schematic | Complete exact values and independent vectors before implementation. |
+| P1 file_id needed before the manifest that defines it | Owner approved option 1. Section 7 uses stream_id, with external file_id. |
+| P1 optional manifest.file_id self-reference and signature dependency | docs/04 section 7 omits file_id from manifest bytes, signs the unsigned manifest separately, then hashes the signed manifest. |
+| P1 16384-byte plaintext bucket exceeds the small-envelope cap | docs/04 section 5 freezes the exact encoded-size formula and recipient-count examples. |
+| P1 32-byte Receipt reference differs from random 16-byte header.box_id | docs/04 sections 6 and 9 distinguish the identifiers, specify exact reference bytes and require expected-recipient checks. |
+| P1 file stream must precede header-bound signature | docs/04 sections 4 and 7 separate stream and control, define key delivery and require finality/key lifetime checks. |
+| P2 schema widths, sorting, domains and resource bounds remain schematic | Exact values are in docs/04. Independent vectors remain pending before Phase 1 acceptance. |
 
 The pass produced six findings, five P1 and one P2. It ran zero tests and made
-zero implementation observations. Their disposition requires the owner decision,
-the resulting spec, acceptance tests and a later implementation adversarial pass.
+zero implementation observations. The spec dispositions above require acceptance tests and a later implementation
+adversarial pass before their implementation can be accepted.
 
 This is a specification dependency audit. No protocol implementation, benchmark
 or real-device run is added. Full profile vectors, acceptance tests, implementation
 review and phone verification remain pending. The fresh adversarial pass for this
 ADR reviews only the specification and must be distinguished from the later
 implementation review.
+
+### Revision 2 specification follow-up
+
+The same fresh specification-review session re-read the frozen revision, still
+without reading implementation or test code. It confirmed the envelope formula,
+acyclic wrap/payload ordering, complete-wrap AAD binding and GHASH block-count
+arithmetic. It found no further blocking specification omission in that pass.
+The accounting review does not establish adequacy of the chosen GCM ceiling.
+Its two documentation follow-ups were addressed by stating exact inclusive
+chunk thresholds in docs/04 and aligning T1 and the record sketches in docs/09
+and docs/11. Implementation acceptance, independent cryptographic vectors and
+implementation adversarial review remain outstanding.

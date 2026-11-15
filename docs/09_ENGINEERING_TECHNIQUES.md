@@ -54,9 +54,9 @@ Earlier I suggested erasure-coded helper shards as the answer to "strangers hold
 ## 3. Catalog
 
 ### T1 Content-addressed encrypted chunks (DECIDED, Phase 1–3)
-- Pipeline: compress -> pad -> split into chunks -> encrypt each chunk with AES-256-GCM under a **random per-file key** (never derive the key from the content: that leaks "same file" to anyone who guesses it).
-- Use a **streaming AEAD construction** (the "STREAM" idea used by tools like age): nonce = random prefix || chunk counter || last-chunk flag. This detects reordering, dropped chunks and truncation. Needs ADR D-8 and a cryptographer's review because it is a construction, not a single primitive.
-- `chunk_id = SHA-256(ciphertext chunk)`. Manifest = ordered chunk_ids, sizes, parameters, signed by the sender. `file_id = SHA-256(manifest)`.
+- docs/04 development revision 2 and ADR 011 define the exact T1 wire bytes. Deflate applies to the control body only. File streams use raw file bytes, independently of the final control header and signature.
+- Generate a random per-file key and random stream_id before chunking. Use the owner's AES-256-GCM STREAM parameters, nonce = u88be(index) || final-byte and AAD = stream_id || u64be(index) || final-byte. Enforce the aggregate GCM budget and final-chunk rules in docs/04. External D-8 review gates public release and Gate E under AGENTS.md.
+- `chunk_id = SHA-256(ciphertext chunk)`. The manifest lists ordered chunk ids, sizes, count, final index and stream parameters, and has its own sender signature. `file_id = SHA-256(canonical signed manifest)` is computed externally. The manifest omits file_id to avoid self-reference. The Box header commits to the manifest hash after the stream and manifest exist.
 - Why: helpers store opaque chunks; any peer can verify a chunk without the key; downloads can come from many holders.
 - Sizes: see `11` (verification chunk 64 KiB–1 MiB by file size; wire frame 16 KiB).
 - Tests: T-UNIT-1..6, FUZZ-1, VEC-3.

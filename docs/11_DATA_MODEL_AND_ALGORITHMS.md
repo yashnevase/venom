@@ -15,12 +15,23 @@ All sizes are estimates (TARGET) to be replaced by measurements. Types are writt
 Flat manifest cost: 1 GiB at 256 KiB = 4,096 chunk ids x 32 B = 128 KiB. 10 GiB = 1.3 MiB (acceptable). Beyond that use a two-level manifest (group roots first, then each group's list on demand).
 
 ## 2. Core record shapes (CBOR)
+
+Box, Manifest and Receipt bytes are frozen by docs/04 development revision 2
+and ADR 011. The shapes below follow that revision. File-stream chunk_size
+includes the 16-byte tag. Its plaintext capacity is chunk_size-16.
 ```
-BoxHeader   = { v: uint, box_id: bstr16, profile: "small"|"chunked"|"fountain",
-                tag: bstr16, size: uint, created_day: uint, manifest?: bstr32 }
-Manifest    = { v, file_id?, size, chunk_size, chunk_ids: [bstr32...], aead: "stream-aes256gcm-v1",
-                sender: bstr16 /*cert hash*/, sig: bstr64 }
-Receipt     = { box_id: bstr16, manifest?: bstr32, received_day: uint, device: bstr16, sig: bstr64 }
+BoxHeader   = { v: 1, box_id: bstr16, profile: "small"|"chunked"|"fountain",
+                tag: bstr16, size: uint, created_coarse: uint,
+                chunk_size?: uint, manifest_hash?: bstr32 }
+Manifest    = { v: 1, stream_id: bstr32, size: uint, chunk_size: uint,
+                count: uint, final_index: uint, chunk_ids: [bstr32...],
+                chunk_sizes: [uint...], aead: "stream-aes256gcm-v1",
+                sender: bstr16, sig: bstr64 }
+ReceiptBody = { box_id: bstr32, device: bstr16, status: 0,
+                received_coarse: uint, manifest_hash?: bstr32 }
+// ReceiptBody is inside a signed Box. Its box_id is the original content
+// reference, distinct from random16 BoxHeader.box_id. See docs/04 section 9.
+// file_id = SHA-256(canonical signed Manifest), outside the Manifest itself.
 LogRecord   = { author: bstr16, seq: uint, prev: bstr32, hlc: [uint, uint], deps: [bstr32...],
                 body_hash: bstr32, sig: bstr64 }
 HolderAttest= { file_id: bstr32, shard: uint, holder: bstr16, expires: uint, sig: bstr64 }
