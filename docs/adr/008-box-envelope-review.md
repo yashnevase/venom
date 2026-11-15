@@ -2,6 +2,8 @@
 
 ## Status
 
+Decided by owner, see ADR 011 (wire-spec task pending; ADR 009 is already assigned). Option 1 is approved under the 2026-11-15 owner amendment in AGENTS.md and docs/05, superseding historical development-review gating below.
+
 Proposed for human protocol review. D-8's external cryptographer review remains
 required. The owner approved the implementation direction and delegated choices
 within the architecture, and confirmed that external review is unavailable.

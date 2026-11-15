@@ -2,6 +2,8 @@
 
 ## Status
 
+Decided by owner, see ADR 011 (wire-spec task pending; ADR 009 is already assigned). The 2026-11-15 owner amendment in AGENTS.md and docs/05 supersedes historical development-review gating below.
+
 Proposed on 2026-11-14. On 2026-11-15 the owner approved the recommendations and
 requested sustained work through subsequent phases. This supersedes their earlier
 hold on owner decisions and authorizes implementation choices within the agreed
