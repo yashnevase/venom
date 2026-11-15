@@ -1,0 +1,315 @@
+{
+  "record": "S1-PHONE-PARTIAL",
+  "recorded_local_date": "2026-11-15",
+  "source": "Owner-pasted JSON, truncated during the first trial of the sixth case",
+  "normalization": "Extraction from the supplied text. Repeated non-timing fields are grouped under trial_fields_shared for each complete case. Samples match the corresponding pasted trial timings. This file is a normalized extraction, not the full original report.",
+  "device_attribution": "Owner reply to the benchmark request for Xiaomi Note 13, Android 16. Browser and device notes are absent from the supplied excerpt.",
+  "full_report_received": false,
+  "expected_cases": 18,
+  "complete_case_count": 5,
+  "complete_trial_count": 40,
+  "missing_metadata": [
+    "probe",
+    "user_agent",
+    "secure_context",
+    "device_notes",
+    "build",
+    "measured_at"
+  ],
+  "reported_header": {
+    "v": 1,
+    "type": "complete",
+    "outcome": "verified",
+    "initialization_ms": 106.5,
+    "heap_before_bytes": 1179648,
+    "heap_after_bytes": 9830400
+  },
+  "complete_cases": [
+    {
+      "input_bytes": 204800,
+      "packet_bytes": 512,
+      "symbol_bytes": 508,
+      "repair_percent": 100,
+      "pattern": "ordered",
+      "iterations": 8,
+      "completed_trials": 8,
+      "outcome": "verified",
+      "encode": {
+        "median_ms": 11.5,
+        "p95_ms": 49.20000000298023,
+        "samples_ms": [
+          49.20000000298023,
+          16,
+          13.100000008940697,
+          11,
+          11.5,
+          11.5,
+          9.800000011920929,
+          10.200000002980232
+        ]
+      },
+      "decode": {
+        "median_ms": 0.7999999970197678,
+        "p95_ms": 4,
+        "samples_ms": [
+          4,
+          1.4000000059604645,
+          1.7999999970197678,
+          0.7000000029802322,
+          0.5999999940395355,
+          0.6000000089406967,
+          0.7999999970197678,
+          0.7999999970197678
+        ]
+      },
+      "trial_fields_shared": {
+        "generated_packets": 808,
+        "delivered_packets": 404,
+        "skipped_packets": 0,
+        "duplicate_packets": 0,
+        "max_packet_bytes": 512,
+        "decoded_bytes": 204800,
+        "matched": true,
+        "error": null
+      }
+    },
+    {
+      "input_bytes": 204800,
+      "packet_bytes": 512,
+      "symbol_bytes": 508,
+      "repair_percent": 100,
+      "pattern": "late-drop",
+      "iterations": 8,
+      "completed_trials": 8,
+      "outcome": "verified",
+      "encode": {
+        "median_ms": 9.900000005960464,
+        "p95_ms": 11,
+        "samples_ms": [
+          10.099999994039536,
+          9.900000005960464,
+          9.900000005960464,
+          11,
+          9.600000008940697,
+          9.799999997019768,
+          10.600000008940697,
+          9
+        ]
+      },
+      "decode": {
+        "median_ms": 7.899999998509884,
+        "p95_ms": 8.5,
+        "samples_ms": [
+          8.5,
+          8.200000002980232,
+          8.100000008940697,
+          8,
+          7.799999997019768,
+          7.799999997019768,
+          7.700000002980232,
+          7.700000002980232
+        ]
+      },
+      "trial_fields_shared": {
+        "generated_packets": 808,
+        "delivered_packets": 404,
+        "skipped_packets": 324,
+        "duplicate_packets": 0,
+        "max_packet_bytes": 512,
+        "decoded_bytes": 204800,
+        "matched": true,
+        "error": null
+      }
+    },
+    {
+      "input_bytes": 204800,
+      "packet_bytes": 512,
+      "symbol_bytes": 508,
+      "repair_percent": 100,
+      "pattern": "duplicates",
+      "iterations": 8,
+      "completed_trials": 8,
+      "outcome": "verified",
+      "encode": {
+        "median_ms": 9.700000002980232,
+        "p95_ms": 10.799999997019768,
+        "samples_ms": [
+          9.299999997019768,
+          9.700000002980232,
+          9.600000008940697,
+          9.599999994039536,
+          9.899999991059303,
+          10.799999997019768,
+          10.799999997019768,
+          9.700000002980232
+        ]
+      },
+      "decode": {
+        "median_ms": 1,
+        "p95_ms": 1.5,
+        "samples_ms": [
+          1.5,
+          1,
+          0.9000000059604645,
+          0.9000000059604645,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "trial_fields_shared": {
+        "generated_packets": 808,
+        "delivered_packets": 807,
+        "skipped_packets": 0,
+        "duplicate_packets": 403,
+        "max_packet_bytes": 512,
+        "decoded_bytes": 204800,
+        "matched": true,
+        "error": null
+      }
+    },
+    {
+      "input_bytes": 204800,
+      "packet_bytes": 1024,
+      "symbol_bytes": 1020,
+      "repair_percent": 100,
+      "pattern": "ordered",
+      "iterations": 8,
+      "completed_trials": 8,
+      "outcome": "verified",
+      "encode": {
+        "median_ms": 9,
+        "p95_ms": 11.799999997019768,
+        "samples_ms": [
+          11.799999997019768,
+          9.700000002980232,
+          9.200000002980232,
+          8.899999991059303,
+          9,
+          9,
+          8.900000005960464,
+          8.5
+        ]
+      },
+      "decode": {
+        "median_ms": 0.5,
+        "p95_ms": 0.7000000029802322,
+        "samples_ms": [
+          0.5,
+          0.7000000029802322,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5999999940395355,
+          0.5
+        ]
+      },
+      "trial_fields_shared": {
+        "generated_packets": 402,
+        "delivered_packets": 201,
+        "skipped_packets": 0,
+        "duplicate_packets": 0,
+        "max_packet_bytes": 1024,
+        "decoded_bytes": 204800,
+        "matched": true,
+        "error": null
+      }
+    },
+    {
+      "input_bytes": 204800,
+      "packet_bytes": 1024,
+      "symbol_bytes": 1020,
+      "repair_percent": 100,
+      "pattern": "late-drop",
+      "iterations": 8,
+      "completed_trials": 8,
+      "outcome": "verified",
+      "encode": {
+        "median_ms": 8.149999998509884,
+        "p95_ms": 8.299999997019768,
+        "samples_ms": [
+          8,
+          8.200000002980232,
+          8.299999997019768,
+          8.200000002980232,
+          8.200000002980232,
+          8,
+          8.099999994039536,
+          8
+        ]
+      },
+      "decode": {
+        "median_ms": 7.049999997019768,
+        "p95_ms": 7.100000008940697,
+        "samples_ms": [
+          7,
+          7.0999999940395355,
+          6.9000000059604645,
+          7.100000008940697,
+          7,
+          7.0999999940395355,
+          6.9000000059604645,
+          7.0999999940395355
+        ]
+      },
+      "trial_fields_shared": {
+        "generated_packets": 402,
+        "delivered_packets": 201,
+        "skipped_packets": 161,
+        "duplicate_packets": 0,
+        "max_packet_bytes": 1024,
+        "decoded_bytes": 204800,
+        "matched": true,
+        "error": null
+      }
+    }
+  ],
+  "partial_case": {
+    "input_bytes": 204800,
+    "packet_bytes": 1024,
+    "symbol_bytes": 1020,
+    "repair_percent": 100,
+    "pattern": "duplicates",
+    "iterations": 8,
+    "completed_trials": 8,
+    "outcome": "verified",
+    "encode": {
+      "median_ms": 8.5,
+      "p95_ms": 9.400000005960464,
+      "samples_ms": [
+        8.5,
+        8.5,
+        8.5,
+        8.600000008940697,
+        8.600000008940697,
+        9.400000005960464,
+        7.5,
+        8.200000002980232
+      ]
+    },
+    "decode": {
+      "median_ms": 0.6999999955296516,
+      "p95_ms": 0.7000000029802322,
+      "samples_ms": [
+        0.7000000029802322,
+        0.6000000089406967,
+        0.7000000029802322,
+        0.7000000029802322,
+        0.699999988079071,
+        0.5999999940395355,
+        0.6000000089406967,
+        0.7000000029802322
+      ]
+    },
+    "visible_trial_prefix": {
+      "encode_ms": 8.5,
+      "decode_ms": 0.7000000029802322,
+      "generated_packets": 402,
+      "delivered_packets": 401,
+      "skipped_packets": 0,
+      "duplicate_packets": 200
+    }
+  }
+}

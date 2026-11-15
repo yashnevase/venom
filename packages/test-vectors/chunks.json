@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "hash": "SHA-256",
+  "hash_vectors": [
+    {
+      "id": "empty",
+      "input": {
+        "hex": ""
+      },
+      "sha256_hex": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "abc",
+      "input": {
+        "hex": "616263"
+      },
+      "sha256_hex": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+    },
+    {
+      "id": "zero",
+      "input": {
+        "hex": "00"
+      },
+      "sha256_hex": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "id": "binary",
+      "input": {
+        "hex": "ff00112233"
+      },
+      "sha256_hex": "d388af518afe95383e9f4c7f13c9233e43f2c682e91d7b497446c7a0101433c0"
+    },
+    {
+      "id": "sha256-message",
+      "input": {
+        "hex": "6162636462636465636465666465666765666768666768696768696a68696a6b696a6b6c6a6b6c6d6b6c6d6e6c6d6e6f6d6e6f706e6f7071"
+      },
+      "sha256_hex": "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
+    },
+    {
+      "id": "one-byte",
+      "input": {
+        "pattern": "index-mod-251",
+        "length": 1
+      },
+      "sha256_hex": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "id": "64-KiB",
+      "input": {
+        "pattern": "index-mod-251",
+        "length": 65536
+      },
+      "sha256_hex": "4b640d85ab3ba30fd02c9fc9db4a8928f416322ad27022ea58a65aaee68a4df2"
+    },
+    {
+      "id": "64-KiB-plus-one",
+      "input": {
+        "pattern": "index-mod-251",
+        "length": 65537
+      },
+      "sha256_hex": "237356e18b503616912abb8ffaed3a72591e397d4ac294c4637917d48a3f529d"
+    },
+    {
+      "id": "256-KiB",
+      "input": {
+        "pattern": "index-mod-251",
+        "length": 262144
+      },
+      "sha256_hex": "31a1f9dea0169551092d05e8bf4a446228c8c3eb4c9b713c66adcb7fd53c89be"
+    },
+    {
+      "id": "1-MiB",
+      "input": {
+        "pattern": "index-mod-251",
+        "length": 1048576
+      },
+      "sha256_hex": "631b84027d6b9e52b539c4e8373622d23032dfadc64d60af87339c9037e4f769"
+    }
+  ],
+  "size_vectors": [
+    {
+      "file_size": "0",
+      "chunk_size": 65536
+    },
+    {
+      "file_size": "67108863",
+      "chunk_size": 65536
+    },
+    {
+      "file_size": "67108864",
+      "chunk_size": 65536
+    },
+    {
+      "file_size": "67108865",
+      "chunk_size": 262144
+    },
+    {
+      "file_size": "17179869183",
+      "chunk_size": 262144
+    },
+    {
+      "file_size": "17179869184",
+      "chunk_size": 262144
+    },
+    {
+      "file_size": "17179869185",
+      "chunk_size": 1048576
+    },
+    {
+      "file_size": "9007199254740992",
+      "chunk_size": 1048576
+    },
+    {
+      "file_size": "18446744073709551615",
+      "chunk_size": 1048576
+    }
+  ]
+}

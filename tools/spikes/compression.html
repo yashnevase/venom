@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>D-2 compression benchmark</title>
+<style>
+  body { font: 16px system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; color: #17212b; }
+  label { display: block; margin: 1rem 0 .4rem; }
+  input, textarea, button, #save { box-sizing: border-box; font: inherit; width: 100%; padding: .75rem; }
+  button, #save { display: block; margin-top: 1rem; min-height: 48px; text-align: center; }
+  #save[aria-disabled="true"] { pointer-events: none; opacity: .5; }
+  textarea { min-height: 22rem; font: 12px monospace; }
+</style>
+<p>Experimental, not independently reviewed</p>
+<h1>D-2 compression benchmark</h1>
+<p>Keep this page open while it runs. Save the JSON report after completion.</p>
+<label for="notes">Device notes, including Android version if known</label>
+<input id="notes" maxlength="256" placeholder="Xiaomi Note 13">
+<button id="run" disabled>Run benchmark</button>
+<p id="status" role="status">Loading</p>
+<label for="report">Report</label>
+<textarea id="report" readonly spellcheck="false"></textarea>
+<a id="save" aria-disabled="true" download="openmesh-d2-deflate.json">Save report</a>
+<p id="download-status" aria-live="polite"></p>
+<button id="select">Select report</button>
+<p><a href="./dist/compression/pako-LICENSE">Pako license</a> · <a href="./dist/compression/LICENSE">Reference code license</a></p>
+<script type="importmap">{"imports":{"pako":"./dist/compression/pako.mjs"}}</script>
+<script type="module" src="./dist/compression-probe.js?export=2"></script>
+</html>

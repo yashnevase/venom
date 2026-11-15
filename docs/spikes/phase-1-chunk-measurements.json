@@ -1,0 +1,35 @@
+{
+  "measured_at": "2026-11-14T19:34:07.092Z",
+  "node": "v24.11.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "test": "CHUNK-MEASURE",
+  "operation": "owned snapshot plus native SHA-256",
+  "measurements": [
+    {
+      "chunk_bytes": 65536,
+      "iterations": 32,
+      "median_ms": 0.04595850000000112,
+      "p95_ms": 0.07412499999999866,
+      "total_identification_ms": 3.2761250000000004,
+      "verification": "pass"
+    },
+    {
+      "chunk_bytes": 262144,
+      "iterations": 32,
+      "median_ms": 0.12483300000000241,
+      "p95_ms": 0.15941599999999312,
+      "total_identification_ms": 4.191625000000002,
+      "verification": "pass"
+    },
+    {
+      "chunk_bytes": 1048576,
+      "iterations": 32,
+      "median_ms": 0.4031255000000016,
+      "p95_ms": 0.4464589999999973,
+      "total_identification_ms": 12.993833999999993,
+      "verification": "pass"
+    }
+  ],
+  "esm_entry": "pass"
+}

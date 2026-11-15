@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-2 offline connection probe</title>
+  <style>
+    body { font: 16px system-ui, sans-serif; max-width: 48rem; margin: 2rem auto; padding: 0 1rem; }
+    label { display: block; margin-top: 1rem; }
+    textarea, input { box-sizing: border-box; width: 100%; font: inherit; padding: .6rem; }
+    textarea { min-height: 8rem; font-family: monospace; font-size: .8rem; }
+    button { min-height: 44px; margin: .5rem .5rem .5rem 0; padding: .5rem 1rem; font: inherit; }
+    [role="status"] { padding: 1rem; background: #eef2f5; color: #14212b; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+<p>Experimental, not independently reviewed</p>
+  <h1>S-2 offline connection probe</h1>
+  <p>Diagnostic experiment. Exchange the full handshake text manually between devices.</p>
+  <label for="device">Device and network notes</label>
+  <input id="device" placeholder="Model, OS, browser, hotspot, mobile data off">
+  <p role="status">Ready</p>
+  <button id="offer">Create offer</button>
+  <label for="local">Local handshake</label>
+  <textarea id="local" readonly></textarea>
+  <label for="remote">Remote handshake</label>
+  <textarea id="remote" maxlength="65537"></textarea>
+  <button id="answer">Create answer</button>
+  <button id="apply">Apply answer</button>
+  <button id="close">Close connection</button>
+  <button id="save">Save report</button>
+  <h2>Measurements</h2>
+  <pre id="report"></pre>
+  <script type="module" src="./dist/probe.js"></script>
+</body>
+</html>

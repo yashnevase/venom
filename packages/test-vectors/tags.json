@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "encoding": "u64-big-endian",
+  "vectors": [
+    {
+      "id": "incrementing-0",
+      "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "counter": "0",
+      "tag_hex": "d7d759db14b3ad9aabac905168401712"
+    },
+    {
+      "id": "incrementing-1",
+      "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "counter": "1",
+      "tag_hex": "d610cf6665080a3e4fec3507a8d55acc"
+    },
+    {
+      "id": "incrementing-63",
+      "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "counter": "63",
+      "tag_hex": "ebbfa6ec965f6df2e88c104049609609"
+    },
+    {
+      "id": "incrementing-64",
+      "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "counter": "64",
+      "tag_hex": "20b690317617d532f3ccf56aac5381c2"
+    },
+    {
+      "id": "incrementing-4294967296",
+      "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "counter": "4294967296",
+      "tag_hex": "ea90d6d9c2ec57527a945a60c9ceb3fe"
+    },
+    {
+      "id": "incrementing-18446744073709551615",
+      "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "counter": "18446744073709551615",
+      "tag_hex": "c7d49d2339ac25bea2c4ca010bb7cfd6"
+    },
+    {
+      "id": "ones-0",
+      "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "counter": "0",
+      "tag_hex": "c548918b2770a33956f1e8329ae4aa54"
+    },
+    {
+      "id": "ones-1",
+      "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "counter": "1",
+      "tag_hex": "2212abd240731f10bc219b60b5501b8e"
+    }
+  ]
+}

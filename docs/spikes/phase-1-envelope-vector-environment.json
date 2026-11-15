@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-15",
+  "python": "3.9.6",
+  "platform": "macOS-26.1-arm64-arm-64bit",
+  "purpose": "isolated independent vector tooling; zero application dependency bytes",
+  "packages": [
+    {
+      "name": "cryptography",
+      "version": "50.0.2",
+      "installed_file_bytes": 11488243,
+      "license": "Apache-2.0 OR BSD-3-Clause",
+      "osv_ids": []
+    },
+    {
+      "name": "cffi",
+      "version": "2.0.0",
+      "installed_file_bytes": 859262,
+      "license": "MIT",
+      "osv_ids": []
+    },
+    {
+      "name": "pycparser",
+      "version": "2.23",
+      "installed_file_bytes": 1059114,
+      "license": "BSD-3-Clause",
+      "osv_ids": []
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "installed_file_bytes": 301817,
+      "license": "PSF-2.0",
+      "osv_ids": []
+    }
+  ],
+  "independent_security_review": false
+}

@@ -34,7 +34,13 @@ Do not skip S-2: it decides whether the offline promise is real.
 ## 3. Phases (each = one PR series; gate = acceptance test must pass)
 **Phase 0 — Foundations (1–2 days).** Repo, tooling, CI, AGENTS.md, ADR template. Gate: CI green on an empty test.
 
-**Phase 1 — Protocol core in Node, no UI (week 1).** Identity, seal/open (small + chunked profiles), tags, receipts, test vectors. Gate: all vectors pass; fuzz test of random corruption never crashes; `core` has no browser or network dependency.
+**Phase 1 — Protocol core in Node, no UI (week 1).** Identity, seal/open (small + chunked profiles), tags, receipts, test vectors. Freeze the complete Box, Receipt and Manifest wire spec in ADR 011 and a new docs/04 revision using the owner's part B decisions from 2026-11-15. ADR 009 and ADR 010 already cover other decisions.
+
+The wire-spec task covers the domain-separated signature transcript and semantic-field tamper cases, acyclic body/sign/compress/pad/encrypt construction, complete-envelope bucket accounting and the 16384-byte small-box cap, age-style STREAM chunking and manifest finality, receipt binding and replay/revocation rules, RFC 9180 application binding and the 20-recipient cap, declared-size and 1 MiB decompression bounds, BIP-39 recovery with the specified HKDF root mapping and wordlist dependency ADR, and first-byte version dispatch with bounded parsing. Write the full seal/open and receipt acceptance tests first, including every ADR 008 case, every-bit corruption and whole-Box and Manifest parser fuzzing. Show the acceptance tests failing before implementation.
+
+Phase 1 gate requires all vectors to pass, including independent vectors from a different implementation; whole-Box and Manifest parser fuzzing to pass without crashes; a test for every case in ADR 008; and recorded self-review checklist and fresh-session adversarial review findings. `core` must retain no browser or network dependency. Phase 2 may start when this development gate passes. External cryptographer review may follow development of Phases 1 through 8 under AGENTS.md. The interim checks do not replace a cryptographer.
+
+**Release gate.** Public release, Gate E and security promises in UI, README, docs or marketing remain blocked until an external review of the envelope exists. Until then, every build, the README and the UI must show "Experimental, not independently reviewed", and the claims ledger must carry no security claim.
 
 **Phase 2 — File carrier + minimal web UI (week 2).** Create identity, write message / pick file, export a sealed bundle file, import on a second browser profile, verify and decrypt, produce receipt file. Gate (Gate A part 1): works between two fresh profiles with the network disabled. Test on Mac browser, Android Chrome, iPhone Safari.
 
