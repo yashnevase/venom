@@ -338,3 +338,18 @@ copies. Published BIP-39 entropy/phrase examples and independent Python root-see
 and Ed25519 public-key fixtures are checked in CI. Word data and its MIT notice
 ship in dist/data. ADR 013 records source hashes, size and review scope. These
 Node checks have no phone/browser recovery result.
+
+## Experimental backup envelope
+
+sealBackup(snapshotBytes, recoveryEntropy32, createdSeconds, codecLimits) returns
+a version-prefixed root-signed snapshot envelope. openBackup returns owned
+snapshot bytes after checking the root derived from the supplied recovery entropy,
+AEAD and signature. The engine must validate snapshot records and perform
+consistent capture/atomic restore. Opaque returned bytes alone establish no
+working-set schema or counter freshness. ADR 016 defines byte layout/domains.
+
+Six backup tests cover round trip, supplied codec limits, three independent
+Python fixtures with altered-signature cases, fixture-wide bit flips/truncations,
+input snapshots, fresh exports, malformed limits and native RNG failure. This
+interim review/vector evidence does not replace a cryptographer. All backup
+behavior remains unverified on phones, and full application restore is pending.

@@ -78,3 +78,10 @@ entropy, phrase, OpenMesh root-seed and Ed25519 root-public-key cases, including
 those eight examples. tools/vectors/recovery_vectors.py uses Python SHA/HMAC and
 the existing cryptography tooling. CI regenerates those exact bytes. The English
 wordlist's provenance and MIT notice are under packages/core/src/data and ADR 013.
+
+backups.json holds three independent Python snapshot-envelope fixtures plus an
+invalid-signature variant for each. tools/vectors/backup_vectors.py regenerates
+those bytes using the existing pinned tooling. The six comparisons are included
+in the independent runner. All keys, entropy, salts and nonces are public test
+material. Deliberately invalid variants do not represent application encryption
+inputs. ADR 016 records the format and review limitations.

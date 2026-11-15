@@ -292,3 +292,10 @@ export async function revokeDeviceCertificate(
     return failure(error);
   }
 }
+
+/** Import only the root signing role for recovery and durable backup operations. */
+export async function createRootSigningKey(seed: unknown): Promise<IdentityResult<IdentityKeyPair>> {
+  try {
+    return { ok: true, value: await importSeed(fixedBytes(seed, 32, 'invalid-input'), 'Ed25519') };
+  } catch (error) { return failure(error); }
+}

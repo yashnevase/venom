@@ -24,3 +24,4 @@ export type { ProtocolResult, DeviceContact, BoxSender, SealBoxOptions, OpenBoxO
 export { entropyToRecoveryPhrase, recoveryPhraseToEntropy, deriveRootSeedFromEntropy,
   recoverRootSeed, createRecovery } from './recovery.js';
 export type { RecoveryError, RecoveryResult, RecoveryMaterial } from './recovery.js';
+export { sealBackup, openBackup } from './backup.js';

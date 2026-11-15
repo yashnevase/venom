@@ -278,12 +278,18 @@ def verify_recovery(document):
     return len(document['vectors'])
 
 
+def verify_backups(document):
+    assert document['v'] == 1
+    subprocess.run([sys.executable, 'tools/vectors/backup_vectors.py', '--check'], check=True)
+    return 2 * len(document['vectors'])
+
+
 def main():
     directory = Path(__file__).resolve().parent.parent / 'packages' / 'test-vectors'
     verifiers = {'tags.json': verify_tags, 'cbor.json': verify_cbor, 'box-headers.json': verify_box_headers,
                  'chunks.json': verify_chunks,
                  'identity.json': verify_identity, 'hpke.json': verify_hpke, 'deflate.json': verify_deflate, 'envelopes.json': verify_envelopes,
-                 'bip39-published.json': verify_published_recovery, 'recovery.json': verify_recovery}
+                 'bip39-published.json': verify_published_recovery, 'recovery.json': verify_recovery, 'backups.json': verify_backups}
     checked = 0
     for path in sorted(directory.glob('*.json')):
         if path.name not in verifiers:
