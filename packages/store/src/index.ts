@@ -117,3 +117,5 @@ export async function requestPersistence(provider?: StorageProvider): Promise<bo
   try { return await (provider ?? navigator.storage).persist?.() ?? false; }
   catch { return false; }
 }
+export { createImportStaging } from './opfs.js';
+export type { StagingLimits } from './opfs.js';

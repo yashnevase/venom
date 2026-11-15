@@ -28,3 +28,15 @@ requestPersistence is a separate explicit UI action and returns the browser's
 grant result. Estimates do not reserve capacity or guarantee later writes.
 Per-class accounting, physical device free-space measurement, eviction and
 quota-aware import staging remain pending integration.
+
+createImportStaging now provides an OPFS directory per import, bounded sequential
+ciphertext/plaintext writes, indexed reads, explicit commit and abort cleanup.
+Its publication callback must atomically establish visibility in the engine's
+metadata transaction, and must resolve only after that transaction succeeds.
+The adapter itself establishes no message authenticity. Engine verification must
+precede commit. Failed publication requires abort rather than resuming reads,
+because ciphertext cleanup can have started. Concurrent write/commit/abort
+operations are rejected while a write/publication is active. Chromium tests cover abort, publication, failed-publication cleanup and staging
+budgets. The actual engine imports an independent 65,521-byte fixture through
+OPFS and returns a Receipt. A bad tail publishes nothing. Crash recovery, real
+quota exhaustion and real-phone results remain pending.

@@ -43,3 +43,35 @@ This warning interprets the docs/11 threshold against browser-reported quota,
 not independently measured filesystem free space. Native quota reservations,
 per-class accounting/eviction and quota-aware staging remain pending. Five
 Chromium store tests pass. No phone or device-capacity claim is established.
+
+The OPFS staging adapter is now started in src/opfs.ts. Its first acceptance
+test failed before the API existed, then was rerun after implementation. It
+stages indexed ciphertext/plaintext files in a per-import directory and exposes
+commit/publication and abort/removal. Byte/count budgets precede writes. The
+engine supplies verification and atomic visibility metadata. Full publication,
+failure, cancellation, crash cleanup and quota testing remain pending. The
+adapter is uncommitted. No phone or full-engine OPFS integration result is added.
+
+OPFS publication and budget tests now cover incomplete commit, plaintext-only
+publication, retained successful output, cleanup after publication failure, and
+chunk/count/aggregate staged-byte limits. A failed-publication reuse assertion
+was shown failing, then fixed by introducing a cleanup-only failed state. A
+failed session rejects further writes and can be aborted. Eight Chromium store
+and staging tests pass, with strict types and targeted lint. Engine/OPFS end-to-end,
+crash recovery, physical quota behavior and real phones remain unverified.
+
+Browser engine/core staging is now added without a bundler or new dependency.
+Compiled module imports are rewritten to local staged modules and the existing
+pinned cborg/pako assets, with license notices preserved. The Chromium module
+graph test passes and confirms engine/core entry loading plus native crypto/OPFS
+availability. This is a load test, not the pending authenticated bundle-to-OPFS
+integration test. tools/stage-browser-engine.mjs is now in the build pipeline.
+All staging code and OPFS changes remain uncommitted pending that integration.
+
+P2-OPFS-ENGINE now passes in Chromium with the actual staged core/engine modules,
+independent65,521-byte file fixture and OPFS staging. Successful import publishes
+matching plaintext and generates a Receipt accepted against the trusted original.
+A trailing-byte variant fails without publication or Receipt. The test uses
+native browser crypto and origin-private files. It is not a real-phone or
+cross-browser result. Crash recovery, signed durable backup, per-class eviction,
+quota exhaustion and the complete two-profile app flow remain pending.
