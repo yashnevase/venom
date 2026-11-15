@@ -40,3 +40,20 @@ operations are rejected while a write/publication is active. Chromium tests cove
 budgets. The actual engine imports an independent 65,521-byte fixture through
 OPFS and returns a Receipt. A bad tail publishes nothing. Crash recovery, real
 quota exhaustion and real-phone results remain pending.
+
+snapshot(stores, limits) reads selected stores inside one readonly transaction,
+returning owned byte records sorted by store and key. It bounds record count and
+record-value bytes and rejects incompatible keys/values. The byte budget covers
+values, while the record-count/key-length limits bound metadata overhead.
+The engine still validates decoded schemas before backup export or restore.
+Chromium coverage includes a competing multi-store update queued after snapshot
+creation, plus count/byte limit rejection. Physical disk snapshotting and OPFS
+file inventory consistency remain separate backup-engine work.
+
+replaceAll(records) replaces every working-set store in one readwrite transaction.
+It checks the full record set, operation count, per-record byte limit and unique
+store/key pairs before starting that transaction. Inputs are copied before use.
+An empty record set clears the working set. A transaction failure rolls back its
+clears and writes. The engine must validate backup identity and record schemas
+before calling this operation. This primitive covers IndexedDB metadata only.
+It does not coordinate OPFS files or decide stale-counter recovery policy.

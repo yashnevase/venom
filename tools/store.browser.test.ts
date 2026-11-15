@@ -279,3 +279,73 @@ test('P2-OPFS-ENGINE imports a verified file and returns a Receipt, rolling back
     { ok: false, published: false, matches: false, receiptAccepted: false },
   ]);
 });
+
+test('P2-STORE-SNAPSHOT captures bounded records across stores in one transaction', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8321/');
+  const result: unknown = await page.evaluate(`(async () => {
+    const api = await import('/dist/store/index.js');
+    const name = 'test-snapshot-' + crypto.randomUUID();
+    const cache = await api.openCache(name, { maxRecordBytes: 16, maxOperations: 4 });
+    await cache.writeBatch([{ store: 'boxes', key: 'one', value: new Uint8Array([1, 2]) },
+      { store: 'outbox', key: 'one', value: new Uint8Array([3]) }]);
+    const pending = cache.snapshot(['boxes', 'outbox'], { maxRecords: 4, maxBytes: 16 });
+    const update = cache.writeBatch([{ store: 'boxes', key: 'one', value: new Uint8Array([9, 9]) },
+      { store: 'outbox', key: 'one', value: new Uint8Array([8]) }]);
+    const records = await pending;
+    await update;
+    let countRejected = false; let bytesRejected = false;
+    try { await cache.snapshot(['boxes', 'outbox'], { maxRecords: 1, maxBytes: 16 }); }
+    catch { countRejected = true; }
+    try { await cache.snapshot(['boxes', 'outbox'], { maxRecords: 4, maxBytes: 2 }); }
+    catch { bytesRejected = true; }
+    cache.close(); indexedDB.deleteDatabase(name);
+    return { records: records.map(record => [record.store, record.key, [...record.value]]), countRejected, bytesRejected };
+  })()`);
+  expect(result).toEqual({ records: [['boxes', 'one', [1, 2]], ['outbox', 'one', [3]]], countRejected: true, bytesRejected: true });
+});
+
+test('P2-STORE-RESTORE replaces the working set atomically after input validation', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8321/');
+  const result: unknown = await page.evaluate(`(async () => {
+    const api = await import('/dist/store/index.js');
+    const name = 'test-replace-' + crypto.randomUUID();
+    const cache = await api.openCache(name, { maxRecordBytes: 16, maxOperations: 8 });
+    await cache.writeBatch([{ store: 'boxes', key: 'old', value: new Uint8Array([1]) }]);
+    let rejected = false;
+    try { await cache.replaceAll([{ store: 'boxes', key: 'new', value: new Uint8Array(17) }]); }
+    catch { rejected = true; }
+    const retained = await cache.get('boxes', 'old');
+    await cache.replaceAll([{ store: 'boxes', key: 'new', value: new Uint8Array([7]) },
+      { store: 'outbox', key: 'new', value: new Uint8Array([8]) }]);
+    const old = await cache.get('boxes', 'old');
+    const current = await cache.get('boxes', 'new');
+    const outbox = await cache.get('outbox', 'new');
+    cache.close(); indexedDB.deleteDatabase(name);
+    return { rejected, retained: [...retained], oldMissing: old === undefined, current: [...current], outbox: [...outbox] };
+  })()`);
+  expect(result).toEqual({ rejected: true, retained: [1], oldMissing: true, current: [7], outbox: [8] });
+});
+
+test('P2-STORE-ROLLBACK preserves existing data on duplicate input and write failure', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8321/');
+  const result: unknown = await page.evaluate(`(async () => {
+    const api = await import('/dist/store/index.js');
+    const name = 'test-rollback-' + crypto.randomUUID();
+    const cache = await api.openCache(name, { maxRecordBytes: 16, maxOperations: 8 });
+    await cache.writeBatch([{ store: 'boxes', key: 'old', value: new Uint8Array([1]) }]);
+    const records = [{ store: 'boxes', key: 'new', value: new Uint8Array([7]) }];
+    let duplicateRejected = false; let writeRejected = false;
+    try { await cache.replaceAll([...records, ...records]); } catch { duplicateRejected = true; }
+    const put = IDBObjectStore.prototype.put;
+    IDBObjectStore.prototype.put = function () { throw new Error('Injected write failure'); };
+    try { await cache.replaceAll(records); } catch { writeRejected = true; }
+    finally { IDBObjectStore.prototype.put = put; }
+    const retained = await cache.get('boxes', 'old');
+    const newMissing = await cache.get('boxes', 'new') === undefined;
+    await cache.replaceAll([]);
+    const cleared = await cache.get('boxes', 'old') === undefined;
+    cache.close(); indexedDB.deleteDatabase(name);
+    return { duplicateRejected, writeRejected, retained: [...retained], newMissing, cleared };
+  })()`);
+  expect(result).toEqual({ duplicateRejected: true, writeRejected: true, retained: [1], newMissing: true, cleared: true });
+});

@@ -75,3 +75,30 @@ A trailing-byte variant fails without publication or Receipt. The test uses
 native browser crypto and origin-private files. It is not a real-phone or
 cross-browser result. Crash recovery, signed durable backup, per-class eviction,
 quota exhaustion and the complete two-profile app flow remain pending.
+
+The consistent cache snapshot API was added after a missing-function browser
+failure. It reads all selected stores in one readonly transaction with explicit
+record/value-byte budgets, owned copies and deterministic ordering. The Chromium
+test passes even with a competing two-store update queued after snapshot start,
+and rejects count/byte overruns. Root types and targeted lint pass. This captures
+metadata bytes only. Engine snapshot schema, OPFS inventory consistency and atomic
+restore remain pending. Work is uncommitted and has no phone result.
+
+## Consistent snapshot and atomic replacement
+
+P2-STORE-RESTORE was shown failing with a missing replaceAll method before
+implementation. replaceAll now prevalidates and copies the complete record set,
+rejects duplicate store/key pairs, and clears/repopulates all working stores in
+one transaction. Empty input explicitly clears all records. P2-STORE-ROLLBACK
+injects a put failure after clear requests and checks that previous records
+remain. It also checks duplicate rejection and empty replacement.
+These operations cover metadata bytes. Engine schema validation, OPFS inventory
+consistency and stale-counter recovery remain pending. No real-phone result is
+established by Chromium automation.
+
+Validation for this increment passes 164 unit tests, 187 independent vector
+comparisons, 27 Chromium browser tests, strict TypeScript, lint, two foundation
+tests and 139 dependency license checks. Eight browser tests target the store
+snapshot/replacement behavior and earlier store contracts. No claims-ledger row
+was added. Full application restore and real-device storage validation remain
+pending.

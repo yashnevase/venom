@@ -3,9 +3,13 @@ export const CACHE_STORES = ['identity', 'contacts', 'boxes', 'outbox', 'logs', 
 export type CacheStore = typeof CACHE_STORES[number];
 export interface CacheLimits { maxRecordBytes: number; maxOperations: number }
 export interface CacheWrite { store: CacheStore; key: string; value?: Uint8Array }
+export interface CacheRecord { store: CacheStore; key: string; value: Uint8Array }
+export interface SnapshotLimits { maxRecords: number; maxBytes: number }
 export interface WorkingCache {
+  snapshot: (stores: readonly CacheStore[], limits: SnapshotLimits) => Promise<CacheRecord[]>;
   get: (store: CacheStore, key: string) => Promise<Uint8Array | undefined>;
   writeBatch: (writes: readonly CacheWrite[]) => Promise<void>;
+  replaceAll: (records: readonly CacheRecord[]) => Promise<void>;
   close: () => void;
 }
 function validStore(store: string): asserts store is CacheStore {
@@ -44,6 +48,28 @@ export function openCache(name: string, limits: CacheLimits): Promise<WorkingCac
       }
       resolve({
         close: () => { database.close(); },
+        async replaceAll(records) {
+          if (!Array.isArray(records) || records.length > bounds.maxOperations) throw new Error('Cache batch limit exceeded');
+          const keys = new Set<string>();
+          const snapshots = records.map((record: CacheRecord) => {
+            validStore(record.store); validKey(record.key);
+            if (!(record.value instanceof Uint8Array) || record.value.length > bounds.maxRecordBytes) throw new Error('Cache record limit exceeded');
+            const identity = JSON.stringify([record.store, record.key]);
+            if (keys.has(identity)) throw new Error('Duplicate cache record');
+            keys.add(identity);
+            return { store: record.store, key: record.key, value: new Uint8Array(record.value) };
+          });
+          await new Promise<void>((done, fail) => {
+            const transaction = database.transaction([...CACHE_STORES], 'readwrite');
+            transaction.oncomplete = () => { done(); };
+            transaction.onabort = () => { fail(transaction.error ?? new Error('Cache replacement aborted')); };
+            transaction.onerror = () => { /* abort settles the operation */ };
+            try {
+              for (const name of CACHE_STORES) transaction.objectStore(name).clear();
+              for (const record of snapshots) transaction.objectStore(record.store).put(record.value, record.key);
+            } catch (error) { transaction.abort(); fail(error instanceof Error ? error : new Error('Cache replacement failed')); }
+          });
+        },
         get(store, key) {
           validStore(store); validKey(key);
           return new Promise((done, fail) => {
@@ -59,6 +85,47 @@ export function openCache(name: string, limits: CacheLimits): Promise<WorkingCac
             transaction.oncomplete = () => { done(value); };
             transaction.onabort = () => { fail(transaction.error ?? new Error('Cache read aborted')); };
             transaction.onerror = () => { /* onabort settles the operation */ };
+          });
+        },
+        async snapshot(stores, policy) {
+          const maximum = { ...policy };
+          if (![maximum.maxRecords, maximum.maxBytes].every(value => Number.isSafeInteger(value) && value > 0)
+            || !Array.isArray(stores) || stores.length > CACHE_STORES.length) throw new Error('Invalid snapshot limits');
+          const selected: CacheStore[] = [...new Set(stores as CacheStore[])].sort();
+          selected.forEach(validStore);
+          if (selected.length === 0) return [];
+          return await new Promise<CacheRecord[]>((done, fail) => {
+            const transaction = database.transaction(selected, 'readonly');
+            const records: CacheRecord[] = [];
+            let total = 0;
+            let error: Error | undefined;
+            transaction.oncomplete = () => { done(records.sort((a, b) =>
+              a.store < b.store ? -1 : a.store > b.store ? 1 : a.key < b.key ? -1 : a.key > b.key ? 1 : 0)); };
+            transaction.onabort = () => { fail(error ?? transaction.error ?? new Error('Snapshot aborted')); };
+            transaction.onerror = () => { /* abort settles */ };
+            for (const name of selected) {
+              const cursorRequest = transaction.objectStore(name).openCursor();
+              cursorRequest.onsuccess = () => {
+                const cursor = cursorRequest.result;
+                if (!cursor || error) return;
+                try {
+                  const key: unknown = cursor.key;
+                  const value: unknown = cursor.value;
+                  if (typeof key !== 'string') throw new Error('Invalid stored key');
+                  validKey(key);
+                  if (!(value instanceof Uint8Array) || value.length > bounds.maxRecordBytes
+                    || value.length > maximum.maxBytes - total || records.length >= maximum.maxRecords) {
+                    throw new Error('Snapshot limit exceeded');
+                  }
+                  total += value.length;
+                  records.push({ store: name, key, value: new Uint8Array(value) });
+                  cursor.continue();
+                } catch (reason) {
+                  error = reason instanceof Error ? reason : new Error('Snapshot failed');
+                  transaction.abort();
+                }
+              };
+            }
           });
         },
         async writeBatch(writes) {
